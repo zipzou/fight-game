@@ -1,103 +1,97 @@
 package cn.nju.game.equip;
+
 /**
  * 装备
  */
 public abstract class Equipment {
 
-    /**
-     * Default constructor
-     */
-    public Equipment() {
-    }
+	/**
+	 * Default constructor
+	 */
+	public Equipment() {
+	}
 
-    /**
-     * 装备描述
-     */
-    public String description;
+	/**
+	 * 装备描述
+	 */
+	protected String description;
 
-    /**
-     * 无力攻击
-     */
-    public int physicalDamage;
+	/**
+	 * 无力攻击
+	 */
+	protected int physicalDamage;
 
-    /**
-     * 魔法攻击
-     */
-    public int magicDamage;
+	/**
+	 * 魔法攻击
+	 */
+	protected int magicDamage;
 
-    /**
-     * 护甲值
-     */
-    public int armor;
+	/**
+	 * 护甲值
+	 */
+	protected int armor;
 
-    /**
-     * 魔法抗性
-     */
-    public int magicalResistance;
+	/**
+	 * 魔法抗性
+	 */
+	protected int magicalResistance;
 
-    /**
-     * 装备名称
-     */
-    public String name;
+	/**
+	 * 装备名称
+	 */
+	protected String name;
 
-    /**
-     * 
-     */
-    public int price;
+	/**
+	 * 装备价格
+	 */
+	protected int price;
 
-    /**
-     * 
-     */
-    public float recoverHealth;
+	/**
+	 * 生命值提升
+	 */
+	protected int strengthHealth;
 
-    /**
-     * 
-     */
-    public float recoverEnergy;
+	/**
+	 * 吸血
+	 */
+	protected float recoverHealth;
 
+	/**
+	 * 回能量
+	 */
+	protected float recoverEnergy;
+	/**
+	 * 计算物理伤害
+	 */
+	public int computePhysicalDamage() {
+		return physicalDamage;
+	}
 
+	/**
+	 * 计算魔法伤害
+	 */
+	public int computeMagicDamage() {
+		return magicDamage;
+	}
 
+	/**
+	 * 计算护甲值
+	 */
+	public int computeArmor() {
+		return armor;
+	}
 
-    /**
-     * @param superEquipment
-     */
-    public void compose(Equipment superEquipment) {
-        // TODO implement here
-    }
+	/**
+	 * 计算魔法抗性
+	 */
+	public int computeMagicalResistance() {
+		return magicalResistance;
+	}
 
-    /**
-     * 计算物理伤害
-     */
-    public void computePhysicalDamage() {
-        // TODO implement here
-    }
-
-    /**
-     * 计算魔法伤害
-     */
-    public void computeMagicDamage() {
-        // TODO implement here
-    }
-
-    /**
-     * 计算护甲值
-     */
-    public void computeArmor() {
-        // TODO implement here
-    }
-
-    /**
-     * 计算魔法抗性
-     */
-    public void computeMagicalResistance() {
-        // TODO implement here
-    }
-
-    /**
-     * 计算装备价格
-     */
-    public void computePrice() {
-        // TODO implement here
-    }
-
+	/**
+	 * 计算装备价格
+	 */
+	public int computePrice() {
+		return price;
+	}
 }
