@@ -30,6 +30,8 @@ import cn.nju.game.equip.SingleEquipment;
  */
 public class EquipmentFileUtil {
 
+	private static final String UTF_8_CHARSET = "utf-8";
+	private static final String EQUIPMENTS_JSON_FILE = "equipments.json";
 	private static final String KEY_SUB_EQUIPMENTS = "subEquipments";
 	private static final String KEY_ID = "id";
 	private static final String KEY_NAME = "name";
@@ -47,8 +49,8 @@ public class EquipmentFileUtil {
 
 	public static Set<Equipment> readEquipments() throws IOException {
 		HashSet<Equipment> equipments = new HashSet<Equipment>();
-		InputStream equipmentJsonInput = Equipment.class.getResourceAsStream("equipments.json");
-		String equipmentJson = IOUtils.toString(equipmentJsonInput, "utf-8");
+		InputStream equipmentJsonInput = Equipment.class.getResourceAsStream(EQUIPMENTS_JSON_FILE);
+		String equipmentJson = IOUtils.toString(equipmentJsonInput, UTF_8_CHARSET);
 		JSONObject equipmentJsonObject = JSON.parseObject(equipmentJson);
 		
 		Map<Integer, Equipment> equipIdMap = new HashMap<Integer, Equipment>();
