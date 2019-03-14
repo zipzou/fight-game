@@ -6,7 +6,8 @@
       "soldPrice": 238,
       "strengthHealth": 80,
       "physicalDamage": 3,
-      "recoverHealth": 0.03
+      "recoverHealth": 0.03,
+      "description": ""
     },{
       "id": 2,
       "name": "多兰之戒",
@@ -14,7 +15,8 @@
       "soldPrice": 238,
       "strengthHealth": 80,
       "magicalDamage": 5,
-      "recoverEnergy": 15
+      "recoverEnergy": 15,
+      "description": ""
     }, {
       "id": 3,
       "name": "多兰之盾",
@@ -22,61 +24,71 @@
       "soldPrice": 238,
       "strengthHealth": 120,
       "armor": 10,
-      "recoverHealth": 8
+      "recoverHealth": 8,
+      "description": ""
     }, {
       "id": 4,
       "name": "红水晶",
       "price": 475,
       "soldPrice": 332,
-      "strengthHealth": 180
+      "strengthHealth": 180,
+      "description": ""
     }, {
       "id": 5,
       "name": "长剑",
       "price": 415,
       "soldPrice": 290,
-      "physicalDamage": 10
+      "physicalDamage": 10,
+      "description": ""
     }, {
       "id": 6,
       "name": "蓝水晶",
       "price": 400,
       "soldPrice": 280,
-      "strengthEnergy": 200
+      "strengthEnergy": 200,
+      "description": ""
     }, {
       "id": 7,
       "name": "增幅典籍",
       "price": 435,
       "soldPrice": 305,
-      "magicalDamage": 20
+      "magicalDamage": 20,
+      "description": ""
     }, {
       "id": 8,
       "name": "布甲",
       "price": 300,
       "soldPrice": 210,
-      "armor": 18
+      "armor": 18,
+      "description": ""
     }, {
       "id": 9,
       "name": "抗魔斗篷",
       "price": 400,
       "soldPrice": 280,
-      "magicalResistance": 25
+      "magicalResistance": 25,
+      "description": ""
     }, {
       "id": 10,
       "name": "红药水",
       "price": 50,
       "soldPrice": 30,
-      "recoverHealth": 15
+      "recoverHealth": 15,
+      "description": ""
     }, {
       "id": 11,
       "name": "蓝药水",
       "price": 50,
       "soldPrice": 30,
-      "recoverEnergy": 15
+      "recoverEnergy": 15,
+      "description": ""
     }, {
       "id": 12,
       "name": "爆裂魔杖",
       "price": 850,
       "soldPrice": 602,
-      "magicalDamage": 40
+      "magicalDamage": 40,
+      "description": ""
     }
   ],
   "composedEquiments": [{
@@ -88,7 +100,8 @@
     "strengthEnergy": 0,
     "subEquipments": [
         7, 7, 6
-      ]
+      ],
+    "description": ""
     }, {
       "id": 14,
       "name": "卢登的回声",
@@ -98,7 +111,8 @@
       "strengthEnergy": 400,
       "subEquipments": [
         13, 12
-      ]
+      ],
+      "description": ""
     }, {
       "id": 15,
       "name": "锯齿短匕",
@@ -107,7 +121,8 @@
       "physicalDamage": 5,
       "subEquipments": [
         5, 5
-      ]
+      ],
+      "description": ""
     }, {
       "id": 16,
       "name": "考尔菲德的战锤",
@@ -116,7 +131,8 @@
       "physicalDamage": 5,
       "subEquipments": [
         5, 5
-      ]
+      ],
+      "description": ""
     }, {
       "id": 17,
       "name": "幽梦之灵",
@@ -125,7 +141,8 @@
       "physicalDamage": 5,
       "subEquipments": [
         15, 16
-      ]
+      ],
+      "description": ""
     }, {
       "id": 18,
       "name": "幽魂面具",
@@ -135,7 +152,8 @@
       "strengthHealth": 20,
       "subEquipments": [
         4, 7
-      ]
+      ],
+      "description": ""
     }, {
       "id": 19,
       "name": "兰德里的折磨",
@@ -145,7 +163,8 @@
       "strengthHealth": 100,
       "subEquipments": [
         18, 12
-      ]
+      ],
+      "description": ""
     }, {
       "id": 20,
       "name": "净蚀",
@@ -155,7 +174,8 @@
       "strengthHealth": 20,
       "subEquipments": [
         4, 5
-      ]
+      ],
+      "description": ""
     }, {
       "id": 21,
       "name": "燃烧宝石",
@@ -164,7 +184,8 @@
       "strengthHealth": 20,
       "subEquipments": [
         4
-      ]
+      ],
+      "description": ""
     }, {
       "id": 22,
       "name": "黑色切割者",
@@ -174,7 +195,8 @@
       "strengthHealth": 20,
       "subEquipments": [
         20, 21
-      ]
+      ],
+      "description": ""
     }, {
       "id": 23,
       "name": "幽魂斗篷",
@@ -184,7 +206,8 @@
       "magicalResistance": 0,
       "subEquipments": [
         4, 9
-      ]
+      ],
+      "description": ""
     }, {
       "id": 24,
       "name": "振奋盔甲",
@@ -195,7 +218,8 @@
       "subEquipments": [
         21, 23
       ],
-      "recoverHealth": 0.3
+      "recoverHealth": 0.3,
+      "description": ""
     }, {
       "id": 25,
       "name": "锁子甲",
@@ -204,7 +228,8 @@
       "armor": 22,
       "subEquipments": [
         8
-      ]
+      ],
+      "description": ""
     }, {
       "id": 26,
       "name": "巨人腰带",
@@ -213,7 +238,8 @@
       "strengthHealth": 200,
       "subEquipments": [
         4
-      ]
+      ],
+      "description": ""
     }, {
       "id": 27,
       "name": "亡者的板甲",
@@ -223,7 +249,8 @@
       "armor": 20,
       "subEquipments": [
         25, 26
-      ]
+      ],
+      "description": ""
     }
   ]
 }
