@@ -1,0 +1,60 @@
+/**
+ * 
+ */
+package cn.nju.game.weapon;
+
+/**
+ * 头部武器装饰部分
+ * @author frank
+ *
+ */
+public class LeadingWeaponPart implements DamageComputable {
+
+	/**
+	 * 伤害增强比
+	 */
+	private float strengthDamageRate;
+	
+	/**
+	 * 武器
+	 */
+	private DamageComputable weapon;
+	
+	/**
+	 * 装配的武器
+	 * @param weapon
+	 */
+	protected LeadingWeaponPart(DamageComputable weapon) {
+		super();
+		this.weapon = weapon;
+	}
+
+	/**
+	 * @return the strengthDamageRate
+	 */
+	public float getStrengthDamageRate() {
+		return strengthDamageRate;
+	}
+
+	/**
+	 * @return the weapon
+	 */
+	public DamageComputable getWeapon() {
+		return weapon;
+	}
+
+	/**
+	 * @param weapon the weapon to set
+	 */
+	public void setWeapon(DamageComputable weapon) {
+		this.weapon = weapon;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.weapon.DamageComputable#computeDamage()
+	 */
+	public int computeDamage() {
+		return (int) ((1 + strengthDamageRate) * weapon.computeDamage());
+	}
+
+}
