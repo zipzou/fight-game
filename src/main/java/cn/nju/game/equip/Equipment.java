@@ -94,4 +94,75 @@ public abstract class Equipment {
 	public int computePrice() {
 		return price;
 	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @return the physicalDamage
+	 */
+	public int getPhysicalDamage() {
+		return physicalDamage;
+	}
+
+	/**
+	 * @return the magicDamage
+	 */
+	public int getMagicDamage() {
+		return magicDamage;
+	}
+
+	/**
+	 * @return the armor
+	 */
+	public int getArmor() {
+		return armor;
+	}
+
+	/**
+	 * @return the magicalResistance
+	 */
+	public int getMagicalResistance() {
+		return magicalResistance;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @return the price
+	 */
+	public int getPrice() {
+		return price;
+	}
+
+	/**
+	 * @return the strengthHealth
+	 */
+	public int getStrengthHealth() {
+		return strengthHealth;
+	}
+
+	/**
+	 * @return the recoverHealth
+	 */
+	public float getRecoverHealth() {
+		return recoverHealth;
+	}
+
+	/**
+	 * @return the recoverEnergy
+	 */
+	public float getRecoverEnergy() {
+		return recoverEnergy;
+	}
+	
 }
