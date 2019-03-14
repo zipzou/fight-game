@@ -4,6 +4,7 @@
 package cn.nju.game.equip;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,6 +36,7 @@ public class EquipmentShop implements EquipmentPool {
 	}
 	
 	protected EquipmentShop() {
+		equipments = new HashMap<String, Equipment>();
 	}
 	
 	/**

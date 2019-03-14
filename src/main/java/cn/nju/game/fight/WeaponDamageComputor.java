@@ -15,6 +15,21 @@ public class WeaponDamageComputor implements DamageComputor {
 	private DamageComputable weaponDamage;
 
 	/**
+	 * @param weaponDamage
+	 */
+	protected WeaponDamageComputor(DamageComputable weaponDamage) {
+		super();
+		this.weaponDamage = weaponDamage;
+	}
+
+	/**
+	 * 
+	 */
+	protected WeaponDamageComputor() {
+		super();
+	}
+
+	/**
 	 * @return the weaponDamage
 	 */
 	public DamageComputable getWeaponDamage() {

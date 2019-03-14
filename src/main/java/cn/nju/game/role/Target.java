@@ -195,4 +195,12 @@ public abstract class Target implements Damageable, Cloneable {
 		this.icon = icon;
 	}
 
+	/* (non-Javadoc)
+	 * @see cn.nju.game.weapon.DamageComputable#computeDamage()
+	 */
+	public int computeDamage() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

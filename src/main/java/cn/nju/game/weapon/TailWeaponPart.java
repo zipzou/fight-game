@@ -50,7 +50,7 @@ public class TailWeaponPart implements DamageComputable {
 	/**
 	 * @param weapon
 	 */
-	protected TailWeaponPart(DamageComputable weapon) {
+	public TailWeaponPart(DamageComputable weapon) {
 		super();
 		this.weapon = weapon;
 	}

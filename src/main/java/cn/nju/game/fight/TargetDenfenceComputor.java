@@ -11,10 +11,26 @@ import cn.nju.game.role.Target;
  * @author frank
  *
  */
-public class CommanderDenfenceComputor implements DefenceComputor {
+public class TargetDenfenceComputor implements DefenceComputor {
 
 	private Target commander;
 	
+	/**
+	 * 
+	 */
+	protected TargetDenfenceComputor() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param commander
+	 */
+	protected TargetDenfenceComputor(Target commander) {
+		super();
+		this.commander = commander;
+	}
+
 	/**
 	 * @return the commander
 	 */

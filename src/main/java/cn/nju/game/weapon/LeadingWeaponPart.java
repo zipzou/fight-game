@@ -24,7 +24,7 @@ public class LeadingWeaponPart implements DamageComputable {
 	 * 装配的武器
 	 * @param weapon
 	 */
-	protected LeadingWeaponPart(DamageComputable weapon) {
+	public LeadingWeaponPart(DamageComputable weapon) {
 		super();
 		this.weapon = weapon;
 	}

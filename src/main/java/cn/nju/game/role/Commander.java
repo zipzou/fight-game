@@ -160,5 +160,12 @@ public abstract class Commander extends Target implements Recoverable {
 	public Commander clone() throws CloneNotSupportedException {
 		return (Commander) super.clone();
 	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.role.Recoverable#improveEnergy(int)
+	 */
+	public void improveEnergy(int energyVal) {
+		this.energy += energyVal;
+	}
 	
 }

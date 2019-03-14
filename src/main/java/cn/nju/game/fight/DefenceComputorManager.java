@@ -3,7 +3,9 @@
  */
 package cn.nju.game.fight;
 
+import cn.nju.game.equip.Bag;
 import cn.nju.game.model.vo.DefenceVO;
+import cn.nju.game.role.Target;
 
 /**
  * 防御值计算外观
@@ -12,15 +14,15 @@ import cn.nju.game.model.vo.DefenceVO;
  */
 public class DefenceComputorManager implements DefenceComputor {
 
-	private DefenceComputor[] defences;
+	private DefenceComputor[] defences; // TODO: 添加技能防御
 	/**
 	 * @param defences
 	 */
-	protected DefenceComputorManager(DefenceComputor fromCommander, DefenceComputor fromEquipment) {
+	public DefenceComputorManager(Target fromTarget, Bag fromEquipment) {
 		super();
 		defences = new DefenceComputor[2];
-		defences[0] = fromCommander;
-		defences[1] = fromEquipment;
+		defences[0] = new TargetDenfenceComputor(fromTarget);
+		defences[1] = new EquipmentDenfenceComputor(fromEquipment);
 	}
 
 
@@ -31,7 +33,7 @@ public class DefenceComputorManager implements DefenceComputor {
 	public DefenceVO compute() {
 		DefenceVO result = new DefenceVO();
 		for (DefenceComputor defenceComputor : defences) {
-			result.plus(defenceComputor.compute());
+			result = result.plus(defenceComputor.compute());
 		}
 		return result;
 	}
