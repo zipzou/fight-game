@@ -13,4 +13,22 @@ public interface Bag {
 	 */
     public ComponentIterator<Equipment> iterator();
     
+    /**
+     * 添加装备
+     * @param equipment 装备
+     */
+    public void add(Equipment equipment);
+    
+    /**
+     * 移除装备
+     * @param equipment 装备
+     */
+    public void remove(Equipment equipment);
+    
+    /**
+     * 移除装备
+     * @param name 装备名
+     */
+    public void remove(String name);
+    
 }

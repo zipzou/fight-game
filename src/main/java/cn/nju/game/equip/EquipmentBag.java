@@ -47,4 +47,35 @@ public class EquipmentBag implements Bag {
     	return new BagIterator();
     }
 
+	/* (non-Javadoc)
+	 * @see cn.nju.game.equip.Bag#add(cn.nju.game.equip.Equipment)
+	 */
+	public void add(Equipment equipment) {
+		if (CAPACITY <= equipments.size()) {
+			return;
+		}
+		equipments.add(equipment);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.equip.Bag#remove(cn.nju.game.equip.Equipment)
+	 */
+	public void remove(Equipment equipment) {
+		equipments.remove(equipment);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.equip.Bag#remove(java.lang.String)
+	 */
+	public void remove(String name) {
+		ComponentIterator<Equipment> equipmentIterator = iterator();
+		while (equipmentIterator.hasNext()) {
+			Equipment curEquipment = equipmentIterator.next();
+			if (name.equalsIgnoreCase(curEquipment.getName())) {
+				remove(curEquipment);
+				break;
+			}
+		}
+	}
+
 }
