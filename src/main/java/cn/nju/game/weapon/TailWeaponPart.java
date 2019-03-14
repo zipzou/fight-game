@@ -14,14 +14,44 @@ public class TailWeaponPart implements DamageComputable {
 	 */
 	private DamageComputable weapon;
 	/**
-	 * 伤害减免比例
+	 * 增强的伤害比例
 	 */
-	private float damageReduceRate;
+	private float damageRate;
 	/* (non-Javadoc)
 	 * @see cn.nju.game.weapon.DamageComputable#computeDamage()
 	 */
 	public int computeDamage() {
-		return (int) ((1 - damageReduceRate) * weapon.computeDamage());
+		return (int) ((damageRate + 1) * weapon.computeDamage());
 	}
-
+	/**
+	 * @return the weapon
+	 */
+	public DamageComputable getWeapon() {
+		return weapon;
+	}
+	/**
+	 * @param weapon the weapon to set
+	 */
+	public void setWeapon(DamageComputable weapon) {
+		this.weapon = weapon;
+	}
+	/**
+	 * @return the damageRate
+	 */
+	public float getDamageRate() {
+		return damageRate;
+	}
+	/**
+	 * @param damageRate the damageRate to set
+	 */
+	public void setDamageRate(float damageRate) {
+		this.damageRate = damageRate;
+	}
+	/**
+	 * @param weapon
+	 */
+	protected TailWeaponPart(DamageComputable weapon) {
+		super();
+		this.weapon = weapon;
+	}
 }

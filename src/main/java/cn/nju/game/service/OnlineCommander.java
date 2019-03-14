@@ -58,7 +58,7 @@ public final class OnlineCommander {
 		if (null != commander) {
 			commanders.add(commander);
 			if (LOG.isInfoEnabled()) {
-				LOG.info("commander: " + name + "is online!");
+				LOG.info("commander: " + name + " is online!");
 			}
 		}
 	}

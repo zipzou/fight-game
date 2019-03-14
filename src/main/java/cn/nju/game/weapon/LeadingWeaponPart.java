@@ -11,9 +11,9 @@ package cn.nju.game.weapon;
 public class LeadingWeaponPart implements DamageComputable {
 
 	/**
-	 * 伤害增强比
+	 * 伤害增强
 	 */
-	private float strengthDamageRate;
+	private int strengthDamageRate = 10;
 	
 	/**
 	 * 武器
@@ -32,7 +32,7 @@ public class LeadingWeaponPart implements DamageComputable {
 	/**
 	 * @return the strengthDamageRate
 	 */
-	public float getStrengthDamageRate() {
+	public int getStrengthDamageRate() {
 		return strengthDamageRate;
 	}
 
@@ -54,7 +54,7 @@ public class LeadingWeaponPart implements DamageComputable {
 	 * @see cn.nju.game.weapon.DamageComputable#computeDamage()
 	 */
 	public int computeDamage() {
-		return (int) ((1 + strengthDamageRate) * weapon.computeDamage());
+		return (int) (strengthDamageRate + weapon.computeDamage());
 	}
 
 }
