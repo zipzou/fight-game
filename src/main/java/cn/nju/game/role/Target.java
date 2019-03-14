@@ -55,9 +55,10 @@ public abstract class Target implements Damageable, Cloneable {
      * 克隆方法，原型模式
      */
     @Override
-	protected Object clone() throws CloneNotSupportedException {
-		return super.clone();
-	}
+	public Object clone() throws CloneNotSupportedException {
+		Target o = (Target) super.clone();
+		return o;
+    }
 
     /**
      * 加血

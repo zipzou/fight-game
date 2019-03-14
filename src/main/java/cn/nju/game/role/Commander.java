@@ -152,5 +152,13 @@ public abstract class Commander extends Target implements Recoverable {
 	 * @return 基本信息实体
 	 */
 	public abstract CommanderBasicVO getBasicVO();
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.role.Target#clone()
+	 */
+	@Override
+	public Commander clone() throws CloneNotSupportedException {
+		return (Commander) super.clone();
+	}
 	
 }
