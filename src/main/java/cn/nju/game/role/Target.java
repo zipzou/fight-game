@@ -2,10 +2,12 @@ package cn.nju.game.role;
 
 import java.io.Serializable;
 
+import org.dozer.DozerBeanMapper;
+
 /**
  * 生命体，可被攻击的目标
  */
-public abstract class Target implements Damageable, Cloneable, Serializable {
+public abstract class Target implements Damageable, Cloneable, Serializable, Memento {
 
     /**
 	 * 
@@ -203,11 +205,24 @@ public abstract class Target implements Damageable, Cloneable, Serializable {
 	}
 
 	/* (non-Javadoc)
-	 * @see cn.nju.game.weapon.DamageComputable#computeDamage()
+	 * @see cn.nju.game.role.Memento#createMemento()
 	 */
-	public int computeDamage() {
-		// TODO Auto-generated method stub
-		return 0;
+	@SuppressWarnings("unchecked")
+	public TargetMemento createMemento() {
+		return new DozerBeanMapper().map(this, TargetMemento.class);
 	}
 
+	/* (non-Javadoc)
+	 * @see cn.nju.game.role.Memento#restoreMemento(java.lang.Object)
+	 */
+	public void restoreMemento(Object memento) {
+		TargetMemento old = (TargetMemento) memento;
+		this.armor = old.getArmor();
+		this.health = old.getHealth();
+		this.level = old.getLevel();
+		this.magicalResistance = old.getMagicalResistance();
+		this.magicDamage = old.getMagicDamage();
+		this.physicalDamage = old.getPhysicalDamage();
+	}
+	
 }
