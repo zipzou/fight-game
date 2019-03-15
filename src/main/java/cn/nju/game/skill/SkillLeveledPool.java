@@ -6,6 +6,7 @@ package cn.nju.game.skill;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,8 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class SkillLeveledPool implements SkillPool {
 
+	private static final String KEY_BASED = "based";
+	private static final String KEY_ENERGY = "energy";
 	private static final String KEY_MAGICAL_RESISTANCE = "magicalResistance";
 	private static final String KEY_MAGICAL_DAMAGE = "magicalDamage";
 	private static final String KEY_ARMOR = "armor";
@@ -84,7 +87,7 @@ public class SkillLeveledPool implements SkillPool {
 			for (int i = 1; i <= 4; i++) {
 				JSONObject skillJson = (JSONObject) levelJsonObject.get(i + "");
 				
-				LeveledSkill leveledSkill = new LeveledSkill(basedSkill, skillJson.getIntValue(KEY_PHYSICAL_DAMAGE), skillJson.getIntValue(KEY_ARMOR), skillJson.getIntValue(KEY_MAGICAL_DAMAGE), skillJson.getIntValue(KEY_MAGICAL_RESISTANCE));
+				LeveledSkill leveledSkill = new LeveledSkill(basedSkill, skillJson.getIntValue(KEY_PHYSICAL_DAMAGE), skillJson.getIntValue(KEY_ARMOR), skillJson.getIntValue(KEY_MAGICAL_DAMAGE), skillJson.getIntValue(KEY_MAGICAL_RESISTANCE), skillJson.getIntValue(KEY_ENERGY));
 				
 				levels.put(i, leveledSkill);
 			}
@@ -106,6 +109,22 @@ public class SkillLeveledPool implements SkillPool {
 	 */
 	public Skill getSkill(String name, int level) {
 		return skillPool.get(name).get(level);
+	}
+	
+	/**
+	 * 获取基础技能
+	 * @return 技能
+	 */ 
+	public Skill getBased() {
+		if (skillPool.containsKey(KEY_BASED)) {
+			return skillPool.get(KEY_BASED).get(0);
+		} else {
+			BasedSkill skill = new BasedSkill("普通技能", "普通攻击");
+			Map<Integer, Skill> basedSkillMap = new HashMap<Integer, Skill>();
+			skillPool.put(KEY_BASED, basedSkillMap);
+			basedSkillMap.put(0, skill);
+			return skill;
+		}
 	}
 
 }

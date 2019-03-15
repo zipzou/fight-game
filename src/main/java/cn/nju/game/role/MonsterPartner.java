@@ -12,6 +12,7 @@ import cn.nju.game.fight.DamageComputorManager;
 import cn.nju.game.fight.DefenceComputorManager;
 import cn.nju.game.model.vo.DamageVO;
 import cn.nju.game.model.vo.DefenceVO;
+import cn.nju.game.skill.Skill;
 import cn.nju.game.weapon.DamageComputable;
 import cn.nju.game.weapon.Weapon;
 
@@ -24,9 +25,9 @@ public class MonsterPartner extends StagePartner implements Attacked {
 	private static final Logger LOG = Logger.getLogger(MonsterPartner.class);
 
 	/* (non-Javadoc)
-	 * @see cn.nju.game.role.Attacked#attacked(cn.nju.game.role.Target, cn.nju.game.weapon.DamageComputable, cn.nju.game.equip.Bag)
+	 * @see cn.nju.game.role.Attacked#attacked(cn.nju.game.role.Target, cn.nju.game.weapon.DamageComputable, cn.nju.game.equip.Bag, cn.nju.game.skill.Skill)
 	 */
-	public void attacked(Target source, DamageComputable weapon, Bag equipments) {
+	public void attacked(Target source, DamageComputable weapon, Bag equipments, Skill skill) {
 		// 计算伤害
 		if (null == weapon) {
 			weapon = new Weapon();
@@ -34,7 +35,7 @@ public class MonsterPartner extends StagePartner implements Attacked {
 		if (null == equipments) {
 			equipments = new EquipmentBag();
 		}
-		DamageComputor damageComputor = new DamageComputorManager(source, weapon, equipments);
+		DamageComputor damageComputor = new DamageComputorManager(source, weapon, equipments, skill);
 		DamageVO damage = damageComputor.compute();
 		DefenceComputorManager defenceComputor = new DefenceComputorManager(getTarget(), new EquipmentBag());
 		DefenceVO defence = defenceComputor.compute();

@@ -6,25 +6,29 @@
         "physicalDamage": 10,
         "magicalDamage": 0,
         "armor": 0,
-        "magicalResistance": 0
+        "magicalResistance": 0,
+        "energy": 10
       },
       "2": {
         "physicalDamage": 12,
         "magicalDamage": 0,
         "armor": 0,
-        "magicalResistance": 0
+        "magicalResistance": 0,
+        "energy": 20
       },
       "3": {
         "physicalDamage": 14,
         "magicalDamage": 0,
         "armor": 0,
-        "magicalResistance": 0
+        "magicalResistance": 0,
+        "energy": 30
       },
       "4": {
         "physicalDamage": 10,
         "magicalDamage": 0,
         "armor": 0,
-        "magicalResistance": 0
+        "magicalResistance": 0,
+        "energy": 50
       }
     }
   }, {
@@ -34,25 +38,29 @@
         "physicalDamage": 0,
         "magicalDamage": 0,
         "armor": 5,
-        "magicalResistance": 10
+        "magicalResistance": 10,
+        "energy": 20
       },
       "2": {
         "physicalDamage": 0,
         "magicalDamage": 0,
         "armor": 7,
-        "magicalResistance": 12
+        "magicalResistance": 12,
+        "energy": 25,
       }, 
       "3": {
         "physicalDamage": 0,
         "magicalDamage": 0,
         "armor": 5,
-        "magicalResistance": 8
+        "magicalResistance": 8,
+        "energy": 30
       },
       "4": {
         "physicalDamage": 0,
         "magicalDamage": 0,
         "armor": 3,
-        "magicalResistance": 6
+        "magicalResistance": 6,
+        "energy": 40
       }
     }
   }, {
@@ -62,25 +70,29 @@
         "physicalDamage": 0,
         "magicalDamage": 0,
         "armor": 15,
-        "magicalResistance": 5
+        "magicalResistance": 5,
+        "energy": 30
       },
       "2": {
         "physicalDamage": 0,
         "magicalDamage": 0,
         "armor": 13,
-        "magicalResistance": 4
+        "magicalResistance": 4,
+        "energy": 40
       },
       "3": {
         "physicalDamage": 0,
         "magicalDamage": 0,
         "armor": 12,
-        "magicalResistance": 3
+        "magicalResistance": 3,
+        "energy": 45
       }, 
       "4": {
         "physicalDamage": 0,
         "magicalDamage": 0,
         "armor": 10,
-        "magicalResistance": 3
+        "magicalResistance": 3,
+        "energy": 50
       }
     }
   }, {
@@ -90,25 +102,29 @@
         "physicalDamage": 0,
         "magicalDamage": 14,
         "armor": 0,
-        "magicalResistance": 0
+        "magicalResistance": 0,
+        "energy": 25
       }, 
       "2": {
         "physicalDamage": 0,
         "magicalDamage": 13,
         "armor": 0,
-        "magicalResistance": 0
+        "magicalResistance": 0,
+        "energy": 25
       },
       "3": {
         "physicalDamage": 0,
         "magicalDamage": 11,
         "armor": 0,
-        "magicalResistance": 0
+        "magicalResistance": 0,
+        "energy": 30
       }, 
       "4": {
         "physicalDamage": 0,
         "magicalDamage": 10,
         "armor": 0,
-        "magicalResistance": 0
+        "magicalResistance": 0,
+        "energy": 40
       }
     }
   }, {
@@ -118,25 +134,29 @@
         "physicalDamage": 12,
         "magicalDamage": 4,
         "armor": 0,
-        "magicalResistance": 0
+        "magicalResistance": 0,
+        "energy": 30
       }, 
       "2": {
         "physicalDamage": 10,
         "magicalDamage": 6,
         "armor": 0,
-        "magicalResistance": 0
+        "magicalResistance": 0,
+        "energy": 35
       }, 
       "3": {
         "physicalDamage": 8,
         "magicalDamage": 6,
         "armor": 0,
-        "magicalResistance": 0
+        "magicalResistance": 0,
+        "energy": 45
       }, 
       "4": {
         "physicalDamage": 6,
         "magicalDamage": 4,
         "armor": 0,
-        "magicalResistance": 0
+        "magicalResistance": 0,
+        "energy": 50
       }
     }
   }, {

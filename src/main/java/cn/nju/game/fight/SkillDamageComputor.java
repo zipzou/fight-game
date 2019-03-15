@@ -36,7 +36,12 @@ public class SkillDamageComputor implements DamageComputor {
 	 * @see cn.nju.game.fight.DamageComputor#compute()
 	 */
 	public DamageVO compute() {
-		return new DamageVO();
+		int physicalDamage = skill.computePhysicalDamage();
+		int magicDamage = skill.computeMagicDamage();
+		DamageVO damage = new DamageVO();
+		damage.setPhysicalDamage(physicalDamage);
+		damage.setMagicalDamage(magicDamage);
+		return damage;
 	}
 
 }

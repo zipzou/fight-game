@@ -38,9 +38,9 @@ public class StageFightMediator implements StagePartnerMediator {
 					LOG.info("The " + item.getTarget().getName() + "'s health is :" + item.getTarget().getHealth());
 				}
 				if (source instanceof CommanderPartner) {
-					item.attacked(source.getTarget(), ((CommanderPartner) source).getWeapon(), ((CommanderPartner) source).getEquipments());
+					item.attacked(source.getTarget(), ((CommanderPartner) source).getWeapon(), ((CommanderPartner) source).getEquipments(), ((CommanderPartner) source).getSkill());
 				} else {
-					item.attacked(source.getTarget(), null, null);
+					item.attacked(source.getTarget(), null, null, null);
 				}
 				if (LOG.isInfoEnabled()) {
 					LOG.info("Attack completed!");

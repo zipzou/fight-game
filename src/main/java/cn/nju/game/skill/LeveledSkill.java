@@ -38,6 +38,11 @@ public class LeveledSkill implements Skill {
      * 魔法抗性
      */
     private int magicalResistanceImproved;
+    
+    /**
+     * 能量值
+     */
+    private int energy;
 	
 	/**
 	 * @param baseSkill 基础技能
@@ -45,15 +50,17 @@ public class LeveledSkill implements Skill {
 	 * @param armorImproved 护甲提升值
 	 * @param magicDamageImproved 魔法伤害提升值
 	 * @param magicalResistanceImproved 魔法抗性提升值
+	 * @param energy 所需能量值
 	 */
 	public LeveledSkill(BasedSkill baseSkill, int physicalDamageImproved, int armorImproved, int magicDamageImproved,
-			int magicalResistanceImproved) {
+			int magicalResistanceImproved, int energy) {
 		super();
 		this.baseSkill = baseSkill;
 		this.physicalDamageImproved = physicalDamageImproved;
 		this.armorImproved = armorImproved;
 		this.magicDamageImproved = magicDamageImproved;
 		this.magicalResistanceImproved = magicalResistanceImproved;
+		this.energy = energy;
 	}
 
 	/* (non-Javadoc)
@@ -178,4 +185,12 @@ public class LeveledSkill implements Skill {
 	public int getMagicalResistanceImproved() {
 		return magicalResistanceImproved;
 	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.skill.Skill#getEnergyNeeded()
+	 */
+	public int getEnergyNeeded() {
+		return energy;
+	}
+	
 }

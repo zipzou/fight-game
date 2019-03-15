@@ -111,4 +111,15 @@ public class SkillGroup implements ComposedSkill {
 		return skillStack.pop();
 	}
 
+	/* (non-Javadoc)
+	 * @see cn.nju.game.skill.Skill#getEnergyNeeded()
+	 */
+	public int getEnergyNeeded() {
+		int energy = 0;
+		for (Skill skill : skillStack) {
+			energy += skill.getEnergyNeeded();
+		}
+		return energy;
+	}
+
 }

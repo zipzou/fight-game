@@ -9,7 +9,7 @@ import cn.nju.game.fight.PhysicalDefence;
 import cn.nju.game.role.Target;
 
 /**
- * 
+ * 召唤师技能
  */
 public interface Skill extends PhysicalDamage, PhysicalDefence, MagicalDamage, MagicalDenfence, Serializable {
 
@@ -35,4 +35,9 @@ public interface Skill extends PhysicalDamage, PhysicalDefence, MagicalDamage, M
      */
     public Skill upgrade();
 
+    /**
+     * 获取需要的能量值
+     * @return 所需能量值
+     */
+    public int getEnergyNeeded();
 }

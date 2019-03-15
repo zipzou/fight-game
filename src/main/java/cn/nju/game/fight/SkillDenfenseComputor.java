@@ -11,12 +11,12 @@ import cn.nju.game.skill.Skill;
  * @author frank
  *
  */
-public class SkillDenfenseSkill implements DefenceComputor {
+public class SkillDenfenseComputor implements DefenceComputor {
 	private Skill skill;
 	/**
 	 * @param skill
 	 */
-	protected SkillDenfenseSkill(Skill skill) {
+	protected SkillDenfenseComputor(Skill skill) {
 		super();
 		this.skill = skill;
 	}
@@ -36,7 +36,12 @@ public class SkillDenfenseSkill implements DefenceComputor {
 	 * @see cn.nju.game.fight.DefenceComputor#compute()
 	 */
 	public DefenceVO compute() {
-		return new DefenceVO();
+		int armor = skill.computeArmor();
+		int resistance = skill.computeMagicalResistance();
+		DefenceVO defence = new DefenceVO();
+		defence.setArmor(armor);
+		defence.setMagicalResistance(resistance);
+		return defence;
 	}
 
 }

@@ -192,4 +192,11 @@ public class BasedSkill implements Skill {
 		}
 		return this;
 	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.skill.Skill#getEnergyNeeded()
+	 */
+	public int getEnergyNeeded() {
+		return 0;
+	}
 }

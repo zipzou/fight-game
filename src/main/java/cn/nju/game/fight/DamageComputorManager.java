@@ -10,6 +10,7 @@ import cn.nju.game.model.vo.DamageVO;
 import cn.nju.game.role.MagicianCommander;
 import cn.nju.game.role.Target;
 import cn.nju.game.role.WarriorCommander;
+import cn.nju.game.skill.Skill;
 import cn.nju.game.weapon.DamageComputable;
 
 /**
@@ -23,14 +24,19 @@ public class DamageComputorManager implements DamageComputor {
 	
 	private DamageComputor[] computors; // TODO: 添加技能伤害
 	/**
-	 * 
+	 * 构造伤害计算
+	 * @param fromTarget 来自于攻击方的普通攻击
+	 * @param fromWeapon 来自攻击方的武器攻击加成
+	 * @param fromEquipment 来自装备的伤害加成
+	 * @param fromkill 来自技能的伤害加成
 	 */
-	public DamageComputorManager(Target fromTarget, DamageComputable fromWeapon, Bag fromEquipment) {
+	public DamageComputorManager(Target fromTarget, DamageComputable fromWeapon, Bag fromEquipment, Skill fromkill) {
 		super();
-		computors = new DamageComputor[3];
+		computors = new DamageComputor[4];
 		computors[0] = new TargetDamageComputor(fromTarget);
 		computors[1] = new WeaponDamageComputor(fromWeapon);
 		computors[2] = new EquipmentDamageComputor(fromEquipment);
+		computors[3] = new SkillDamageComputor(fromkill);
 		if (LOG.isInfoEnabled()) {
 			LOG.info("Start computing damage...");
 		}
@@ -46,6 +52,7 @@ public class DamageComputorManager implements DamageComputor {
 		DamageVO commander = computors[0].compute();
 		DamageVO weapon = computors[1].compute();
 		DamageVO equipment = computors[2].compute();
+		DamageVO skill = computors[3].compute();
 		if (LOG.isInfoEnabled()) {
 			LOG.info("Start computing equipment damage...");
 		}
@@ -55,12 +62,12 @@ public class DamageComputorManager implements DamageComputor {
 		if (commanderComputor.getCommander() instanceof WarriorCommander) {
 			physicalDamage += weapon.getPhysicalDamage();
 			if (LOG.isInfoEnabled()) {
-				LOG.info("Start computing weapon damage...");
+				LOG.info("Start computing weapon physical damage...");
 			}
 		} else if (commanderComputor.getCommander() instanceof MagicianCommander) {
 			magicalDamage += weapon.getPhysicalDamage();
 			if (LOG.isInfoEnabled()) {
-				LOG.info("Start computing physical damage...");
+				LOG.info("Start computing weapon magical damage...");
 			}
 		}
 		physicalDamage += equipment.getPhysicalDamage();
@@ -69,7 +76,10 @@ public class DamageComputorManager implements DamageComputor {
 		DamageVO damage = new DamageVO();
 		damage.setMagicalDamage(magicalDamage);
 		damage.setPhysicalDamage(physicalDamage);
-		return damage;
+		if (LOG.isInfoEnabled()) {
+			LOG.info("Start computing skill damage...");
+		}
+		return damage.plus(skill);
 	}
 
 }
