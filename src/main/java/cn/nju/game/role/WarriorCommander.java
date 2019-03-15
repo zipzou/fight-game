@@ -11,6 +11,10 @@ import cn.nju.game.model.vo.WarriorCommanderBasicVO;
  */
 public class WarriorCommander extends Commander {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5202765091914779706L;
 	private static final Logger LOG = Logger.getLogger(WarriorCommander.class);
 	/**
 	 * 召唤师构建者

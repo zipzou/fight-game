@@ -11,6 +11,11 @@ package cn.nju.game.weapon;
 public class LeadingWeaponPart implements DamageComputable {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2579182636428264271L;
+
+	/**
 	 * 伤害增强
 	 */
 	private int strengthDamageRate = 10;

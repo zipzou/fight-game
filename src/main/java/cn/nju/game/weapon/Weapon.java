@@ -6,6 +6,11 @@ package cn.nju.game.weapon;
 public class Weapon implements DamageComputable {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 9034870455599140870L;
+
+	/**
      * Default constructor
      */
     public Weapon() {

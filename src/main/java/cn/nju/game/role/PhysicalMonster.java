@@ -5,6 +5,11 @@ package cn.nju.game.role;
 public final class PhysicalMonster extends Monster {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6512560875408857576L;
+
+	/**
      * Default constructor
      */
     public PhysicalMonster() {

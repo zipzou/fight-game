@@ -9,6 +9,11 @@ import cn.nju.game.model.vo.CommanderBasicVO;
  */
 public abstract class Commander extends Target implements Recoverable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -435971933032542845L;
+
 	private static final Logger LOG = Logger.getLogger(Commander.class);
 	
 	/**

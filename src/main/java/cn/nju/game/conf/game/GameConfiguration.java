@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 import cn.nju.game.conf.Configuration;
+import cn.nju.game.conf.util.FilePathUtil;
 
 /**
  * 游戏配置
@@ -28,6 +29,14 @@ import cn.nju.game.conf.Configuration;
  */
 public class GameConfiguration implements Configuration {
 
+	private static final String GAME_SKILL_SKILL = "game/skill";
+	private static final String GAME_WEAPON_WEAPON = "game/weapon/";
+	private static final String GAME_EQUIPMENT_EQUIPMENT = "game/equipment";
+	private static final String GAME_ROLES_ROLES = "game/roles";
+	public static final String SKILL_FILE = "skillFile";
+	public static final String WEAPON_FILE = "weaponFile";
+	public static final String EQUIPMENT_FILE = "equipmentFile";
+	public static final String ROLES_FILE = "rolesFile";
 	private static final Logger LOG = Logger.getLogger(GameConfiguration.class);
 	private JSONObject configJson;														// 配置信息对象
 	private String confPath; 															// 配置文件路径
@@ -47,6 +56,10 @@ public class GameConfiguration implements Configuration {
 	// 加载默认配置
 	private Map<String, Object> getDefaultConfig() {
 		Hashtable<String, Object> configMap = new Hashtable<String, Object>();
+		configMap.put(ROLES_FILE, GAME_ROLES_ROLES);
+		configMap.put(EQUIPMENT_FILE, GAME_EQUIPMENT_EQUIPMENT);
+		configMap.put(WEAPON_FILE, GAME_WEAPON_WEAPON);
+		configMap.put(SKILL_FILE, GAME_SKILL_SKILL);
 		return configMap;
 	}
 	
@@ -63,20 +76,9 @@ public class GameConfiguration implements Configuration {
 	}
 	
 	private GameConfiguration() {
-		File userDir = new File(System.getProperty("user.dir"));
-		File gameDir = new File(userDir, "game");
-		if (!gameDir.exists()) {
-			gameDir.mkdirs();
-		}
-		
-		// 配置文件夹
-		File confDir = new File(gameDir, "conf");
-		if (!confDir.exists()) {
-			confDir.mkdirs();
-		}
-		
 		// 配置文件
-		File confFile = new File(confDir, "config.json");
+		String parentPath = FilePathUtil.mkdir("game/conf");
+		File confFile = new File(new File(parentPath), "config.json");
 		confPath = confFile.getAbsolutePath();
 		if (!confFile.exists()) {
 			// 添加默认配置

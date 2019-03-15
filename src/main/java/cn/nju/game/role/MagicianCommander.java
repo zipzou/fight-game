@@ -11,6 +11,10 @@ import cn.nju.game.model.vo.MagicianCommanderBasicVO;
  */
 public class MagicianCommander extends Commander {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1063143656476285021L;
 	public static final Logger LOG = Logger.getLogger(MagicianCommander.class);
 	/**
 	 * 法师召唤师构建器

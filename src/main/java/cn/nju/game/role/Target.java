@@ -1,11 +1,18 @@
 package cn.nju.game.role;
 
+import java.io.Serializable;
+
 /**
  * 生命体，可被攻击的目标
  */
-public abstract class Target implements Damageable, Cloneable {
+public abstract class Target implements Damageable, Cloneable, Serializable {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1967767880186604854L;
+
+	/**
      * Default constructor
      */
     public Target() {

@@ -15,6 +15,22 @@ public final class DamageVO {
 	private int magicalDamage;
 	
 	private int trueDamage;
+	
+	private float strengthRate;			//伤害增强比率
+
+	/**
+	 * @return the strengthRate
+	 */
+	public float getStrengthRate() {
+		return strengthRate;
+	}
+
+	/**
+	 * @param strengthRate the strengthRate to set
+	 */
+	public void setStrengthRate(float strengthRate) {
+		this.strengthRate = strengthRate;
+	}
 
 	/**
 	 * @return the physicalDamage
@@ -63,14 +79,17 @@ public final class DamageVO {
 		result.setPhysicalDamage(damage.getPhysicalDamage() + getPhysicalDamage());
 		result.setMagicalDamage(magicalDamage + damage.getMagicalDamage());
 		result.trueDamage += damage.getTrueDamage();
+		result.strengthRate += damage.strengthRate;
 		return result;
 	}
 	
 	public DamageVO substract(DamageVO damage) {
 		DamageVO result = new DamageVO(); // 结果
-		result.setPhysicalDamage(physicalDamage - damage.getPhysicalDamage());
-		result.setMagicalDamage(magicalDamage - damage.getMagicalDamage());
+		result.setPhysicalDamage(0 > physicalDamage - damage.getPhysicalDamage() ? 0 : physicalDamage - damage.getPhysicalDamage());
+		result.setMagicalDamage(0 > magicalDamage - damage.getMagicalDamage() ? 0 : magicalDamage - damage.getMagicalDamage());
 		result.trueDamage -= damage.getTrueDamage();
+		result.strengthRate -= damage.strengthRate;
+		
 		return result;
 	}
 }

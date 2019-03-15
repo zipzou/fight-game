@@ -1,8 +1,11 @@
 package cn.nju.game.equip;
+
+import java.io.Serializable;
+
 /**
  * 背包
  */
-public interface Bag {
+public interface Bag extends Serializable {
 
 	static final int CAPACITY = 9;
 

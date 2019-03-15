@@ -1,10 +1,17 @@
 package cn.nju.game.equip;
 
+import java.io.Serializable;
+
+import cn.nju.game.fight.MagicalDamage;
+import cn.nju.game.fight.MagicalDenfence;
+import cn.nju.game.fight.PhysicalDamage;
+import cn.nju.game.fight.PhysicalDefence;
+
 /**
  * 装备
  */
-public abstract class Equipment {
-
+public abstract class Equipment implements PhysicalDamage, PhysicalDefence, MagicalDamage, MagicalDenfence, Serializable {
+	private static final long serialVersionUID = 5540851933991657184L;
 	/**
 	 * Default constructor
 	 */

@@ -1,0 +1,199 @@
+{
+  "skills": [{
+    "name": "破风斩",
+    "level":{
+      "1": {
+        "physicalDamage": 10,
+        "magicalDamage": 0,
+        "armor": 0,
+        "magicalResistance": 0
+      },
+      "2": {
+        "physicalDamage": 12,
+        "magicalDamage": 0,
+        "armor": 0,
+        "magicalResistance": 0
+      },
+      "3": {
+        "physicalDamage": 14,
+        "magicalDamage": 0,
+        "armor": 0,
+        "magicalResistance": 0
+      },
+      "4": {
+        "physicalDamage": 10,
+        "magicalDamage": 0,
+        "armor": 0,
+        "magicalResistance": 0
+      }
+    }
+  }, {
+    "name": "无懈可击",
+    "level": {
+      "1": {
+        "physicalDamage": 0,
+        "magicalDamage": 0,
+        "armor": 5,
+        "magicalResistance": 10
+      },
+      "2": {
+        "physicalDamage": 0,
+        "magicalDamage": 0,
+        "armor": 7,
+        "magicalResistance": 12
+      }, 
+      "3": {
+        "physicalDamage": 0,
+        "magicalDamage": 0,
+        "armor": 5,
+        "magicalResistance": 8
+      },
+      "4": {
+        "physicalDamage": 0,
+        "magicalDamage": 0,
+        "armor": 3,
+        "magicalResistance": 6
+      }
+    }
+  }, {
+    "name": "坚不可摧",
+    "level": {
+      "1": {
+        "physicalDamage": 0,
+        "magicalDamage": 0,
+        "armor": 15,
+        "magicalResistance": 5
+      },
+      "2": {
+        "physicalDamage": 0,
+        "magicalDamage": 0,
+        "armor": 13,
+        "magicalResistance": 4
+      },
+      "3": {
+        "physicalDamage": 0,
+        "magicalDamage": 0,
+        "armor": 12,
+        "magicalResistance": 3
+      }, 
+      "4": {
+        "physicalDamage": 0,
+        "magicalDamage": 0,
+        "armor": 10,
+        "magicalResistance": 3
+      }
+    }
+  }, {
+    "name": "万魔朝宗",
+    "level": {
+      "1": {
+        "physicalDamage": 0,
+        "magicalDamage": 14,
+        "armor": 0,
+        "magicalResistance": 0
+      }, 
+      "2": {
+        "physicalDamage": 0,
+        "magicalDamage": 13,
+        "armor": 0,
+        "magicalResistance": 0
+      },
+      "3": {
+        "physicalDamage": 0,
+        "magicalDamage": 11,
+        "armor": 0,
+        "magicalResistance": 0
+      }, 
+      "4": {
+        "physicalDamage": 0,
+        "magicalDamage": 10,
+        "armor": 0,
+        "magicalResistance": 0
+      }
+    }
+  }, {
+    "name": "致命华彩",
+    "level": {
+      "1": {
+        "physicalDamage": 12,
+        "magicalDamage": 4,
+        "armor": 0,
+        "magicalResistance": 0
+      }, 
+      "2": {
+        "physicalDamage": 10,
+        "magicalDamage": 6,
+        "armor": 0,
+        "magicalResistance": 0
+      }, 
+      "3": {
+        "physicalDamage": 8,
+        "magicalDamage": 6,
+        "armor": 0,
+        "magicalResistance": 0
+      }, 
+      "4": {
+        "physicalDamage": 6,
+        "magicalDamage": 4,
+        "armor": 0,
+        "magicalResistance": 0
+      }
+    }
+  }, {
+    "name": "眩晕",
+    "level": {
+      "1": {
+        "physicalDamage": 0,
+        "magicalDamage": 4,
+        "armor": 0,
+        "magicalResistance": 0
+      },
+      "2": {
+        "physicalDamage": 0,
+        "magicalDamage": 3,
+        "armor": 0,
+        "magicalResistance": 0
+      }, 
+      "3": {
+        "physicalDamage": 0,
+        "magicalDamage": 2,
+        "armor": 0,
+        "magicalResistance": 0
+      }, 
+      "4": {
+        "physicalDamage": 0,
+        "magicalDamage": 1,
+        "armor": 0,
+        "magicalResistance": 0
+      }
+    }
+  }, {
+    "name": "气定神闲",
+    "level": {
+      "1": {
+        "physicalDamage": 5,
+        "magicalDamage": 5,
+        "armor": 0,
+        "magicalResistance": 0
+      }, 
+      "2": {
+        "physicalDamage": 4,
+        "magicalDamage": 4,
+        "armor": 0,
+        "magicalResistance": 0
+      }, 
+      "3": {
+        "physicalDamage": 3,
+        "magicalDamage": 3,
+        "armor": 0,
+        "magicalResistance": 0
+      }, 
+      "4": {
+        "physicalDamage": 2,
+        "magicalDamage": 2,
+        "armor": 0,
+        "magicalResistance": 0
+      }
+    }
+  }]
+}

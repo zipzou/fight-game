@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class EquipmentBag implements Bag {
 
+	private static final long serialVersionUID = 2842680306983932250L;
 	private List<Equipment> equipments;
 	
 	protected class BagIterator implements ComponentIterator<Equipment> {

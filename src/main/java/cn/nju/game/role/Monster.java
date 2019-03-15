@@ -6,6 +6,11 @@ package cn.nju.game.role;
 public abstract class Monster extends Target implements Damageable {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8674040199369448829L;
+
+	/**
      * Default constructor
      */
     public Monster() {

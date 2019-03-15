@@ -10,6 +10,10 @@ package cn.nju.game.weapon;
  */
 public class TailWeaponPart implements DamageComputable {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9130394229003249302L;
+	/**
 	 * 武器
 	 */
 	private DamageComputable weapon;
