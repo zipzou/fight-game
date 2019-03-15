@@ -12,7 +12,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
-import cn.nju.game.conf.game.GameConfiguration;
 import cn.nju.game.conf.util.FilePathUtil;
 
 /**

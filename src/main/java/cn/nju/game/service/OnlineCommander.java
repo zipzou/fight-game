@@ -69,7 +69,7 @@ public final class OnlineCommander {
 			Commander curCommander = commandersIt.next();
 			if (name.equals(curCommander.getName())) {
 				commandersIt.remove();
-				pool.release(curCommander);
+//				pool.release(curCommander);
 				if (LOG.isInfoEnabled()) {
 					LOG.info("commander: " + name + "is offline!");
 				}
