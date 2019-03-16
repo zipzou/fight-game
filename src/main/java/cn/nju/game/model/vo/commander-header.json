@@ -1,0 +1,7 @@
+{
+  "name": "召唤师名",
+  "physicalDamage": "基础物理伤害",
+  "armor": "基础护甲值",
+  "magicDamage": "基础魔法伤害",
+  "magicalResistance": "基础魔法抗性"
+}

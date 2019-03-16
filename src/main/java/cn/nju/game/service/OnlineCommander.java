@@ -53,6 +53,14 @@ public final class OnlineCommander {
 		return null;
 	}
 	
+	/**
+	 * 获取所有的在线召唤师
+	 * @return 在线召唤师
+	 */
+	public List<Commander> getAllOnlines() {
+		return commanders;
+	}
+	
 	public void online(String name) {
 		Commander commander = pool.get(name);
 		if (null != commander) {

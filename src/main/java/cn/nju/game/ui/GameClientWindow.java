@@ -1,44 +1,46 @@
 package cn.nju.game.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.TableColumnModelListener;
-import javax.swing.plaf.SplitPaneUI;
-import javax.swing.plaf.basic.BasicSplitPaneUI;
-import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
 import cn.nju.game.equip.Equipment;
 import cn.nju.game.equip.EquipmentShop;
 import cn.nju.game.model.vo.CommanderBasicVO;
 import cn.nju.game.model.vo.EquipmentVO;
+import cn.nju.game.model.vo.SkillVO;
+import cn.nju.game.role.Commander;
+import cn.nju.game.service.OnlineCommander;
 import cn.nju.game.service.RoleService;
+import cn.nju.game.skill.SkillLeveledPool;
 import cn.nju.game.ui.util.BoundsUtil;
-import cn.nju.game.ui.util.EquipmentTableModelUtil;
-
-import java.awt.BorderLayout;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.JSplitPane;
+import cn.nju.game.ui.util.CommanderModelUtilFactory;
+import cn.nju.game.ui.util.EquipmentModelUtilFactory;
+import cn.nju.game.ui.util.ModelToTableModelUtil;
+import cn.nju.game.ui.util.SharedModelUtilFactory;
+import cn.nju.game.ui.util.SkillModelUtilFactory;
 
 public class GameClientWindow extends JFrame {
 
@@ -52,7 +54,9 @@ public class GameClientWindow extends JFrame {
 	 */
 	private static final long serialVersionUID = 8646291614420411539L;
 	private JPanel contentPane;
-	private JTable table;
+	private JTable tableEquipments;
+	private JTable tableSkills;
+	private JTable tableOnlineCommanders;
 
 	public void showInCenter(JFrame parent) {
 		setBounds(BoundsUtil.getCenterOwnerBounds(parent, W, H));
@@ -119,6 +123,7 @@ public class GameClientWindow extends JFrame {
 		
 		JPanel panelEquipments = new JPanel();
 		scrollPane.setViewportView(panelEquipments);
+		scrollPane.setBorder(null);
 		panelEquipments.setBorder(new TitledBorder(null, "装备库", TitledBorder.CENTER, TitledBorder.TOP, null, null));
 		panelEquipments.setLayout(new BorderLayout(0, 0));
 		
@@ -130,7 +135,16 @@ public class GameClientWindow extends JFrame {
 		Iterator<EquipmentVO> equipIt = allEquipmentsVo.iterator();
 		Object[] headers = null;
 		Vector<Object[]> equipVals = new Vector<Object[]>();
-		EquipmentTableModelUtil util = new EquipmentTableModelUtil(Equipment.class.getName());
+		ModelToTableModelUtil util = null;
+		try {
+			util = SharedModelUtilFactory.sharedFactory().getUtil(EquipmentModelUtilFactory.class.getName());
+		} catch (InstantiationException e3) {
+			e3.printStackTrace();
+		} catch (IllegalAccessException e3) {
+			e3.printStackTrace();
+		} catch (ClassNotFoundException e3) {
+			e3.printStackTrace();
+		}
 		if (equipIt.hasNext()) {
 			EquipmentVO fir = equipIt.next();
 			try {
@@ -151,7 +165,7 @@ public class GameClientWindow extends JFrame {
 				e.printStackTrace();
 			}
 		}
-		table = new JTable();
+		tableEquipments = new JTable();
 		Object[][] rows = new Object[equipVals.size()][];
 		int i = 0;
 		for (Object[] objects : equipVals) {
@@ -163,29 +177,177 @@ public class GameClientWindow extends JFrame {
 				private static final long serialVersionUID = 5597352217509676902L;
 				public boolean isCellEditable(int row, int column) {return false;};
 			};
-			table.setModel(dataModel);
+			tableEquipments.setModel(dataModel);
 		}
-		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		panelEquipments.add(table, BorderLayout.CENTER);
-		panelEquipments.add(table.getTableHeader(), BorderLayout.NORTH);
+		tableEquipments.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		panelEquipments.add(tableEquipments, BorderLayout.CENTER);
+		panelEquipments.add(tableEquipments.getTableHeader(), BorderLayout.NORTH);
 		
-		JSplitPane splitPane = new JSplitPane();
-		splitPane.setEnabled(false);
-		splitPane.setResizeWeight(0.5);
-		splitPane.setBounds(248, 268, 546, 304);
-		contentPane.add(splitPane);
+		JButton buttonAddToBag = new JButton("添加到背包");
+		panelEquipments.add(buttonAddToBag, BorderLayout.SOUTH);
+		
+		JScrollPane scrollPaneSkills = new JScrollPane();
+		scrollPaneSkills.setBounds(248, 268, 269, 304);
+		contentPane.add(scrollPaneSkills);
 		
 		JPanel panelSkills = new JPanel();
-		panelSkills.setBorder(new TitledBorder(null, "\u6280\u80FD", TitledBorder.CENTER, TitledBorder.TOP, null, null));
-		splitPane.setLeftComponent(panelSkills);
+		panelSkills.setBorder(new TitledBorder(null, "技能库", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		scrollPaneSkills.setViewportView(panelSkills);
+		scrollPaneSkills.setBorder(null);
+		panelSkills.setLayout(new BorderLayout(0, 0));
 		
-		JPanel panel_2 = new JPanel();
-		splitPane.setRightComponent(panel_2);
-		splitPane.setBorder(null);
-		SplitPaneUI splitPaneUI = splitPane.getUI();
-		if (splitPaneUI instanceof BasicSplitPaneUI) {
-			((BasicSplitPaneUI) splitPaneUI).getDivider().setBorder(null);
+		tableSkills = new JTable();
+		panelSkills.add(tableSkills, BorderLayout.CENTER);
+		
+		// 加载所有技能
+		List<String> allSkills = SkillLeveledPool.sharedPool().getAllSkills();
+		List<SkillVO> skillsVo = new ArrayList<SkillVO>();
+		for (String skillName : allSkills) {
+			skillsVo.add(new SkillVO(SkillLeveledPool.sharedPool().getSkill(skillName, 1)));
 		}
+		Iterator<SkillVO> skillIt = skillsVo.iterator();
+		ModelToTableModelUtil skillModelUtil = null;
+		try {
+			skillModelUtil = SharedModelUtilFactory.sharedFactory().getUtil(SkillModelUtilFactory.class.getName());
+		} catch (InstantiationException e2) {
+			e2.printStackTrace();
+		} catch (IllegalAccessException e2) {
+			e2.printStackTrace();
+		} catch (ClassNotFoundException e2) {
+			e2.printStackTrace();
+		}
+		headers = null;
+		Vector<Object[]> skillVals = new Vector<Object[]>();
+		if (skillIt.hasNext()) {
+			SkillVO skillVo = skillIt.next();
+			try {
+				headers = skillModelUtil.transferModelToHeader(skillVo);
+				skillVals.add(skillModelUtil.transferModelToValues(skillVo));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		while (skillIt.hasNext()) {
+			SkillVO skillVO = skillIt.next();
+			try {
+				skillVals.add(skillModelUtil.transferModelToValues(skillVO));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		rows = new Object[skillVals.size()][];
+		for (int j = 0; j < rows.length; j++) {
+			rows[j] = skillVals.get(j);
+		}
+
+		tableSkills.setModel(new DefaultTableModel(rows, headers) {
+			private static final long serialVersionUID = -643106778033014822L;
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		});
+		panelSkills.add(tableSkills.getTableHeader(), BorderLayout.NORTH);
+		
+		JPanel panelBag = new JPanel();
+		panelBag.setBorder(new TitledBorder(null, "我的背包", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		panelBag.setBounds(6, 268, 230, 304);
+		contentPane.add(panelBag);
+		panelBag.setLayout(new GridLayout(3, 3, 5, 5));
+		
+		JPanel panelRow1 = new JPanel();
+		panelRow1.setBorder(null);
+		panelBag.add(panelRow1);
+		panelRow1.setLayout(new GridLayout(0, 3, 0, 0));
+		
+		JLabel lblNewLabel_1 = new JLabel("测试背包项");
+		panelRow1.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("测试背包项");
+		panelRow1.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("测试背包项");
+		panelRow1.add(lblNewLabel_3);
+		
+		JPanel panelRow2 = new JPanel();
+		panelRow2.setBorder(null);
+		panelBag.add(panelRow2);
+		
+		JPanel panelRow3 = new JPanel();
+		panelBag.add(panelRow3);
+		panelRow2.setBorder(null);
+		
+		JScrollPane scrollOnlineCommanders = new JScrollPane();
+		scrollOnlineCommanders.setBorder(null);
+		scrollOnlineCommanders.setBounds(529, 268, 265, 304);
+		contentPane.add(scrollOnlineCommanders);
+		
+		JPanel panelOnlineCommanderTableContainer = new JPanel();
+		panelOnlineCommanderTableContainer.setBorder(new TitledBorder(null, "在线召唤师", TitledBorder.CENTER, TitledBorder.TOP, null, null));
+		scrollOnlineCommanders.setViewportView(panelOnlineCommanderTableContainer);
+		panelOnlineCommanderTableContainer.setLayout(new BorderLayout(0, 0));
+		
+		tableOnlineCommanders = new JTable();
+		panelOnlineCommanderTableContainer.add(tableOnlineCommanders);
+		panelOnlineCommanderTableContainer.add(tableOnlineCommanders.getTableHeader(), BorderLayout.NORTH);
+		
+		// 在线召唤师获取
+		List<Commander> allCommanders = OnlineCommander.sharedCommanders().getAllOnlines();
+		List<CommanderBasicVO> allCommandersVo = new ArrayList<CommanderBasicVO>();
+		for (Commander commander : allCommanders) {
+			allCommandersVo.add(commander.getBasicVO());
+		}
+		
+		ModelToTableModelUtil commanderUtil = null;
+		try {
+			commanderUtil = SharedModelUtilFactory.sharedFactory().getUtil(CommanderModelUtilFactory.class.getName());
+		} catch (InstantiationException e1) {
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		Iterator<CommanderBasicVO> commanderIt = allCommandersVo.iterator();
+		Vector<Object[]> commanderVals = new Vector<Object[]>();
+		headers = null;
+		if (commanderIt.hasNext()) {
+			CommanderBasicVO commanderVo = commanderIt.next();
+			try {
+				headers = commanderUtil.transferModelToHeader(commanderVo);
+				commanderVals.add(commanderUtil.transferModelToValues(commanderVo));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		while (commanderIt.hasNext()) {
+			try {
+				commanderVals.add(commanderUtil.transferModelToValues(commanderIt.next()));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		rows = new Object[commanderVals.size()][];
+		for(int j = 0; j < rows.length; j++) {
+			rows[j] = commanderVals.get(j);
+		}
+		
+		tableOnlineCommanders.setModel(new DefaultTableModel(rows, headers) {
+			private static final long serialVersionUID = 9115983158408713371L;
+			@Override
+			public boolean isCellEditable(int row, int column) { return false; }
+		});
 	}
 
 	/**

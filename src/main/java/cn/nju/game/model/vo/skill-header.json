@@ -1,0 +1,8 @@
+{
+  "physicalDamage": "物理伤害伤害",
+  "armor": "护甲值",
+  "magicalDamage": "魔法伤害",
+  "magicalResistance": "魔法抗性",
+  "description": "技能信息",
+  "name": "技能名称"
+}

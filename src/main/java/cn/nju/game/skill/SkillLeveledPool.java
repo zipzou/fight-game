@@ -65,6 +65,7 @@ public class SkillLeveledPool implements SkillPool {
 		}
 		InputStream skillInput = SkillPool.class.getResourceAsStream(FILE_SKILL_JSON);
 		String skillJsonString = IOUtils.toString(skillInput, UTF_8_CHARSET);
+		skillInput.close();
 		JSONObject skillMapped = JSON.parseObject(skillJsonString);
 		if (LOG.isInfoEnabled()) {
 			LOG.info("File loaded...");
