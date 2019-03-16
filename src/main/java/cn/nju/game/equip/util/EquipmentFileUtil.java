@@ -40,7 +40,7 @@ public class EquipmentFileUtil {
 	private static final String KEY_RECOVER_ENERGY = "recoverEnergy";
 	private static final String KEY_PRICE = "price";
 	private static final String KEY_PHYSICAL_DAMAGE = "physicalDamage";
-	private static final String KEY_MAGIC_DAMAGE = "magicDamage";
+	private static final String KEY_MAGIC_DAMAGE = "magicalDamage";
 	private static final String KEY_MAGICAL_RESISTANCE = "magicalResistance";
 	private static final String KEY_DESCRIPTION = "description";
 	private static final String KEY_ARMOR = "armor";

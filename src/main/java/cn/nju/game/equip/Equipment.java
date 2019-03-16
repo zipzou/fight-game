@@ -31,7 +31,7 @@ public abstract class Equipment implements PhysicalDamage, PhysicalDefence, Magi
 	/**
 	 * 魔法攻击
 	 */
-	protected int magicDamage;
+	protected int magicalDamage;
 
 	/**
 	 * 护甲值
@@ -78,7 +78,7 @@ public abstract class Equipment implements PhysicalDamage, PhysicalDefence, Magi
 	 * 计算魔法伤害
 	 */
 	public int computeMagicDamage() {
-		return magicDamage;
+		return magicalDamage;
 	}
 
 	/**
@@ -117,10 +117,10 @@ public abstract class Equipment implements PhysicalDamage, PhysicalDefence, Magi
 	}
 
 	/**
-	 * @return the magicDamage
+	 * @return the magicalDamage
 	 */
-	public int getMagicDamage() {
-		return magicDamage;
+	public int getMagicalDamage() {
+		return magicalDamage;
 	}
 
 	/**
@@ -170,6 +170,76 @@ public abstract class Equipment implements PhysicalDamage, PhysicalDefence, Magi
 	 */
 	public float getRecoverEnergy() {
 		return recoverEnergy;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	protected void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * @param physicalDamage the physicalDamage to set
+	 */
+	protected void setPhysicalDamage(int physicalDamage) {
+		this.physicalDamage = physicalDamage;
+	}
+
+	/**
+	 * @param magicalDamage the magicalDamage to set
+	 */
+	protected void setMagicalDamage(int magicalDamage) {
+		this.magicalDamage = magicalDamage;
+	}
+
+	/**
+	 * @param armor the armor to set
+	 */
+	protected void setArmor(int armor) {
+		this.armor = armor;
+	}
+
+	/**
+	 * @param magicalResistance the magicalResistance to set
+	 */
+	protected void setMagicalResistance(int magicalResistance) {
+		this.magicalResistance = magicalResistance;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	protected void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @param price the price to set
+	 */
+	protected void setPrice(int price) {
+		this.price = price;
+	}
+
+	/**
+	 * @param strengthHealth the strengthHealth to set
+	 */
+	protected void setStrengthHealth(int strengthHealth) {
+		this.strengthHealth = strengthHealth;
+	}
+
+	/**
+	 * @param recoverHealth the recoverHealth to set
+	 */
+	protected void setRecoverHealth(float recoverHealth) {
+		this.recoverHealth = recoverHealth;
+	}
+
+	/**
+	 * @param recoverEnergy the recoverEnergy to set
+	 */
+	protected void setRecoverEnergy(float recoverEnergy) {
+		this.recoverEnergy = recoverEnergy;
 	}
 	
 }

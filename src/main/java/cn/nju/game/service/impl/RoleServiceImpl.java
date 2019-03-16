@@ -4,6 +4,7 @@
 package cn.nju.game.service.impl;
 
 import cn.nju.game.model.vo.CommanderBasicVO;
+import cn.nju.game.model.vo.WeaponVO;
 import cn.nju.game.role.Commander;
 import cn.nju.game.service.OnlineCommander;
 import cn.nju.game.service.RoleService;
@@ -53,4 +54,10 @@ public class RoleServiceImpl implements RoleService {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see cn.nju.game.service.RoleService#getWeaponVo()
+	 */
+	public WeaponVO getWeaponVo() {
+		return commander.getWeaponVO();
+	}
 }

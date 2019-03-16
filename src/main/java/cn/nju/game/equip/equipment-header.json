@@ -1,0 +1,11 @@
+{
+  "description": "装备描述",
+  "physicalDamage": "物理伤害",
+  "magicalDamage": "魔法伤害",
+  "armor": "护甲值",
+  "magicalResistance": "魔法抗性",
+  "name": "装备描述",
+  "strengthHealth": "生命值加成",
+  "recoverHealth": "生命回复",
+  "recoverEnergy": "能量回复"
+}

@@ -3,6 +3,7 @@ package cn.nju.game.role;
 import org.apache.log4j.Logger;
 
 import cn.nju.game.model.vo.CommanderBasicVO;
+import cn.nju.game.model.vo.WeaponVO;
 
 /**
  * 召唤师
@@ -157,7 +158,13 @@ public abstract class Commander extends Target implements Recoverable {
 	 * @return 基本信息实体
 	 */
 	public abstract CommanderBasicVO getBasicVO();
-
+	
+	/**
+	 * 获取武器信息VO实体
+	 * @return 武器信息VO
+	 */
+	public abstract WeaponVO getWeaponVO();
+	
 	/* (non-Javadoc)
 	 * @see cn.nju.game.role.Target#clone()
 	 */

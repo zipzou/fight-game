@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class SingleEquipment extends Equipment {
-	
+	private static final long serialVersionUID = 5915507650892671889L;
 	protected static final Logger LOG = Logger.getLogger(SingleEquipment.class);
 	
 	/**
@@ -95,7 +95,7 @@ public class SingleEquipment extends Equipment {
 			if (LOG.isInfoEnabled()) {
 				LOG.info("Build Equipment magical damage : " + damage + " ...");
 			}
-			equipment.magicDamage = damage;
+			equipment.magicalDamage = damage;
 			return this;
 		}
 

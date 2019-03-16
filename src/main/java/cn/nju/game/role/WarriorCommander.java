@@ -5,6 +5,8 @@ import org.dozer.DozerBeanMapper;
 
 import cn.nju.game.model.vo.CommanderBasicVO;
 import cn.nju.game.model.vo.WarriorCommanderBasicVO;
+import cn.nju.game.model.vo.WeaponVO;
+import cn.nju.game.weapon.Weapon;
 
 /**
  * 战士召唤师
@@ -52,6 +54,18 @@ public class WarriorCommander extends Commander {
 	public CommanderBasicVO getBasicVO() {
 		WarriorCommanderBasicVO warriorCommanderBasicVO = new DozerBeanMapper().map(this, WarriorCommanderBasicVO.class);
 		return warriorCommanderBasicVO;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.role.Commander#getWeaponVO()
+	 */
+	@Override
+	public WeaponVO getWeaponVO() {
+		Weapon weapon = new Weapon();
+		weapon.setName("长剑");
+		weapon.setDamage(10);
+		weapon.setDescription("长剑，适合战士使用，将对敌方目标造成" + weapon.getDamage() + "点的物理伤害");
+		return new DozerBeanMapper().map(weapon, WeaponVO.class);
 	}
     
 }

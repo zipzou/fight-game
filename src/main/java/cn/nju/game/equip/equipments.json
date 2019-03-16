@@ -159,7 +159,7 @@
       "name": "兰德里的折磨",
       "price": 750,
       "soldPrice": 0.75,
-      "magicalDamage": 100,
+      "magicalDamage": 10,
       "strengthHealth": 100,
       "subEquipments": [
         18, 12

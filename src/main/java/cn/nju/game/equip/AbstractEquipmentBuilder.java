@@ -40,7 +40,7 @@ public class AbstractEquipmentBuilder implements EquipmentBuilder {
 	 * @see cn.nju.game.equip.EquipmentBuilder#magicDamage(int)
 	 */
 	public EquipmentBuilder magicalDamage(int damage) {
-		equipment.magicDamage = damage;
+		equipment.magicalDamage = damage;
 		return this;
 	}
 

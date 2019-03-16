@@ -1,14 +1,10 @@
 package cn.nju.game.ui;
 
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -18,8 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import cn.nju.game.service.OnlineCommander;
-import cn.nju.game.service.impl.RoleServiceImpl;
 import cn.nju.game.ui.handler.CreateRoleActionHandler;
 import cn.nju.game.ui.handler.LoginActionHandler;
 import cn.nju.game.ui.util.BoundsUtil;

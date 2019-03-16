@@ -1,0 +1,11 @@
+{
+  "description": 1,
+  "physicalDamage": 2,
+  "magicalDamage": 3,
+  "armor": 4,
+  "magicalResistance": 5,
+  "name": 0,
+  "strengthHealth": 6,
+  "recoverHealth": 7,
+  "recoverEnergy": 8
+}

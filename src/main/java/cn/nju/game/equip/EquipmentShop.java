@@ -22,6 +22,8 @@ public class EquipmentShop implements EquipmentPool {
 	private Logger LOG = Logger.getLogger(EquipmentShop.class);
 	
 	private Map<String, Equipment> equipments;
+
+	private Set<Equipment> equipmentsSet;
 	
 	private static class EquipmentShopHolder {
 		private static final EquipmentShop  _INSTANCE = new EquipmentShop();
@@ -47,7 +49,7 @@ public class EquipmentShop implements EquipmentPool {
 			LOG.info("Start loading equipment config file...");
 		}
 		try {
-			Set<Equipment> equipmentsSet = EquipmentFileUtil.readEquipments();
+			equipmentsSet = EquipmentFileUtil.readEquipments();
 			for (Equipment equipment : equipmentsSet) {
 				equipments.put(equipment.getName(), equipment);
 			}
@@ -90,6 +92,13 @@ public class EquipmentShop implements EquipmentPool {
 		loadEquipmentsFromConfig();
 		
 		return findEquipment(name);
+	}
+
+	public Iterable<Equipment> getAllEquipments() {
+		if (null == equipmentsSet) {
+			loadEquipmentsFromConfig();
+		}
+		return equipmentsSet;
 	}
 
 }

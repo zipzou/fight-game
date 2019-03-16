@@ -17,4 +17,9 @@ public interface EquipmentPool {
 	 */
 	public Equipment getEquipment(String name);
 	
+	/**
+	 * 获取所有装备
+	 * @return 装备集合
+	 */
+	public Iterable<Equipment> getAllEquipments();
 }

@@ -1,47 +1,33 @@
-package cn.nju.game.weapon;
+/**
+ * 
+ */
+package cn.nju.game.model.vo;
 
 /**
- * 武器，根据职业不同，武器造成的伤害类型会不同
+ * 武器Value Object
+ * @author frank
+ *
  */
-public class Weapon implements DamageComputable {
-
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 9034870455599140870L;
-
+public class WeaponVO {
 	/**
-     * Default constructor
-     */
-    public Weapon() {
-    }
-
-    /**
      * 武器名
      */
-    protected String name;
+    private String name;
     
     /**
      * 价格
      */
-    protected int price;
+    private int price;
     
     /**
      * 武器伤害
      */
-    protected int damage;
+    private int damage;
     
     /**
      * 武器描述信息
      */
-    protected String description;
-
-	/* (non-Javadoc)
-	 * @see cn.nju.game.equip.DamageComputable#computeDamage()
-	 */
-	public int computeDamage() {
-		return damage;
-	}
+    private String description;
 
 	/**
 	 * @return the name
@@ -98,4 +84,5 @@ public class Weapon implements DamageComputable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+    
 }

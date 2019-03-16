@@ -6,18 +6,18 @@ import java.util.*;
  * 合成装备
  */
 public class ComposedEquipment extends Equipment {
+	private static final long serialVersionUID = -1383947550797222539L;
 
 	/**
 	 * Default constructor
 	 */
 	protected ComposedEquipment() {
-		subEquipments = new HashSet<Equipment>();
 	}
 
 	/**
 	 * 子装备
 	 */
-	protected Set<Equipment> subEquipments;
+	protected List<Equipment> subEquipments;
 
 	/**
 	 * 组合装备构建器
@@ -28,14 +28,16 @@ public class ComposedEquipment extends Equipment {
 	protected static class ConComposedEquipmentBuilder extends SingleEquipment.SingleEquipmentBuilder
 			implements ComposedEquipmentBuilder {
 
-		protected Set<Equipment> equipments;
+		protected List<Equipment> equipments;
 
 		/**
-		 * 
+		 * 组合装备构建器构造
 		 */
 		protected ConComposedEquipmentBuilder() {
 			super();
-			equipments = new HashSet<Equipment>();
+			equipment = new ComposedEquipment();
+			equipments = new ArrayList<Equipment>();
+			((ComposedEquipment) equipment).setSubEquipments(equipments);
 		}
 
 		/*
@@ -51,7 +53,6 @@ public class ComposedEquipment extends Equipment {
 			equipments.add(equipment);
 			return this;
 		}
-
 	}
 
 	/**
@@ -121,6 +122,12 @@ public class ComposedEquipment extends Equipment {
 		}
 		return damage;
 	}
-	
+
+	/**
+	 * @param subEquipments the subEquipments to set
+	 */
+	protected void setSubEquipments(List<Equipment> subEquipments) {
+		this.subEquipments = subEquipments;
+	}
 	
 }

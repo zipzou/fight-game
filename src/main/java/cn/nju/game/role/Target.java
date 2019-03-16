@@ -33,7 +33,7 @@ public abstract class Target implements Damageable, Cloneable, Serializable, Mem
     /**
      * 目标等级
      */
-    private int level;
+    private int level = 1;
 
     /**
      * 物理攻击力
