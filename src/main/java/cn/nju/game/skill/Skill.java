@@ -40,4 +40,16 @@ public interface Skill extends PhysicalDamage, PhysicalDefence, MagicalDamage, M
      * @return 所需能量值
      */
     public int getEnergyNeeded();
+
+    /**
+     * 获取技能名
+     * @return 技能名称
+     */
+	public String getName();
+	
+	/**
+	 * 获取技能描述信息
+	 * @return 技能描述信息
+	 */
+	public String getDescription();
 }

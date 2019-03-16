@@ -1,8 +1,9 @@
 {
-  "physicalDamage": 2,
-  "armor": 4,
-  "magicalDamage": 3,
-  "magicalResistance": 5,
-  "description": 1,
-  "name": 0
+  "physicalDamage": 3,
+  "armor": 5,
+  "magicalDamage": 4,
+  "magicalResistance": 6,
+  "description": 2,
+  "name": 0,
+  "level": 1
 }

@@ -17,7 +17,7 @@ public class LeveledSkill implements Skill {
 	 */
 	private static final long serialVersionUID = 7061104556409917201L;
 
-	private BasedSkill baseSkill;												// 基础等级
+	private Skill baseSkill;												// 基础等级
 	
 	/**
      * 物理攻击力
@@ -32,7 +32,7 @@ public class LeveledSkill implements Skill {
     /**
      * 魔法攻击力
      */
-    private int magicDamageImproved;
+    private int magicalDamageImproved;
 
     /**
      * 魔法抗性
@@ -51,14 +51,15 @@ public class LeveledSkill implements Skill {
 	 * @param magicDamageImproved 魔法伤害提升值
 	 * @param magicalResistanceImproved 魔法抗性提升值
 	 * @param energy 所需能量值
+	 * @param level 技能等级
 	 */
-	public LeveledSkill(BasedSkill baseSkill, int physicalDamageImproved, int armorImproved, int magicDamageImproved,
-			int magicalResistanceImproved, int energy) {
+	public LeveledSkill(Skill baseSkill, int physicalDamageImproved, int armorImproved, int magicDamageImproved,
+			int magicalResistanceImproved, int energy, int level) {
 		super();
 		this.baseSkill = baseSkill;
 		this.physicalDamageImproved = physicalDamageImproved;
 		this.armorImproved = armorImproved;
-		this.magicDamageImproved = magicDamageImproved;
+		this.magicalDamageImproved = magicDamageImproved;
 		this.magicalResistanceImproved = magicalResistanceImproved;
 		this.energy = energy;
 	}
@@ -81,7 +82,7 @@ public class LeveledSkill implements Skill {
 	 * @see cn.nju.game.fight.MagicalDamage#computeMagicDamage()
 	 */
 	public int computeMagicDamage() {
-		return magicDamageImproved + baseSkill.computeMagicDamage();
+		return magicalDamageImproved + baseSkill.computeMagicDamage();
 	}
 
 	/* (non-Javadoc)
@@ -110,7 +111,7 @@ public class LeveledSkill implements Skill {
 	 */
 	public Skill upgrade() {
 		int level = getLevel();
-		if (4 >= level) {
+		if (4 > level) {
 			return SkillLeveledPool.sharedPool().getSkill(baseSkill.getName(), level + 1);
 		}
 		return this;
@@ -136,25 +137,16 @@ public class LeveledSkill implements Skill {
 	protected void setArmorImproved(int armorImproved) {
 		this.armorImproved = armorImproved;
 	}
-
-	/**
-	 * @param magicDamageImproved the magicDamageImproved to set
-	 */
-	protected void setMagicDamageImproved(int magicDamageImproved) {
-		this.magicDamageImproved = magicDamageImproved;
-	}
-
 	/**
 	 * @param magicalResistanceImproved the magicalResistanceImproved to set
 	 */
 	protected void setMagicalResistanceImproved(int magicalResistanceImproved) {
 		this.magicalResistanceImproved = magicalResistanceImproved;
 	}
-
 	/**
 	 * @return the baseSkill
 	 */
-	public BasedSkill getBaseSkill() {
+	public Skill getBaseSkill() {
 		return baseSkill;
 	}
 
@@ -173,13 +165,6 @@ public class LeveledSkill implements Skill {
 	}
 
 	/**
-	 * @return the magicDamageImproved
-	 */
-	public int getMagicDamageImproved() {
-		return magicDamageImproved;
-	}
-
-	/**
 	 * @return the magicalResistanceImproved
 	 */
 	public int getMagicalResistanceImproved() {
@@ -192,5 +177,31 @@ public class LeveledSkill implements Skill {
 	public int getEnergyNeeded() {
 		return energy;
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.skill.Skill#getName()
+	 */
+	public String getName() {
+		return baseSkill.getName();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.skill.Skill#getDescription()
+	 */
+	public String getDescription() {
+		return baseSkill.getDescription();
+	}
+	/**
+	 * @return the magicalDamageImproved
+	 */
+	public int getMagicalDamageImproved() {
+		return magicalDamageImproved;
+	}
+
+	/**
+	 * @param magicalDamageImproved the magicalDamageImproved to set
+	 */
+	protected void setMagicalDamageImproved(int magicalDamageImproved) {
+		this.magicalDamageImproved = magicalDamageImproved;
+	}
 }

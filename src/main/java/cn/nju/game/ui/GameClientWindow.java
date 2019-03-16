@@ -1,11 +1,12 @@
 package cn.nju.game.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +28,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
@@ -44,14 +44,13 @@ import cn.nju.game.service.OnlineCommander;
 import cn.nju.game.service.RoleService;
 import cn.nju.game.skill.DeleteEquipItemListener;
 import cn.nju.game.skill.SkillLeveledPool;
+import cn.nju.game.ui.handler.SkillUpgradeListener;
 import cn.nju.game.ui.util.BoundsUtil;
 import cn.nju.game.ui.util.CommanderModelUtilFactory;
 import cn.nju.game.ui.util.EquipmentModelUtilFactory;
 import cn.nju.game.ui.util.ModelToTableModelUtil;
 import cn.nju.game.ui.util.SharedModelUtilFactory;
 import cn.nju.game.ui.util.SkillModelUtilFactory;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class GameClientWindow extends JFrame {
 
@@ -262,6 +261,23 @@ public class GameClientWindow extends JFrame {
 		panelSkills.setLayout(new BorderLayout(0, 0));
 		
 		tableSkills = new JTable();
+
+		JPopupMenu tableSkillMenu = createSkillUpgradeMenu();
+		final JPopupMenu tableSkillMenuFinal = tableSkillMenu;
+		tableSkills.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getButton() == MouseEvent.BUTTON3) {
+					//通过点击位置找到点击为表格中的行
+		            int focusedRowIndex = tableSkills.rowAtPoint(e.getPoint());
+		            if (focusedRowIndex == -1) {
+		                return;
+		            }
+		            tableSkills.setRowSelectionInterval(focusedRowIndex, focusedRowIndex);
+		            tableSkillMenuFinal.show(tableSkills, e.getX(), e.getY());
+				}
+			}
+		});
 		panelSkills.add(tableSkills, BorderLayout.CENTER);
 		
 		// 加载所有技能
@@ -415,6 +431,19 @@ public class GameClientWindow extends JFrame {
 	}
 
 	/**
+	 * @return
+	 */
+	private JPopupMenu createSkillUpgradeMenu() {
+		JPopupMenu tableSkillMenu = new JPopupMenu();
+		JMenuItem upgradeMenuItem = new JMenuItem("升级");
+		tableSkillMenu.add(upgradeMenuItem);
+		SkillUpgradeListener skillUpgradeListener = new SkillUpgradeListener();
+		skillUpgradeListener.setContext(tableSkills);
+		upgradeMenuItem.addActionListener(skillUpgradeListener);
+		return tableSkillMenu;
+	}
+
+	/**
 	 * @return the roleService
 	 */
 	public RoleService getRoleService() {
@@ -427,4 +456,5 @@ public class GameClientWindow extends JFrame {
 	public void setRoleService(RoleService roleService) {
 		this.roleService = roleService;
 	}
+	
 }

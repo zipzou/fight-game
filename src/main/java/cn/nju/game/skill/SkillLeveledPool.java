@@ -88,7 +88,7 @@ public class SkillLeveledPool implements SkillPool {
 			for (int i = 1; i <= 4; i++) {
 				JSONObject skillJson = (JSONObject) levelJsonObject.get(i + "");
 				
-				LeveledSkill leveledSkill = new LeveledSkill(basedSkill, skillJson.getIntValue(KEY_PHYSICAL_DAMAGE), skillJson.getIntValue(KEY_ARMOR), skillJson.getIntValue(KEY_MAGICAL_DAMAGE), skillJson.getIntValue(KEY_MAGICAL_RESISTANCE), skillJson.getIntValue(KEY_ENERGY));
+				LeveledSkill leveledSkill = new LeveledSkill(levels.get(i - 1), skillJson.getIntValue(KEY_PHYSICAL_DAMAGE), skillJson.getIntValue(KEY_ARMOR), skillJson.getIntValue(KEY_MAGICAL_DAMAGE), skillJson.getIntValue(KEY_MAGICAL_RESISTANCE), skillJson.getIntValue(KEY_ENERGY), i - basedSkill.getLevel());
 				
 				levels.put(i, leveledSkill);
 			}

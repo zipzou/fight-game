@@ -4,5 +4,6 @@
   "magicalDamage": "魔法伤害",
   "magicalResistance": "魔法抗性",
   "description": "技能信息",
-  "name": "技能名称"
+  "name": "技能名称",
+  "level": "等级"
 }

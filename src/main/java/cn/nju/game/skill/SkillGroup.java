@@ -122,4 +122,26 @@ public class SkillGroup implements ComposedSkill {
 		return energy;
 	}
 
+	/* (non-Javadoc)
+	 * @see cn.nju.game.skill.Skill#getName()
+	 */
+	public String getName() {
+		String name = "";
+		for (Skill skill : skillStack) {
+			name += skill.getName() + "+";
+		}
+		return name.substring(0, name.length() - 1) + "组合技能";
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.skill.Skill#getDescription()
+	 */
+	public String getDescription() {
+		String desc = "";
+		for (Skill skill : skillStack) {
+			desc += skill.getDescription() + ",";
+		}
+		return desc.substring(0, desc.length() - 1);
+	}
+
 }

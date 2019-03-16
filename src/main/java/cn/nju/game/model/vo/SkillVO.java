@@ -37,6 +37,8 @@ public class SkillVO {
      * 技能描述
      */
     private String description;
+    
+    private int level;
     /**
      * 技能名
      */
@@ -52,6 +54,9 @@ public class SkillVO {
     		this.name = ((BasedSkill) skill).getName();
     		this.description =  ((BasedSkill) skill).getName();
     	}
+    	this.level = ((LeveledSkill) skill).getLevel();
+    	this.magicalResistance = skill.computeMagicalResistance();
+    	
     }
 
 	/**
@@ -126,5 +131,18 @@ public class SkillVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-    
+
+	/**
+	 * @return the level
+	 */
+	public int getLevel() {
+		return level;
+	}
+
+	/**
+	 * @param level the level to set
+	 */
+	public void setLevel(int level) {
+		this.level = level;
+	}
 }

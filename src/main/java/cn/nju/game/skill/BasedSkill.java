@@ -187,7 +187,7 @@ public class BasedSkill implements Skill {
 	 */
 	public Skill upgrade() {
 		int level = getLevel();
-		if (4 >= level) {
+		if (4 > level) {
 			return SkillLeveledPool.sharedPool().getSkill(name, level + 1);
 		}
 		return this;

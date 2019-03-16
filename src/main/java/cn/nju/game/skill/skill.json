@@ -46,7 +46,7 @@
         "magicalDamage": 0,
         "armor": 7,
         "magicalResistance": 12,
-        "energy": 25,
+        "energy": 25
       }, 
       "3": {
         "physicalDamage": 0,
