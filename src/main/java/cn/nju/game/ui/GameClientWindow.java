@@ -1,8 +1,11 @@
 package cn.nju.game.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,15 +20,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import cn.nju.game.equip.Bag;
 import cn.nju.game.equip.Equipment;
 import cn.nju.game.equip.EquipmentShop;
 import cn.nju.game.model.vo.CommanderBasicVO;
@@ -34,6 +42,7 @@ import cn.nju.game.model.vo.SkillVO;
 import cn.nju.game.role.Commander;
 import cn.nju.game.service.OnlineCommander;
 import cn.nju.game.service.RoleService;
+import cn.nju.game.skill.DeleteEquipItemListener;
 import cn.nju.game.skill.SkillLeveledPool;
 import cn.nju.game.ui.util.BoundsUtil;
 import cn.nju.game.ui.util.CommanderModelUtilFactory;
@@ -41,6 +50,8 @@ import cn.nju.game.ui.util.EquipmentModelUtilFactory;
 import cn.nju.game.ui.util.ModelToTableModelUtil;
 import cn.nju.game.ui.util.SharedModelUtilFactory;
 import cn.nju.game.ui.util.SkillModelUtilFactory;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GameClientWindow extends JFrame {
 
@@ -48,6 +59,8 @@ public class GameClientWindow extends JFrame {
 	private static final int W = 800;
 	private static final int H = 600;
 	private RoleService roleService;
+	
+	private List<Object> equipmentsInBag = new ArrayList<Object>(Bag.CAPACITY);
 	
 	/**
 	 * 
@@ -57,6 +70,7 @@ public class GameClientWindow extends JFrame {
 	private JTable tableEquipments;
 	private JTable tableSkills;
 	private JTable tableOnlineCommanders;
+	private JPanel[] rowPanels;
 
 	public void showInCenter(JFrame parent) {
 		setBounds(BoundsUtil.getCenterOwnerBounds(parent, W, H));
@@ -184,6 +198,57 @@ public class GameClientWindow extends JFrame {
 		panelEquipments.add(tableEquipments.getTableHeader(), BorderLayout.NORTH);
 		
 		JButton buttonAddToBag = new JButton("添加到背包");
+		final JFrame that = this;
+		buttonAddToBag.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int[] selectedRows = tableEquipments.getSelectedRows();
+				if (Bag.CAPACITY < equipmentsInBag.size() + selectedRows.length) {
+					JOptionPane.showMessageDialog(that, "你的背包已满，无法再添加额外的" + selectedRows.length + "件装备", "背包已满", JOptionPane.PLAIN_MESSAGE);
+				} else {
+					for (int rowIndex : selectedRows) {
+						Object equip = ((DefaultTableModel) tableEquipments.getModel()).getValueAt(rowIndex, 0);
+						equipmentsInBag.add(equip);
+					}
+					paintEquipments();
+				}
+			}
+
+			/**
+			 * 绘制选中的行
+			 * @param selectedRows
+			 */
+			private void paintEquipments() {
+				for (JPanel jPanel : rowPanels) {
+					jPanel.removeAll();
+					jPanel.revalidate();
+					jPanel.repaint();
+				}
+				for (int i = 0; i < equipmentsInBag.size(); i++) {
+					int rowI = i / 3;
+					int colI = i % 3;
+					JPanel rowPanel = rowPanels[rowI];
+					JLabel lblEquip = new JLabel(equipmentsInBag.get(i).toString());
+					JPopupMenu rightMenu = new JPopupMenu();
+					DeleteEquipItemListener equipItemDeleteListener = new DeleteEquipItemListener();
+					JMenuItem deleteItem = new JMenuItem("删除");
+					equipItemDeleteListener.setDataIndex(i);
+					equipItemDeleteListener.setComponentIndex(colI);
+					equipItemDeleteListener.setParent(rowPanel);
+					equipItemDeleteListener.setData(equipmentsInBag);
+					equipItemDeleteListener.setCallback(new Runnable() {
+						public void run() {
+							paintEquipments();
+						}
+					});
+					deleteItem.addActionListener(equipItemDeleteListener);
+					rightMenu.add(deleteItem);
+					lblEquip.setComponentPopupMenu(rightMenu);
+					rowPanel.add(lblEquip);
+					rowPanel.revalidate();
+					rowPanel.repaint();
+				}
+			}
+		});
 		panelEquipments.add(buttonAddToBag, BorderLayout.SOUTH);
 		
 		JScrollPane scrollPaneSkills = new JScrollPane();
@@ -247,7 +312,6 @@ public class GameClientWindow extends JFrame {
 
 		tableSkills.setModel(new DefaultTableModel(rows, headers) {
 			private static final long serialVersionUID = -643106778033014822L;
-
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -266,14 +330,6 @@ public class GameClientWindow extends JFrame {
 		panelBag.add(panelRow1);
 		panelRow1.setLayout(new GridLayout(0, 3, 0, 0));
 		
-		JLabel lblNewLabel_1 = new JLabel("测试背包项");
-		panelRow1.add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("测试背包项");
-		panelRow1.add(lblNewLabel_2);
-		
-		JLabel lblNewLabel_3 = new JLabel("测试背包项");
-		panelRow1.add(lblNewLabel_3);
 		
 		JPanel panelRow2 = new JPanel();
 		panelRow2.setBorder(null);
@@ -282,6 +338,14 @@ public class GameClientWindow extends JFrame {
 		JPanel panelRow3 = new JPanel();
 		panelBag.add(panelRow3);
 		panelRow2.setBorder(null);
+		
+		rowPanels = new JPanel[3];
+		rowPanels[0] = panelRow1;
+		
+		rowPanels[1] = panelRow2;
+		panelRow2.setLayout(new GridLayout(0, 3, 0, 0));
+		rowPanels[2] = panelRow3;
+		panelRow3.setLayout(new GridLayout(0, 3, 0, 0));
 		
 		JScrollPane scrollOnlineCommanders = new JScrollPane();
 		scrollOnlineCommanders.setBorder(null);
