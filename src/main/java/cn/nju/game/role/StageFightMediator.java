@@ -53,6 +53,7 @@ public class StageFightMediator implements StagePartnerMediator {
 	 * @see cn.nju.game.role.StagePartnerMediator#register(cn.nju.game.role.StagePartner)
 	 */
 	public void register(StagePartner partner) {
+		partner.setMediator(this);
 		partners.add(partner);
 	}
 

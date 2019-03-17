@@ -1,9 +1,13 @@
 package cn.nju.game.ui;
 
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,8 +15,11 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import com.apple.eawt.Application;
 
 import cn.nju.game.ui.handler.CreateRoleActionHandler;
 import cn.nju.game.ui.handler.LoginActionHandler;
@@ -21,7 +28,9 @@ import cn.nju.game.ui.util.BoundsUtil;
 public class LoginClientFrame {
 
 	private JFrame frame;
-	private JTextField commanderNameTextfield;
+	private JTextField txtCommanderName1;
+	private JTextField txtCommanderName2;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 	/**
 	 * Launch the application.
 	 */
@@ -83,23 +92,88 @@ public class LoginClientFrame {
 	    JPanel leftPanel = new JPanel();
 	    leftPanel.setBorder(new EmptyBorder(0, 0, 0, 0));
 	    frame.getContentPane().add(leftPanel);
-	    leftPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+	    leftPanel.setLayout(new GridLayout(4, 1, 0, 0));
+	    LoginActionHandler loginActionHandler = new LoginActionHandler();
 	    
-	    JLabel label = new JLabel("召唤师名：");
-	    leftPanel.add(label);
+	    JPanel panelName1 = new JPanel();
+	    leftPanel.add(panelName1);
 	    
-	    commanderNameTextfield = new JTextField();
-	    leftPanel.add(commanderNameTextfield);
-	    commanderNameTextfield.setColumns(10);
+	    JLabel labelCommanderName1 = new JLabel("召唤师名1：");
+	    panelName1.add(labelCommanderName1);
+	    
+	    txtCommanderName1 = new JTextField();
+	    panelName1.add(txtCommanderName1);
+	    txtCommanderName1.setColumns(10);
+	    
+	    JPanel panelName2 = new JPanel();
+	    panelName2.setVisible(false);
+	    leftPanel.add(panelName2);
+	    
+	    JLabel labelCommanderName2 = new JLabel("召唤师名2：");
+	    panelName2.add(labelCommanderName2);
+	    
+	    txtCommanderName2 = new JTextField();
+	    txtCommanderName2.setColumns(10);
+	    panelName2.add(txtCommanderName2);
+	    
+	    JPanel panelGameMode = new JPanel();
+	    leftPanel.add(panelGameMode);
+	    
+	    JRadioButton radioSingleGame = new JRadioButton("单人游戏");
+	    radioSingleGame.setSelected(true);
+	    buttonGroup.add(radioSingleGame);
+	    panelGameMode.add(radioSingleGame);
+	    
+	    JRadioButton radioMultiGame = new JRadioButton("多人游戏");
+	    buttonGroup.add(radioMultiGame);
+	    panelGameMode.add(radioMultiGame);
+	    panelGameMode.setVisible(false);
+	    
+	    final JRadioButton radio1 = radioMultiGame, radio2 = radioSingleGame;
+	    final JPanel panelMode2 = panelName2;
+	    final LoginActionHandler loginActionHandlerFinal = loginActionHandler;
+	    ActionListener gameMode = new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		if (radio1.isSelected()) {
+	    			panelMode2.setVisible(true);
+	    			loginActionHandlerFinal.setLoginMode(2);
+	    		} else if (radio2.isSelected()) {
+	    			panelMode2.setVisible(false);
+	    			loginActionHandlerFinal.setLoginMode(1);
+	    		}
+	    	}
+	    };
+	    radioMultiGame.addActionListener(gameMode);
+	    radioSingleGame.addActionListener(gameMode);
+	    loginActionHandler.setCommanderNameText1(txtCommanderName1);
+	    loginActionHandler.setCommanderNameText2(txtCommanderName2);
+	    
+	    JPanel panelButton = new JPanel();
+	    leftPanel.add(panelButton);
 	    
 	    JButton button = new JButton("进入");
-	    leftPanel.add(button);
-	    LoginActionHandler loginActionHandler = new LoginActionHandler();
-	    loginActionHandler.setCommanderNameText(commanderNameTextfield);
-	    loginActionHandler.setParent(tmpFrame);
+	    panelButton.add(button);
 	    button.addMouseListener(loginActionHandler);
+	    loginActionHandler.setParent(tmpFrame);
+	    frame.setResizable(false);
 	    
-	    
+	    String OsName = System.getProperty("os.name");
+      //是mac 就设置dock图标
+      if (OsName.toLowerCase().contains("mac")) {
+          Image icon_image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon.png"));
+          //指定mac 的dock图标
+          Application app = Application.getApplication();
+          app.setDockIconImage(icon_image);
+//          PopupMenu popupMenu = new PopupMenu();
+//          MenuItem menuitem1 = new MenuItem("1");
+//          MenuItem menuitem2 = new MenuItem("2");
+//          MenuItem menuitem3 = new MenuItem("3");
+//          popupMenu.add(menuitem1);
+//          popupMenu.add(menuitem2);
+//          popupMenu.add(menuitem3);
+//          app.setDockMenu(popupMenu);
+//          app.setQuitStrategy(QuitStrategy.CLOSE_ALL_WINDOWS);
+      }
 	    
 //		//获得操作系统
 //        String OsName = System.getProperty("os.name");

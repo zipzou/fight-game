@@ -62,6 +62,9 @@ public class ObjectiveSerializeUtil {
 	@SuppressWarnings("unchecked")
 	public static <T> T unserialize(String folder, String name) throws IOException, ClassNotFoundException {
 		File targetFile = new File(folder, name + SUBFIX);
+		if (!targetFile.exists()) {
+			return null;
+		}
 		InputStream input = new FileInputStream(targetFile);
 		ObjectInputStream objectInputStream = new ObjectInputStream(input);
 		T target = ((T) objectInputStream.readObject());

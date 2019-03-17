@@ -29,10 +29,12 @@ import cn.nju.game.conf.util.FilePathUtil;
  */
 public class GameConfiguration implements Configuration {
 
-	private static final String GAME_SKILL_SKILL = "game/skill";
+	private static final String GAME_ROLES_ONLINE = "game/roles/online/";
+	private static final String GAME_SKILL_SKILL = "game/skill/";
 	private static final String GAME_WEAPON_WEAPON = "game/weapon/";
-	private static final String GAME_EQUIPMENT_EQUIPMENT = "game/equipment";
-	private static final String GAME_ROLES_ROLES = "game/roles";
+	private static final String GAME_EQUIPMENT_EQUIPMENT = "game/equipment/";
+	private static final String GAME_ROLES_ROLES = "game/roles/";
+	public static final String ONLINE_ROLES_FILE = "onlineRoles";
 	public static final String SKILL_FILE = "skillFile";
 	public static final String WEAPON_FILE = "weaponFile";
 	public static final String EQUIPMENT_FILE = "equipmentFile";
@@ -60,6 +62,7 @@ public class GameConfiguration implements Configuration {
 		configMap.put(EQUIPMENT_FILE, GAME_EQUIPMENT_EQUIPMENT);
 		configMap.put(WEAPON_FILE, GAME_WEAPON_WEAPON);
 		configMap.put(SKILL_FILE, GAME_SKILL_SKILL);
+		configMap.put(ONLINE_ROLES_FILE, GAME_ROLES_ONLINE);
 		return configMap;
 	}
 	

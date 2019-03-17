@@ -34,13 +34,13 @@ public class SerializeTest {
 	@Test
 	public void testSerializeWeapon() throws IOException {
 		String folder = GameConfiguration.sharedConfiguration().read(GameConfiguration.WEAPON_FILE).toString();
-		ObjectiveSerializeUtil.serialize(folder, "zzp", weapon);
+		ObjectiveSerializeUtil.serialize(folder, "test", weapon);
 	}
 	
 	@Test
 	public void testReadWeapon() throws ClassNotFoundException, IOException {
 		String folder = GameConfiguration.sharedConfiguration().read(GameConfiguration.WEAPON_FILE).toString();
-		DamageComputable weapon = ObjectiveSerializeUtil.unserialize(folder, "zzp");
+		DamageComputable weapon = ObjectiveSerializeUtil.unserialize(folder, "test");
 		assertTrue(weapon.computeDamage() == this.weapon.computeDamage());
 		System.out.println(weapon.computeDamage());
 	}

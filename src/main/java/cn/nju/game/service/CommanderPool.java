@@ -38,7 +38,7 @@ public class CommanderPool {
 	/**
 	 * 从文件加载召唤师
 	 */
-	private void loadCommandersFromFile() {
+	protected void loadCommandersFromFile() {
 		String rolesFilePath = GameConfiguration.sharedConfiguration().read(GameConfiguration.ROLES_FILE).toString();
 		File rolesPath = new File(rolesFilePath);
 		File[] rolesFiles = rolesPath.listFiles();

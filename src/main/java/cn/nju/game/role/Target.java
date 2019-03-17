@@ -1,13 +1,14 @@
 package cn.nju.game.role;
 
 import java.io.Serializable;
+import java.util.Observable;
 
 import org.dozer.DozerBeanMapper;
 
 /**
  * 生命体，可被攻击的目标
  */
-public abstract class Target implements Damageable, Cloneable, Serializable, Memento {
+public abstract class Target extends Observable implements Damageable, Cloneable, Serializable, Memento {
 
     /**
 	 * 
@@ -75,6 +76,8 @@ public abstract class Target implements Damageable, Cloneable, Serializable, Mem
      */
     public void improveHealth(int healthVal) {
     	this.health += healthVal;
+    	setChanged();
+    	notifyObservers(this);
     }
 
 	/**
@@ -83,6 +86,8 @@ public abstract class Target implements Damageable, Cloneable, Serializable, Mem
      */
     public void reduceHealth(int healthVal) {
     	this.health -= healthVal;
+    	setChanged();
+    	notifyObservers(this);
     }
 
     /**

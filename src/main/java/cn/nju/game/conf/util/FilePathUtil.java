@@ -21,7 +21,7 @@ public class FilePathUtil {
 		File userFolder = new File(userDir);
 		File subFolder = new File(userFolder, path);
 		
-		if (!subFolder.isFile()) {
+		if (subFolder.isFile()) {
 			subFolder.getParentFile().mkdirs();
 			return subFolder.getPath();
 		} else {

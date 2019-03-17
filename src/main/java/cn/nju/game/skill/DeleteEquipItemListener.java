@@ -22,7 +22,7 @@ public class DeleteEquipItemListener implements ActionListener {
 	
 	private int dataIndex; // 数据对象索引
 	
-	private List<Object> data; // 数据对象
+	private List<String> data; // 数据对象
 	
 	private Runnable callback; // 删除后的回调
 	
@@ -105,7 +105,7 @@ public class DeleteEquipItemListener implements ActionListener {
 	/**
 	 * @return the data
 	 */
-	public List<Object> getData() {
+	public List<String> getData() {
 		return data;
 	}
 
@@ -113,7 +113,7 @@ public class DeleteEquipItemListener implements ActionListener {
 	/**
 	 * @param data the data to set
 	 */
-	public void setData(List<Object> data) {
+	public void setData(List<String> data) {
 		this.data = data;
 	}
 }

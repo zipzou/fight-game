@@ -3,6 +3,8 @@
  */
 package cn.nju.game.role;
 
+import cn.nju.game.skill.ComposedSkill;
+
 /**
  * 角斗场参与角色
  * @author frank
@@ -47,4 +49,11 @@ public abstract class StagePartner implements Attacker, Attacked {
 	public void attack() {
 		getMediator().sendAttack(this);
 	}
+
+//	/* (non-Javadoc)
+//	 * @see cn.nju.game.role.Attacker#attack(cn.nju.game.skill.ComposedSkill)
+//	 */
+//	public void attack(ComposedSkill skills) {
+//		getMediator().sendAttack(this);
+//	}
 }

@@ -3,14 +3,17 @@
  */
 package cn.nju.game.role;
 
+import cn.nju.game.equip.Bag;
+import cn.nju.game.skill.Skill;
 import cn.nju.game.skill.SkillUnsendRunner;
+import cn.nju.game.weapon.DamageComputable;
 
 /**
  * 攻击者代理，用来对目标发送攻击指令
  * @author frank
  *
  */
-public class AttackerProxy implements Attacker {
+public class AttackerProxy extends StagePartner {
 
 	private Attacker attacker;
 	
@@ -76,5 +79,10 @@ public class AttackerProxy implements Attacker {
 			}
 		}
 	}
-	
+	/* (non-Javadoc)
+	 * @see cn.nju.game.role.Attacked#attacked(cn.nju.game.role.Target, cn.nju.game.weapon.DamageComputable, cn.nju.game.equip.Bag, cn.nju.game.skill.Skill)
+	 */
+	public void attacked(Target source, DamageComputable weapon, Bag equipments, Skill skill) {
+		
+	}
 }

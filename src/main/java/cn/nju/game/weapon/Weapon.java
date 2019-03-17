@@ -1,9 +1,13 @@
 package cn.nju.game.weapon;
 
+import org.dozer.DozerBeanMapper;
+
+import cn.nju.game.model.vo.WeaponVO;
+
 /**
  * 武器，根据职业不同，武器造成的伤害类型会不同
  */
-public class Weapon implements DamageComputable {
+public class Weapon implements DamageComputable, WeaponInfo {
 
     /**
 	 * 
@@ -89,13 +93,28 @@ public class Weapon implements DamageComputable {
 	 * @return the description
 	 */
 	public String getDescription() {
+		description = getName() + "，将造成" + getDamage() + "的基础伤害，并同时造成" + computeDamage() + "的自适应物理/魔法伤害";
 		return description;
 	}
 
 	/**
 	 * @param description the description to set
 	 */
-	public void setDescription(String description) {
+	protected void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void weapon(String description) {
+		this.description = description;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.weapon.WeaponInfo#getWeaponInfo()
+	 */
+	public WeaponVO getWeaponInfo() {
+		return new DozerBeanMapper().map(this, WeaponVO.class);
 	}
 }

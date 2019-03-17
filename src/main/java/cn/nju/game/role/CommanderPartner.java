@@ -37,7 +37,7 @@ public class CommanderPartner extends StagePartner {
 	 * @param weapon 武器
 	 * @param skill 技能
 	 */
-	public CommanderPartner(Bag equipments, DamageComputable weapon, ComposedSkill skill) {
+	public CommanderPartner(Bag equipments, DamageComputable weapon, Skill skill) {
 		super();
 		this.equipments = equipments;
 		this.weapon = weapon;
@@ -57,7 +57,7 @@ public class CommanderPartner extends StagePartner {
 	/**
 	 * 组合技能
 	 */
-	private ComposedSkill skill;
+	private Skill skill;
 
 	/**
 	 * @return the equipments
@@ -90,7 +90,7 @@ public class CommanderPartner extends StagePartner {
 	/**
 	 * @return the skill
 	 */
-	public ComposedSkill getSkill() {
+	public Skill getSkill() {
 		return skill;
 	}
 
@@ -150,4 +150,12 @@ public class CommanderPartner extends StagePartner {
 		}
 		
 	}
+//
+//	/* (non-Javadoc)
+//	 * @see cn.nju.game.role.StagePartner#attack(cn.nju.game.skill.ComposedSkill)
+//	 */
+//	@Override
+//	public void attack(ComposedSkill skills) {
+//		super.attack(skills);
+//	}
 }

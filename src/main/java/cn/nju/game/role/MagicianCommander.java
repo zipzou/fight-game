@@ -5,7 +5,6 @@ import org.dozer.DozerBeanMapper;
 
 import cn.nju.game.model.vo.CommanderBasicVO;
 import cn.nju.game.model.vo.MagicianCommanderBasicVO;
-import cn.nju.game.model.vo.WeaponVO;
 import cn.nju.game.weapon.Weapon;
 
 /**
@@ -60,12 +59,12 @@ public class MagicianCommander extends Commander {
 	 * @see cn.nju.game.role.Commander#getWeaponVO()
 	 */
 	@Override
-	public WeaponVO getWeaponVO() {
+	public Weapon getWeapon() {
 		Weapon weapon = new Weapon();
 		weapon.setName("符文典籍");
 		weapon.setDamage(10);
-		weapon.setDescription("长剑，适合法师使用，将对敌方目标造成" + weapon.getDamage() + "点的魔法伤害");
-		return new DozerBeanMapper().map(weapon, WeaponVO.class);
+//		weapon.setDescription("长剑，适合法师使用，将对敌方目标造成" + weapon.getDamage() + "点的魔法伤害");
+		return weapon;
 	}
 
 }

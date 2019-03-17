@@ -1,11 +1,14 @@
 package cn.nju.game.role;
 
+import java.io.IOException;
+
 import org.apache.log4j.Logger;
 import org.dozer.DozerBeanMapper;
 
+import cn.nju.game.conf.game.GameConfiguration;
 import cn.nju.game.model.vo.CommanderBasicVO;
 import cn.nju.game.model.vo.WarriorCommanderBasicVO;
-import cn.nju.game.model.vo.WeaponVO;
+import cn.nju.game.util.ObjectiveSerializeUtil;
 import cn.nju.game.weapon.Weapon;
 
 /**
@@ -60,12 +63,22 @@ public class WarriorCommander extends Commander {
 	 * @see cn.nju.game.role.Commander#getWeaponVO()
 	 */
 	@Override
-	public WeaponVO getWeaponVO() {
-		Weapon weapon = new Weapon();
-		weapon.setName("长剑");
-		weapon.setDamage(10);
-		weapon.setDescription("长剑，适合战士使用，将对敌方目标造成" + weapon.getDamage() + "点的物理伤害");
-		return new DozerBeanMapper().map(weapon, WeaponVO.class);
+	public Weapon getWeapon() {
+		Weapon weapon = super.getWeapon();
+		if (null == weapon) {
+			weapon = new Weapon();
+			weapon.setName("长剑");
+			weapon.setDamage(10);
+//			weapon.setDescription("长剑，适合战士使用，将对敌方目标造成" + weapon.computeDamage() + "点的物理伤害");
+			String folder = GameConfiguration.sharedConfiguration().read(GameConfiguration.WEAPON_FILE).toString();
+			try {
+				ObjectiveSerializeUtil.serialize(folder, getName(), weapon);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return weapon;
 	}
     
 }

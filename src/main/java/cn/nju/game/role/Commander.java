@@ -1,9 +1,13 @@
 package cn.nju.game.role;
 
+import java.io.IOException;
+
 import org.apache.log4j.Logger;
 
+import cn.nju.game.conf.game.GameConfiguration;
 import cn.nju.game.model.vo.CommanderBasicVO;
-import cn.nju.game.model.vo.WeaponVO;
+import cn.nju.game.util.ObjectiveSerializeUtil;
+import cn.nju.game.weapon.Weapon;
 
 /**
  * 召唤师
@@ -160,10 +164,21 @@ public abstract class Commander extends Target implements Recoverable {
 	public abstract CommanderBasicVO getBasicVO();
 	
 	/**
-	 * 获取武器信息VO实体
-	 * @return 武器信息VO
+	 * 获取武器信息
+	 * @return 武器信息
 	 */
-	public abstract WeaponVO getWeaponVO();
+	public Weapon getWeapon() {
+		String folder = GameConfiguration.sharedConfiguration().read(GameConfiguration.WEAPON_FILE).toString();
+		Weapon weapon = null;
+		try {
+			weapon = ObjectiveSerializeUtil.unserialize(folder, getName());
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		return weapon;
+	}
 	
 	/* (non-Javadoc)
 	 * @see cn.nju.game.role.Target#clone()
@@ -178,6 +193,8 @@ public abstract class Commander extends Target implements Recoverable {
 	 */
 	public void improveEnergy(int energyVal) {
 		this.energy += energyVal;
+		setChanged();
+		notifyObservers(this);
 	}
 	
 }

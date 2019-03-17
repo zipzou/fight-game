@@ -42,9 +42,13 @@ import cn.nju.game.model.vo.SkillVO;
 import cn.nju.game.role.Commander;
 import cn.nju.game.service.OnlineCommander;
 import cn.nju.game.service.RoleService;
+import cn.nju.game.service.StageService;
 import cn.nju.game.skill.DeleteEquipItemListener;
 import cn.nju.game.skill.SkillLeveledPool;
 import cn.nju.game.ui.handler.SkillUpgradeListener;
+import cn.nju.game.ui.handler.StartFightMouseHandler;
+import cn.nju.game.ui.handler.StrengthWeaponLeadingListener;
+import cn.nju.game.ui.handler.StrengthWeaponTailListener;
 import cn.nju.game.ui.util.BoundsUtil;
 import cn.nju.game.ui.util.CommanderModelUtilFactory;
 import cn.nju.game.ui.util.EquipmentModelUtilFactory;
@@ -58,8 +62,9 @@ public class GameClientWindow extends JFrame {
 	private static final int W = 800;
 	private static final int H = 600;
 	private RoleService roleService;
+	private StageService stageService;
 	
-	private List<Object> equipmentsInBag = new ArrayList<Object>(Bag.CAPACITY);
+	private List<String> equipmentsInBag = new ArrayList<String>(Bag.CAPACITY);
 	
 	/**
 	 * 
@@ -70,6 +75,8 @@ public class GameClientWindow extends JFrame {
 	private JTable tableSkills;
 	private JTable tableOnlineCommanders;
 	private JPanel[] rowPanels;
+	private JButton buttonAddToBag;
+	private JLabel lblCommanderName;
 
 	public void showInCenter(JFrame parent) {
 		setBounds(BoundsUtil.getCenterOwnerBounds(parent, W, H));
@@ -79,7 +86,8 @@ public class GameClientWindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GameClientWindow(RoleService service) {
+	public GameClientWindow(RoleService service, StageService stageService) {
+		this.stageService = stageService;
 		setResizable(false);
 		roleService = service;
 		CommanderBasicVO commanderBasic = roleService.getCommanderBasic();
@@ -96,26 +104,26 @@ public class GameClientWindow extends JFrame {
 		lblCommanderInfo.setBounds(6, 6, 230, 250);
 		contentPane.add(lblCommanderInfo);
 		
-		JLabel label = new JLabel("");
-		label.setBounds(6, 18, 100, 128);
+		JLabel lblIcon = new JLabel();
+		lblIcon.setBounds(6, 18, 100, 128);
 		try {
 			ImageIcon imageIcon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/" + commanderBasic.getIcon())));
-			label.setIcon(imageIcon);
+			lblIcon.setIcon(imageIcon);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		lblCommanderInfo.setLayout(null);
-		lblCommanderInfo.add(label);
+		lblCommanderInfo.add(lblIcon);
 		
-		JLabel lblCommanderName = new JLabel(commanderBasic.getName());
+		lblCommanderName = new JLabel(commanderBasic.getName());
 		lblCommanderName.setBounds(113, 18, 114, 16);
 		lblCommanderInfo.add(lblCommanderName);
 		
-		JLabel lblNewLabel = new JLabel(commanderBasic.getJob());
-		lblNewLabel.setBounds(113, 36, 114, 16);
-		lblCommanderInfo.add(lblNewLabel);
+		JLabel lblJob = new JLabel(commanderBasic.getJob());
+		lblJob.setBounds(113, 36, 114, 16);
+		lblCommanderInfo.add(lblJob);
 		
 		JLabel lblLevel = new JLabel(commanderBasic.getLevel() + "");
 		lblLevel.setBounds(113, 54, 114, 16);
@@ -129,6 +137,30 @@ public class GameClientWindow extends JFrame {
 		lblWeapon.setToolTipText(roleService.getWeaponVo().getDescription());
 		lblWeapon.setBounds(113, 90, 114, 16);
 		lblCommanderInfo.add(lblWeapon);
+		
+		JButton buttonStart = new JButton("确认并开始竞技");
+		StartFightMouseHandler startFightMouseHandler = new StartFightMouseHandler();
+		buttonStart.addMouseListener(startFightMouseHandler);
+		startFightMouseHandler.setContext(this);
+		startFightMouseHandler.setStageService(stageService);
+		buttonStart.setBounds(59, 199, 117, 29);
+		lblCommanderInfo.add(buttonStart);
+		
+		JButton buttonStrengthLeading = new JButton("加强武器头部");
+		buttonStrengthLeading.setBounds(110, 110, 117, 29);
+		StrengthWeaponLeadingListener strengthWeaponLeadingListener = new StrengthWeaponLeadingListener();
+		strengthWeaponLeadingListener.setObservrLabel(lblWeapon);
+		strengthWeaponLeadingListener.setRoleService(roleService);
+		buttonStrengthLeading.addMouseListener(strengthWeaponLeadingListener);
+		lblCommanderInfo.add(buttonStrengthLeading);
+		
+		JButton buttonStrengthTail = new JButton("加强武器尾部");
+		buttonStrengthTail.setBounds(110, 136, 117, 29);
+		StrengthWeaponTailListener strengthWeaponTailListener = new StrengthWeaponTailListener();
+		strengthWeaponTailListener.setObservrLabel(lblWeapon);
+		strengthWeaponTailListener.setRoleService(roleService);
+		buttonStrengthTail.addMouseListener(strengthWeaponTailListener);
+		lblCommanderInfo.add(buttonStrengthTail);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(248, 6, 546, 250);
@@ -179,6 +211,21 @@ public class GameClientWindow extends JFrame {
 			}
 		}
 		tableEquipments = new JTable();
+		tableEquipments.addMouseListener(new MouseAdapter() {
+
+			/* (non-Javadoc)
+			 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
+			 */
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int clickCount = e.getClickCount();
+				int rowIndex = tableEquipments.rowAtPoint(e.getPoint());
+				tableEquipments.setRowSelectionInterval(rowIndex, rowIndex);
+				if (2 <= clickCount) {
+					buttonAddToBag.doClick();
+				}
+			}
+		});
 		Object[][] rows = new Object[equipVals.size()][];
 		int i = 0;
 		for (Object[] objects : equipVals) {
@@ -196,7 +243,7 @@ public class GameClientWindow extends JFrame {
 		panelEquipments.add(tableEquipments, BorderLayout.CENTER);
 		panelEquipments.add(tableEquipments.getTableHeader(), BorderLayout.NORTH);
 		
-		JButton buttonAddToBag = new JButton("添加到背包");
+		buttonAddToBag = new JButton("添加到背包");
 		final JFrame that = this;
 		buttonAddToBag.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -206,7 +253,7 @@ public class GameClientWindow extends JFrame {
 				} else {
 					for (int rowIndex : selectedRows) {
 						Object equip = ((DefaultTableModel) tableEquipments.getModel()).getValueAt(rowIndex, 0);
-						equipmentsInBag.add(equip);
+						equipmentsInBag.add(equip.toString());
 					}
 					paintEquipments();
 				}
@@ -374,8 +421,11 @@ public class GameClientWindow extends JFrame {
 		panelOnlineCommanderTableContainer.setLayout(new BorderLayout(0, 0));
 		
 		tableOnlineCommanders = new JTable();
+		tableOnlineCommanders.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		panelOnlineCommanderTableContainer.add(tableOnlineCommanders);
 		panelOnlineCommanderTableContainer.add(tableOnlineCommanders.getTableHeader(), BorderLayout.NORTH);
+		startFightMouseHandler.setTableCommander(tableOnlineCommanders);
+		startFightMouseHandler.setTableSkills(tableSkills);
 		
 		// 在线召唤师获取
 		List<Commander> allCommanders = OnlineCommander.sharedCommanders().getAllOnlines();
@@ -428,6 +478,9 @@ public class GameClientWindow extends JFrame {
 			@Override
 			public boolean isCellEditable(int row, int column) { return false; }
 		});
+		
+		// 设置开始处理类参数
+		startFightMouseHandler.setEquipments(equipmentsInBag);
 	}
 
 	/**
@@ -456,5 +509,32 @@ public class GameClientWindow extends JFrame {
 	public void setRoleService(RoleService roleService) {
 		this.roleService = roleService;
 	}
-	
+
+	/**
+	 * @return the stageService
+	 */
+	public StageService getStageService() {
+		return stageService;
+	}
+
+	/**
+	 * @param stageService the stageService to set
+	 */
+	public void setStageService(StageService stageService) {
+		this.stageService = stageService;
+	}
+
+	/**
+	 * @return the lblCommanderName
+	 */
+	public JLabel getLblCommanderName() {
+		return lblCommanderName;
+	}
+
+	/**
+	 * @param lblCommanderName the lblCommanderName to set
+	 */
+	public void setLblCommanderName(JLabel lblCommanderName) {
+		this.lblCommanderName = lblCommanderName;
+	}
 }
