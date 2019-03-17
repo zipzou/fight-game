@@ -2,6 +2,9 @@ package cn.nju.game.ui;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -13,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -23,6 +27,7 @@ import cn.nju.game.model.vo.CommanderBasicVO;
 import cn.nju.game.model.vo.SkillVO;
 import cn.nju.game.service.SkillService;
 import cn.nju.game.service.StageService;
+import cn.nju.game.service.impl.SkillServiceImpl;
 import cn.nju.game.ui.handler.AttackHandler;
 
 public class FightStageFrame extends JFrame implements Observer {
@@ -48,13 +53,16 @@ public class FightStageFrame extends JFrame implements Observer {
 	private JLabel lblSkillArrow2;
 	private JList<String> listSkillToExec2;
 	private JButton buttonAttack2;
-	private SkillService skillService;
+	private SkillService skillServiceForFir;
+	private SkillService skillServiceForSec;
 
 	/**
 	 * Create the frame.
 	 */
 	public FightStageFrame(StageService stageService) {
 		this.stageService = stageService;
+		this.skillServiceForFir = new SkillServiceImpl();
+		this.skillServiceForSec = new SkillServiceImpl();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 600);
 		contentPane = new JPanel();
@@ -80,6 +88,25 @@ public class FightStageFrame extends JFrame implements Observer {
 		listSkillReady1 = new JList<String>();
 		listSkillReady1.setBounds(7, 18, 83, 157);
 		listSkillReady1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		final StageService thatStageService = stageService;
+		listSkillReady1.addMouseListener(new MouseAdapter() {
+			/* (non-Javadoc)
+			 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
+			 */
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				if (2 <= e.getClickCount()) {
+					// 双击
+					int index = listSkillReady1.locationToIndex(e.getPoint());
+					listSkillReady1.setSelectionInterval(index, index);
+					SkillVO skillInfo = thatStageService.getSkills(0).get(index);
+					skillServiceForFir.addSkill(skillInfo.getName(), skillInfo.getLevel());
+					DefaultListModel<String> model = (DefaultListModel<String>) listSkillToExec1.getModel();
+					model.addElement(skillInfo.getName() + "(" + skillInfo.getLevel() + "级)");
+				}
+			}
+		});
 		panelSkills1.add(listSkillReady1);
 		
 		label = new JLabel(">>");
@@ -148,6 +175,24 @@ public class FightStageFrame extends JFrame implements Observer {
 		listSkillReady2.setBounds(7, 18, 83, 157);
 		listSkillReady2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		panelSkills2.add(listSkillReady2);
+		listSkillReady2.addMouseListener(new MouseAdapter() {
+			/* (non-Javadoc)
+			 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
+			 */
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				if (2 <= e.getClickCount()) {
+					// 双击
+					int index = listSkillReady1.locationToIndex(e.getPoint());
+					listSkillReady2.setSelectionInterval(index, index);
+					SkillVO skillInfo = thatStageService.getSkills(0).get(index);
+					skillServiceForSec.addSkill(skillInfo.getName(), skillInfo.getLevel());
+					DefaultListModel<String> model = (DefaultListModel<String>) listSkillToExec2.getModel();
+					model.addElement(skillInfo.getName() + "(" + skillInfo.getLevel() + "级)");
+				}
+			}
+		});
 		
 		lblSkillArrow2 = new JLabel(">>");
 		lblSkillArrow2.setBounds(95, 18, 20, 157);
@@ -257,6 +302,10 @@ public class FightStageFrame extends JFrame implements Observer {
 		}
 		listSkillReady2.setModel(listModel2);
 		
+		// 为结果技能添加默认模型
+		listSkillToExec1.setModel(new DefaultListModel<String>());
+		listSkillToExec2.setModel(new DefaultListModel<String>());
+		
 		// 召唤师信息
 		CommanderBasicVO commanderInfoFir = stageService.getCommanderInfo(0);
 		progressHealth1.setMaximum(commanderInfoFir.getHealth());
@@ -297,17 +346,30 @@ public class FightStageFrame extends JFrame implements Observer {
 	}
 
 	/**
-	 * @return the skillService
+	 * @return the skillServiceForFir
 	 */
-	public SkillService getSkillService() {
-		return skillService;
+	public SkillService getSkillServiceForFir() {
+		return skillServiceForFir;
 	}
 
 	/**
-	 * @param skillService the skillService to set
+	 * @param skillServiceForFir the skillServiceForFir to set
 	 */
-	public void setSkillService(SkillService skillService) {
-		this.skillService = skillService;
+	public void setSkillServiceForFir(SkillService skillServiceForFir) {
+		this.skillServiceForFir = skillServiceForFir;
 	}
-	
+
+	/**
+	 * @return the skillServiceForSec
+	 */
+	public SkillService getSkillServiceForSec() {
+		return skillServiceForSec;
+	}
+
+	/**
+	 * @param skillServiceForSec the skillServiceForSec to set
+	 */
+	public void setSkillServiceForSec(SkillService skillServiceForSec) {
+		this.skillServiceForSec = skillServiceForSec;
+	}
 }

@@ -24,7 +24,11 @@ public class AttackHandler extends MouseAdapter {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		super.mouseClicked(e);
-		context.getStageService().attack(index, context.getSkillService());
+		if (1 == index) {
+			context.getStageService().attack(index, context.getSkillServiceForFir());
+		} else if (2 == index) {
+			context.getStageService().attack(index, context.getSkillServiceForSec());
+		}
 	}
 
 	/**

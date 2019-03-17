@@ -203,7 +203,7 @@ public class StageServiceImpl implements StageService {
 	 */
 	public void attack(int i, SkillService skills) {
 		CommanderPartner partner = attackers.get(commandersInfo.get(i - 1).getName());
-//		partner.setSkill(skills.composedSkills());
+		partner.setSkill(skills.composedSkills()); // TODO: Debug it
 		partner.attack();
 	}
 }
