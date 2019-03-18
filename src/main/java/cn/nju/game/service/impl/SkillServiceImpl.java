@@ -26,7 +26,7 @@ public class SkillServiceImpl implements SkillService {
 	 * @see cn.nju.game.service.SkillService#addSkill(java.lang.String)
 	 */
 	public void addSkill(String skillName, int level) {
-		skillGroup.add(SkillLeveledPool.sharedPool().getSkill(skillName, 0)); // TODO: complete level
+		skillGroup.add(SkillLeveledPool.sharedPool().getSkill(skillName, level));
 	}
 
 	/* (non-Javadoc)

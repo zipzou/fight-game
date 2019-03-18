@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -16,7 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -29,8 +27,41 @@ import cn.nju.game.service.SkillService;
 import cn.nju.game.service.StageService;
 import cn.nju.game.service.impl.SkillServiceImpl;
 import cn.nju.game.ui.handler.AttackHandler;
+import cn.nju.game.ui.handler.CancelSkillHandler;
+import cn.nju.game.ui.handler.CommanderPartnerCancel;
 
 public class FightStageFrame extends JFrame implements Observer {
+	private final class SkillReadyHandler extends MouseAdapter {
+		private final StageService thatStageService;
+		private SkillService skillService;
+		private final JList<String> from;
+		private final JList<String> to;
+		private int commanderIndex;
+
+		private SkillReadyHandler(StageService thatStageService, JList<String> from, JList<String> to) {
+			this.thatStageService = thatStageService;
+			this.from = from;
+			this.to = to;
+		}
+
+		/* (non-Javadoc)
+		 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
+		 */
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			super.mouseClicked(e);
+			if (2 <= e.getClickCount()) {
+				// 双击
+				int index = from.locationToIndex(e.getPoint());
+				from.setSelectionInterval(index, index);
+				SkillVO skillInfo = thatStageService.getSkills(commanderIndex).get(index);
+				skillService.addSkill(skillInfo.getName(), skillInfo.getLevel());
+				DefaultListModel<String> model = (DefaultListModel<String>) to.getModel();
+				model.addElement(skillInfo.getName() + "(" + skillInfo.getLevel() + "级)");
+			}
+		}
+	}
+
 	private static final long serialVersionUID = 5429368522806549660L;
 	private JPanel contentPane;
 	private StageService stageService;
@@ -63,7 +94,7 @@ public class FightStageFrame extends JFrame implements Observer {
 		this.stageService = stageService;
 		this.skillServiceForFir = new SkillServiceImpl();
 		this.skillServiceForSec = new SkillServiceImpl();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -89,24 +120,6 @@ public class FightStageFrame extends JFrame implements Observer {
 		listSkillReady1.setBounds(7, 18, 83, 157);
 		listSkillReady1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		final StageService thatStageService = stageService;
-		listSkillReady1.addMouseListener(new MouseAdapter() {
-			/* (non-Javadoc)
-			 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
-			 */
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				super.mouseClicked(e);
-				if (2 <= e.getClickCount()) {
-					// 双击
-					int index = listSkillReady1.locationToIndex(e.getPoint());
-					listSkillReady1.setSelectionInterval(index, index);
-					SkillVO skillInfo = thatStageService.getSkills(0).get(index);
-					skillServiceForFir.addSkill(skillInfo.getName(), skillInfo.getLevel());
-					DefaultListModel<String> model = (DefaultListModel<String>) listSkillToExec1.getModel();
-					model.addElement(skillInfo.getName() + "(" + skillInfo.getLevel() + "级)");
-				}
-			}
-		});
 		panelSkills1.add(listSkillReady1);
 		
 		label = new JLabel(">>");
@@ -123,12 +136,14 @@ public class FightStageFrame extends JFrame implements Observer {
 		panelSkills1.add(buttonAttack1);
 		AttackHandler attackHandler1 = new AttackHandler();
 		attackHandler1.setContext(this);
+		attackHandler1.setSkillService(skillServiceForFir);
 		attackHandler1.setIndex(1);
 		buttonAttack1.addMouseListener(attackHandler1);
 		
 		JButton buttonCancel1 = new JButton("撤销");
 		buttonCancel1.setBounds(205, 90, 75, 29);
 		panelSkills1.add(buttonCancel1);
+		
 		
 		JPanel panelCommanderInfo1 = new JPanel();
 		panelCommanderInfo1.setBorder(new TitledBorder(null, "\u53EC\u5524\u5E08\u4FE1\u606F", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -175,24 +190,6 @@ public class FightStageFrame extends JFrame implements Observer {
 		listSkillReady2.setBounds(7, 18, 83, 157);
 		listSkillReady2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		panelSkills2.add(listSkillReady2);
-		listSkillReady2.addMouseListener(new MouseAdapter() {
-			/* (non-Javadoc)
-			 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
-			 */
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				super.mouseClicked(e);
-				if (2 <= e.getClickCount()) {
-					// 双击
-					int index = listSkillReady1.locationToIndex(e.getPoint());
-					listSkillReady2.setSelectionInterval(index, index);
-					SkillVO skillInfo = thatStageService.getSkills(0).get(index);
-					skillServiceForSec.addSkill(skillInfo.getName(), skillInfo.getLevel());
-					DefaultListModel<String> model = (DefaultListModel<String>) listSkillToExec2.getModel();
-					model.addElement(skillInfo.getName() + "(" + skillInfo.getLevel() + "级)");
-				}
-			}
-		});
 		
 		lblSkillArrow2 = new JLabel(">>");
 		lblSkillArrow2.setBounds(95, 18, 20, 157);
@@ -209,6 +206,7 @@ public class FightStageFrame extends JFrame implements Observer {
 		AttackHandler attackHandler2 = new AttackHandler();
 		attackHandler2.setContext(this);
 		attackHandler2.setIndex(1);
+		attackHandler2.setSkillService(skillServiceForSec);
 		buttonAttack2.addMouseListener(attackHandler2);
 		
 		JButton buttonCancel2 = new JButton("撤销");
@@ -243,6 +241,31 @@ public class FightStageFrame extends JFrame implements Observer {
 		setResizable(false);
 		
 		bindData();
+		
+		// 延后事件绑定
+		SkillReadyHandler readyHandler1 = new SkillReadyHandler(thatStageService, listSkillReady1, listSkillToExec1);
+		readyHandler1.commanderIndex = 0;
+		readyHandler1.skillService = skillServiceForFir;
+		listSkillReady1.addMouseListener(readyHandler1);
+		
+		SkillReadyHandler skillHandler2 = new SkillReadyHandler(thatStageService, listSkillReady2, listSkillToExec2);
+		skillHandler2.skillService = skillServiceForSec;
+		readyHandler1.commanderIndex = 1;
+		listSkillReady2.addMouseListener(skillHandler2);
+		
+		CancelSkillHandler cancelSkillHandler1 = new CancelSkillHandler();
+		CommanderPartnerCancel firstPartnerCancel = new CommanderPartnerCancel();
+		cancelSkillHandler1.setCancel(firstPartnerCancel);
+		firstPartnerCancel.setSkillService(skillServiceForFir);
+		firstPartnerCancel.setContext(listSkillToExec1);
+		buttonCancel1.addMouseListener(cancelSkillHandler1);
+		
+		CommanderPartnerCancel secondPartnerCancel = new CommanderPartnerCancel();
+		secondPartnerCancel.setSkillService(skillServiceForSec);
+		secondPartnerCancel.setContext(listSkillToExec2);
+		CancelSkillHandler cancelSkillHandler2 = new CancelSkillHandler();
+		cancelSkillHandler2.setCancel(secondPartnerCancel);
+		buttonCancel2.addMouseListener(cancelSkillHandler2);
 	}
 
 	/**

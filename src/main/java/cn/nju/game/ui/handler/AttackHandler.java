@@ -6,6 +6,7 @@ package cn.nju.game.ui.handler;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import cn.nju.game.service.SkillService;
 import cn.nju.game.ui.FightStageFrame;
 
 /**
@@ -17,6 +18,7 @@ public class AttackHandler extends MouseAdapter {
 
 	private FightStageFrame context;
 	private int index;
+	private SkillService skillService;
 	
 	/* (non-Javadoc)
 	 * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
@@ -24,11 +26,7 @@ public class AttackHandler extends MouseAdapter {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		super.mouseClicked(e);
-		if (1 == index) {
-			context.getStageService().attack(index, context.getSkillServiceForFir());
-		} else if (2 == index) {
-			context.getStageService().attack(index, context.getSkillServiceForSec());
-		}
+		context.getStageService().attack(index, skillService);
 	}
 
 	/**
@@ -57,5 +55,19 @@ public class AttackHandler extends MouseAdapter {
 	 */
 	public void setIndex(int index) {
 		this.index = index;
+	}
+
+	/**
+	 * @return the skillService
+	 */
+	public SkillService getSkillService() {
+		return skillService;
+	}
+
+	/**
+	 * @param skillService the skillService to set
+	 */
+	public void setSkillService(SkillService skillService) {
+		this.skillService = skillService;
 	}
 }
