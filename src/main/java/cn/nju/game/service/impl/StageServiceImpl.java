@@ -5,9 +5,9 @@ package cn.nju.game.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -23,6 +23,7 @@ import cn.nju.game.role.MagicalMonster;
 import cn.nju.game.role.MonsterPartner;
 import cn.nju.game.role.PhysicalMonster;
 import cn.nju.game.role.StageFightMediator;
+import cn.nju.game.role.StagePartner;
 import cn.nju.game.role.StagePartnerMediator;
 import cn.nju.game.role.Target;
 import cn.nju.game.service.OnlineCommander;
@@ -58,7 +59,8 @@ public class StageServiceImpl implements StageService {
 	 * @see cn.nju.game.service.StageService#registerPartner(java.lang.String, java.util.List, java.util.List)
 	 */
 	public void registerPartner(String commanderName, List<String> equipments, List<SkillVO> skills) {
-		CommanderBasicVO commanderInfo = OnlineCommander.sharedCommanders().get(commanderName).getBasicVO();
+		Commander commander = OnlineCommander.sharedCommanders().get(commanderName);
+		CommanderBasicVO commanderInfo = commander.getBasicVO();
 		commandersInfo.add(commanderInfo);
 		equipmentsForCommander.put(commanderName, equipments);
 		skillsForCommander.put(commanderName, skills);
@@ -102,12 +104,21 @@ public class StageServiceImpl implements StageService {
 				Skill skill = SkillLeveledPool.sharedPool().getSkill(skillItem.getName(), skillItem.getLevel());
 				skills.add(skill);
 			}
+			
 			CommanderPartner commanderPartner = new CommanderPartner(equipBag, weapon, null);
 			try {
-				commanderPartner.setTarget(commander.clone());
-			} catch (CloneNotSupportedException e) {
-				e.printStackTrace();
-			} // 使用原型模式
+				commander = commander.clone();// 使用原型模式
+				// 需要重新根据装备计算生命值
+				int sum = 0;
+				for (String equipname : equipNames) {
+					sum += EquipmentShop.sharedPool().getEquipment(equipname).computeHealthImproved();
+				}
+				commander.improveHealth(sum);
+				commanderBasicVO.setHealth(commander.getHealth());
+			} catch (CloneNotSupportedException e1) {
+				e1.printStackTrace();
+			}
+			commanderPartner.setTarget(commander);
 			// 创建代理
 			CommanderAttackProxy attackerProxy = new CommanderAttackProxy(equipBag, weapon, null);
 			attackerProxy.setAttacker(commanderPartner);
@@ -153,8 +164,9 @@ public class StageServiceImpl implements StageService {
 	 * @see cn.nju.game.service.StageService#registerPartnerObserver(java.util.Observer)
 	 */
 	public void registerPartnerObserver(Observer observer) {
-		for (Entry<String, CommanderPartner> attackerKey : attackers.entrySet()) {
-			attackerKey.getValue().getTarget().addObserver(observer);
+		Iterator<StagePartner> it = fightMediator.getAllPartners().iterator();
+		while (it.hasNext()) {
+			it.next().getTarget().addObserver(observer);
 		}
 	}
 
@@ -202,8 +214,54 @@ public class StageServiceImpl implements StageService {
 	 * @see cn.nju.game.service.StageService#attack(int, cn.nju.game.service.SkillService)
 	 */
 	public void attack(int i, SkillService skills) {
+		if (-1 == i) {
+			// 野怪攻击
+			Iterable<StagePartner> allPartners = fightMediator.getAllPartners();
+			for (StagePartner stagePartner : allPartners) {
+				if (stagePartner instanceof MonsterPartner) {
+					stagePartner.attack();
+				}
+			}
+			return;
+		}
 		CommanderPartner partner = attackers.get(commandersInfo.get(i - 1).getName());
 		partner.setSkill(skills.composedSkills()); // TODO: Debug it
 		partner.attack();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.service.StageService#clearDied()
+	 */
+	public void clearDied() {
+		Iterable<StagePartner> allPartners = fightMediator.getAllPartners();
+		Iterator<StagePartner> partnerIt = allPartners.iterator();
+		while (partnerIt.hasNext()) {
+			StagePartner stagePartner = partnerIt.next();
+			if (stagePartner instanceof MonsterPartner && !stagePartner.getTarget().isAlive()) {
+//				partnerIt.remove();
+			}
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.service.StageService#getWinner()
+	 */
+	public CommanderBasicVO getWinner() {
+		Iterator<StagePartner> partnerIt = fightMediator.getAllPartners().iterator();
+		int alive = 0;
+		Target winner = null;
+		while (partnerIt.hasNext()) {
+			Target attackerTarget = partnerIt.next().getTarget();
+			if (attackerTarget.isAlive()) {
+				if (attackerTarget instanceof Commander) {
+					alive++;
+					winner = attackerTarget;
+				}
+			}
+		}
+		if (1 >= alive) {
+			return ((Commander) winner).getBasicVO();
+		}
+		return null;
 	}
 }

@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -47,6 +48,7 @@ public class StartFightMouseHandler extends MouseAdapter {
 			targetGameClient.setBounds(bounds);
 			targetGameClient.setVisible(true);
 			targetGameClient.setTitle("召唤师：" + commanderName);
+			targetGameClient.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			
 		} else {
 			MonsterConfigFrame monsterConfigFrame = new MonsterConfigFrame(stageService);
@@ -55,6 +57,7 @@ public class StartFightMouseHandler extends MouseAdapter {
 			monsterConfigFrame.setBounds(centerBounds);
 //			stageService.ready();
 			monsterConfigFrame.setVisible(true);
+			monsterConfigFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		}
 		
 		int[] selectedSkillsIndex = tableSkills.getSelectedRows();

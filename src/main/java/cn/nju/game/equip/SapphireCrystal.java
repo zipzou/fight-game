@@ -10,6 +10,7 @@ package cn.nju.game.equip;
  */
 @Deprecated
 public class SapphireCrystal extends Equipment {
+	private static final long serialVersionUID = 1602415326500991374L;
 	/**
 	 * 装备名称
 	 */

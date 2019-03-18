@@ -11,6 +11,10 @@ package cn.nju.game.equip;
 @Deprecated
 public class SawtoothDagger extends ComposedEquipment {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2402399085529984649L;
+	/**
 	 * 装备名称
 	 */
 	private static final String EQUIPMENT_NAME = "锯齿短匕";

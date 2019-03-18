@@ -27,6 +27,7 @@ public class AttackHandler extends MouseAdapter {
 	public void mouseClicked(MouseEvent e) {
 		super.mouseClicked(e);
 		context.getStageService().attack(index, skillService);
+		context.nextState();
 	}
 
 	/**

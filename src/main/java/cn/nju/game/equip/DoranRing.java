@@ -10,7 +10,7 @@ package cn.nju.game.equip;
  */
 @Deprecated
 public class DoranRing extends Equipment {
-
+	private static final long serialVersionUID = 3968576532927259751L;
 	/**
 	 * 装备名称
 	 */

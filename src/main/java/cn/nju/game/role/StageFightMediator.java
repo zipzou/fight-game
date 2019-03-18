@@ -3,8 +3,8 @@
  */
 package cn.nju.game.role;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.log4j.Logger;
 
@@ -24,7 +24,7 @@ public class StageFightMediator implements StagePartnerMediator {
 	 */
 	public StageFightMediator() {
 		super();
-		partners = new HashSet<StagePartner>();
+		partners = new TreeSet<StagePartner>();
 	}
 
 	/* (non-Javadoc)
@@ -37,7 +37,7 @@ public class StageFightMediator implements StagePartnerMediator {
 					LOG.info("Start attacking :" + source.getTarget().getName() + " -> " + item.getTarget().getName());
 					LOG.info("The " + item.getTarget().getName() + "'s health is :" + item.getTarget().getHealth());
 				}
-				if (source instanceof CommanderPartner) {
+				if (source instanceof CommanderPartner  && item != source) {
 					item.attacked(source.getTarget(), ((CommanderPartner) source).getWeapon(), ((CommanderPartner) source).getEquipments(), ((CommanderPartner) source).getSkill());
 				} else {
 					item.attacked(source.getTarget(), null, null, null);
@@ -63,4 +63,12 @@ public class StageFightMediator implements StagePartnerMediator {
 	public void unregister(StagePartner partner) {
 		partners.remove(partner);
 	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.role.StagePartnerMediator#getAllPartners()
+	 */
+	public Iterable<StagePartner> getAllPartners() {
+		return partners;
+	}
+	
 }

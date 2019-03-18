@@ -12,7 +12,6 @@ import cn.nju.game.fight.DamageComputorManager;
 import cn.nju.game.fight.DefenceComputorManager;
 import cn.nju.game.model.vo.DamageVO;
 import cn.nju.game.model.vo.DefenceVO;
-import cn.nju.game.skill.ComposedSkill;
 import cn.nju.game.skill.Skill;
 import cn.nju.game.weapon.DamageComputable;
 import cn.nju.game.weapon.Weapon;
@@ -35,6 +34,12 @@ public class MonsterPartner extends StagePartner implements Attacked {
 		}
 		if (null == equipments) {
 			equipments = new EquipmentBag();
+		}
+		if (source instanceof PhysicalMonster || source instanceof MagicalMonster) {
+			if (LOG.isInfoEnabled()) {
+				LOG.info("Monster doesnot attack monsters.");
+			}
+			return;
 		}
 		DamageComputor damageComputor = new DamageComputorManager(source, weapon, equipments, skill);
 		DamageVO damage = damageComputor.compute();

@@ -10,6 +10,7 @@ package cn.nju.game.equip;
  */
 @Deprecated
 public class LongSword extends Equipment {
+	private static final long serialVersionUID = -2221015970929875877L;
 	/**
 	 * 装备名称
 	 */

@@ -10,6 +10,7 @@ package cn.nju.game.equip;
  */
 @Deprecated
 public class FiendishCodex extends ComposedEquipment {
+	private static final long serialVersionUID = 4588533038797309355L;
 	/**
 	 * 装备名称
 	 */

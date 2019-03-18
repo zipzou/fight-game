@@ -10,6 +10,7 @@ package cn.nju.game.equip;
  */
 @Deprecated
 public class AmplifyingTome extends ComposedEquipment {
+	private static final long serialVersionUID = 600997368538400189L;
 	/**
 	 * 装备名称
 	 */

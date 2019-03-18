@@ -10,6 +10,7 @@ package cn.nju.game.equip;
  */
 @Deprecated
 public class DoranBlade extends Equipment {
+	private static final long serialVersionUID = 8193913162967425782L;
 	/**
 	 * 装备名称
 	 */

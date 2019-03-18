@@ -23,12 +23,17 @@ import javax.swing.border.TitledBorder;
 
 import cn.nju.game.model.vo.CommanderBasicVO;
 import cn.nju.game.model.vo.SkillVO;
+import cn.nju.game.role.Commander;
+import cn.nju.game.role.Target;
 import cn.nju.game.service.SkillService;
 import cn.nju.game.service.StageService;
 import cn.nju.game.service.impl.SkillServiceImpl;
 import cn.nju.game.ui.handler.AttackHandler;
 import cn.nju.game.ui.handler.CancelSkillHandler;
 import cn.nju.game.ui.handler.CommanderPartnerCancel;
+import cn.nju.game.ui.state.FightState;
+import cn.nju.game.ui.state.FirstPartnerOperationState;
+import cn.nju.game.ui.state.MonsterOperationState;
 
 public class FightStageFrame extends JFrame implements Observer {
 	private final class SkillReadyHandler extends MouseAdapter {
@@ -86,6 +91,11 @@ public class FightStageFrame extends JFrame implements Observer {
 	private JButton buttonAttack2;
 	private SkillService skillServiceForFir;
 	private SkillService skillServiceForSec;
+	private FightState curState;
+	private JLabel lblHealthTip2;
+	private JLabel lblEnergyTip2;
+	private JLabel lblHealthTip1;
+	private JLabel lblEnergyTip1;
 
 	/**
 	 * Create the frame.
@@ -134,11 +144,6 @@ public class FightStageFrame extends JFrame implements Observer {
 		buttonAttack1 = new JButton("攻击");
 		buttonAttack1.setBounds(205, 60, 75, 29);
 		panelSkills1.add(buttonAttack1);
-		AttackHandler attackHandler1 = new AttackHandler();
-		attackHandler1.setContext(this);
-		attackHandler1.setSkillService(skillServiceForFir);
-		attackHandler1.setIndex(1);
-		buttonAttack1.addMouseListener(attackHandler1);
 		
 		JButton buttonCancel1 = new JButton("撤销");
 		buttonCancel1.setBounds(205, 90, 75, 29);
@@ -156,20 +161,28 @@ public class FightStageFrame extends JFrame implements Observer {
 		
 		progressHealth1 = new JProgressBar();
 		progressHealth1.setValue(50);
-		progressHealth1.setBounds(127, 69, 146, 20);
+		progressHealth1.setBounds(60, 69, 146, 20);
 		panelCommanderInfo1.add(progressHealth1);
 		
 		JLabel lblHealth1 = new JLabel("生命值");
-		lblHealth1.setBounds(54, 71, 61, 16);
+		lblHealth1.setBounds(10, 71, 46, 16);
 		panelCommanderInfo1.add(lblHealth1);
 		
 		progressEnergy1 = new JProgressBar();
-		progressEnergy1.setBounds(127, 101, 146, 20);
+		progressEnergy1.setBounds(60, 101, 146, 20);
 		panelCommanderInfo1.add(progressEnergy1);
 		
 		JLabel lblEnergy1 = new JLabel("能量值");
-		lblEnergy1.setBounds(54, 103, 61, 16);
+		lblEnergy1.setBounds(10, 103, 46, 16);
 		panelCommanderInfo1.add(lblEnergy1);
+		
+		lblHealthTip1 = new JLabel("1/100");
+		lblHealthTip1.setBounds(210, 71, 65, 16);
+		panelCommanderInfo1.add(lblHealthTip1);
+		
+		lblEnergyTip1 = new JLabel("1/100");
+		lblEnergyTip1.setBounds(210, 103, 65, 16);
+		panelCommanderInfo1.add(lblEnergyTip1);
 		
 		JPanel panelCommander2 = new JPanel();
 		panelCommander2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "召唤师2", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -203,11 +216,6 @@ public class FightStageFrame extends JFrame implements Observer {
 		buttonAttack2 = new JButton("攻击");
 		buttonAttack2.setBounds(205, 60, 75, 29);
 		panelSkills2.add(buttonAttack2);
-		AttackHandler attackHandler2 = new AttackHandler();
-		attackHandler2.setContext(this);
-		attackHandler2.setIndex(1);
-		attackHandler2.setSkillService(skillServiceForSec);
-		buttonAttack2.addMouseListener(attackHandler2);
 		
 		JButton buttonCancel2 = new JButton("撤销");
 		buttonCancel2.setBounds(205, 90, 75, 29);
@@ -224,23 +232,36 @@ public class FightStageFrame extends JFrame implements Observer {
 		
 		progressHealth2 = new JProgressBar();
 		progressHealth2.setValue(50);
-		progressHealth2.setBounds(127, 69, 146, 20);
+		progressHealth2.setBounds(60, 69, 146, 20);
 		panelCommanderInfo2.add(progressHealth2);
 		
 		JLabel lblHealth2 = new JLabel("生命值");
-		lblHealth2.setBounds(54, 71, 61, 16);
+		lblHealth2.setBounds(10, 71, 46, 16);
 		panelCommanderInfo2.add(lblHealth2);
 		
 		progressEnergy2 = new JProgressBar();
-		progressEnergy2.setBounds(127, 101, 146, 20);
+		progressEnergy2.setBounds(60, 101, 146, 20);
 		panelCommanderInfo2.add(progressEnergy2);
 		
 		JLabel lblEnergy2 = new JLabel("能量值");
-		lblEnergy2.setBounds(54, 103, 61, 16);
+		lblEnergy2.setBounds(10, 103, 46, 16);
 		panelCommanderInfo2.add(lblEnergy2);
+		
+		lblHealthTip2 = new JLabel("1/100");
+		lblHealthTip2.setBounds(210, 71, 65, 16);
+		panelCommanderInfo2.add(lblHealthTip2);
+		
+		lblEnergyTip2 = new JLabel("1/100");
+		lblEnergyTip2.setBounds(210, 103, 65, 16);
+		panelCommanderInfo2.add(lblEnergyTip2);
+		
 		setResizable(false);
 		
 		bindData();
+		
+		// 状态控制
+		curState = new FirstPartnerOperationState(this);
+		curState.update();
 		
 		// 延后事件绑定
 		SkillReadyHandler readyHandler1 = new SkillReadyHandler(thatStageService, listSkillReady1, listSkillToExec1);
@@ -250,7 +271,7 @@ public class FightStageFrame extends JFrame implements Observer {
 		
 		SkillReadyHandler skillHandler2 = new SkillReadyHandler(thatStageService, listSkillReady2, listSkillToExec2);
 		skillHandler2.skillService = skillServiceForSec;
-		readyHandler1.commanderIndex = 1;
+		skillHandler2.commanderIndex = 1;
 		listSkillReady2.addMouseListener(skillHandler2);
 		
 		CancelSkillHandler cancelSkillHandler1 = new CancelSkillHandler();
@@ -266,6 +287,18 @@ public class FightStageFrame extends JFrame implements Observer {
 		CancelSkillHandler cancelSkillHandler2 = new CancelSkillHandler();
 		cancelSkillHandler2.setCancel(secondPartnerCancel);
 		buttonCancel2.addMouseListener(cancelSkillHandler2);
+		
+		AttackHandler attackHandler2 = new AttackHandler();
+		attackHandler2.setContext(this);
+		attackHandler2.setIndex(2);
+		attackHandler2.setSkillService(skillServiceForSec);
+		buttonAttack2.addMouseListener(attackHandler2);
+		
+		AttackHandler attackHandler1 = new AttackHandler();
+		attackHandler1.setContext(this);
+		attackHandler1.setSkillService(skillServiceForFir);
+		attackHandler1.setIndex(1);
+		buttonAttack1.addMouseListener(attackHandler1);
 	}
 
 	/**
@@ -334,11 +367,13 @@ public class FightStageFrame extends JFrame implements Observer {
 		progressHealth1.setMaximum(commanderInfoFir.getHealth());
 		progressHealth1.setValue(stageService.getCurrentHealth(commanderInfoFir.getName()));
 		lblCommanderName1.setText(commanderInfoFir.getName());
+		lblHealthTip1.setText(stageService.getCurrentHealth(commanderInfoFir.getName()) + "/" + commanderInfoFir.getHealth());
 //		progressEnergy1.setMaximum(commanderInfoFir.get);
 		
 		CommanderBasicVO commanderInfoSec = stageService.getCommanderInfo(1);
 		progressHealth2.setMaximum(commanderInfoSec.getHealth());
-		progressHealth2.setValue(stageService.getCurrentHealth(commanderInfoFir.getName()));
+		progressHealth2.setValue(stageService.getCurrentHealth(commanderInfoSec.getName()));
+		lblHealthTip2.setText(stageService.getCurrentHealth(commanderInfoSec.getName()) + "/" + commanderInfoSec.getHealth());
 		lblCommanderName2.setText(commanderInfoSec.getName());
 		
 		stageService.registerPartnerObserver(this);
@@ -349,9 +384,17 @@ public class FightStageFrame extends JFrame implements Observer {
 	 */
 	public void update(Observable o, Object arg) {
 		if (stageService.isFirstPartner(o)) {
+			// 判断是否目标死亡
+			if (o instanceof Commander) {
+				if (!((Target) o).isAlive()) {
+					curState.toGameOverState();
+					curState.update();
+				}
+			}
 			// 更新可变属性
 			progressHealth1.setValue(stageService.getHealth(o));
 			progressEnergy1.setValue(stageService.getEnergy(o));
+			lblHealthTip1.setText(stageService.getCurrentHealth(((Target) o).getName()) + "/" + progressHealth1.getMaximum());
 			progressHealth1.revalidate();
 			progressHealth1.repaint();
 			progressEnergy1.revalidate();
@@ -359,12 +402,20 @@ public class FightStageFrame extends JFrame implements Observer {
 		} else if (stageService.isSecondPartner(o)) {
 			progressEnergy2.setValue(stageService.getEnergy(o));
 			progressHealth2.setValue(stageService.getHealth(o));
+			lblHealthTip2.setText(stageService.getCurrentHealth(((Target) o).getName()) + "/" + progressHealth2.getMaximum());
 			progressHealth2.revalidate();
 			progressHealth2.repaint();
 			progressEnergy2.revalidate();
 			progressEnergy2.repaint();
+			if (o instanceof Commander) {
+				if (!((Target) o).isAlive()) {
+					curState.toGameOverState();
+					curState.update();
+				}
+			}
 		} else if (stageService.isMonster(o)) {
-			
+			// 将参与者移除
+			stageService.clearDied();
 		}
 	}
 
@@ -394,5 +445,28 @@ public class FightStageFrame extends JFrame implements Observer {
 	 */
 	public void setSkillServiceForSec(SkillService skillServiceForSec) {
 		this.skillServiceForSec = skillServiceForSec;
+	}
+
+	/**
+	 * @return the curState
+	 */
+	public FightState getCurState() {
+		return curState;
+	}
+
+	/**
+	 * @param curState the curState to set
+	 */
+	public void setCurState(FightState curState) {
+		this.curState = curState;
+	}
+	
+	public void nextState() {
+		curState.next();
+		curState.update();
+		if (curState instanceof MonsterOperationState) {
+			stageService.attack(-1, null);
+			nextState();
+		}
 	}
 }

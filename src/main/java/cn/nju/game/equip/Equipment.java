@@ -2,6 +2,7 @@ package cn.nju.game.equip;
 
 import java.io.Serializable;
 
+import cn.nju.game.fight.HealthStrength;
 import cn.nju.game.fight.MagicalDamage;
 import cn.nju.game.fight.MagicalDenfence;
 import cn.nju.game.fight.PhysicalDamage;
@@ -10,7 +11,7 @@ import cn.nju.game.fight.PhysicalDefence;
 /**
  * 装备
  */
-public abstract class Equipment implements PhysicalDamage, PhysicalDefence, MagicalDamage, MagicalDenfence, Serializable {
+public abstract class Equipment implements PhysicalDamage, PhysicalDefence, MagicalDamage, MagicalDenfence, Serializable, HealthStrength {
 	private static final long serialVersionUID = 5540851933991657184L;
 	/**
 	 * Default constructor
@@ -240,6 +241,20 @@ public abstract class Equipment implements PhysicalDamage, PhysicalDefence, Magi
 	 */
 	protected void setRecoverEnergy(float recoverEnergy) {
 		this.recoverEnergy = recoverEnergy;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.fight.HealthStrength#computeHealthImproved()
+	 */
+	public int computeHealthImproved() {
+		return strengthHealth;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.fight.HealthStrength#computeHealthRecoverRate()
+	 */
+	public float computeHealthRecoverRate() {
+		return recoverHealth;
 	}
 	
 }

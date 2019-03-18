@@ -113,4 +113,15 @@ public interface StageService {
 	 * @param skills 施放的技能
 	 */
 	public void attack(int i, SkillService skills);
+	
+	/**
+	 * 清除已经死亡的对象
+	 */
+	public void clearDied();
+	
+	/**
+	 * 获取游戏获胜者
+	 * @return 游戏获胜者信息
+	 */
+	public CommanderBasicVO getWinner();
 }

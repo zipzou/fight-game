@@ -86,6 +86,7 @@ public abstract class Target extends Observable implements Damageable, Cloneable
      */
     public void reduceHealth(int healthVal) {
     	this.health -= healthVal;
+    	this.health = 0 >= this.health ? 0 : this.health;
     	setChanged();
     	notifyObservers(this);
     }

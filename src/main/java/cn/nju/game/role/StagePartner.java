@@ -3,14 +3,12 @@
  */
 package cn.nju.game.role;
 
-import cn.nju.game.skill.ComposedSkill;
-
 /**
  * 角斗场参与角色
  * @author frank
  *
  */
-public abstract class StagePartner implements Attacker, Attacked {
+public abstract class StagePartner implements Attacker, Attacked, Comparable<StagePartner> {
 	private StagePartnerMediator mediator;
 	/**
 	 * 参与竞技场的召唤师
@@ -48,6 +46,13 @@ public abstract class StagePartner implements Attacker, Attacked {
 	 */
 	public void attack() {
 		getMediator().sendAttack(this);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	public int compareTo(StagePartner o) {
+		return getTarget().getName().compareTo(o.getTarget().getName());
 	}
 
 //	/* (non-Javadoc)

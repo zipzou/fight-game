@@ -126,6 +126,9 @@ public class CommanderAttackProxy extends CommanderPartner {
 	@Override
 	public void attack() {
 		Target target = attacker.getTarget();
+		if (!target.isAlive()) {
+			return; // 已经阵亡的目标
+		}
 		if (target instanceof Commander) {
 			Commander commander = (Commander) target;
 			int energy = commander.getEnergy();

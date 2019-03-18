@@ -10,6 +10,7 @@ package cn.nju.game.equip;
  */
 @Deprecated
 public class CaulfieldWarhammer extends ComposedEquipment {
+	private static final long serialVersionUID = -8163683956386221744L;
 	/**
 	 * 装备名称
 	 */

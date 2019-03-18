@@ -129,5 +129,29 @@ public class ComposedEquipment extends Equipment {
 	protected void setSubEquipments(List<Equipment> subEquipments) {
 		this.subEquipments = subEquipments;
 	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.equip.Equipment#computeHealthImproved()
+	 */
+	@Override
+	public int computeHealthImproved() {
+		int healthImproved = super.computeHealthImproved();
+		for (Equipment equipment : subEquipments) {
+			healthImproved += equipment.computeHealthImproved();
+		}
+		return healthImproved;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.equip.Equipment#computeHealthRecoverRate()
+	 */
+	@Override
+	public float computeHealthRecoverRate() {
+		float healthRecoverRate = super.computeHealthRecoverRate();
+		for (Equipment equipment : subEquipments) {
+			healthRecoverRate += equipment.computeHealthRecoverRate();
+		}
+		return healthRecoverRate;
+	}
 	
 }

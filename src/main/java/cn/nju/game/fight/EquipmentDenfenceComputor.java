@@ -54,14 +54,18 @@ public class EquipmentDenfenceComputor implements DefenceComputor {
 			DefenceVO defence = new DefenceVO();
 			Equipment equipment = equipIt.next();
 			int armor = equipment.computeArmor();
+			int healthStrength = equipment.computeHealthImproved();
+			float healthRate = equipment.computeHealthRecoverRate();
 			int magicalResistance = equipment.computeMagicalResistance();
-			float recoverHealth = equipment.getRecoverHealth();
+//			equipment.compute
+//			float recoverHealth = equipment.getRecoverHealth();
 			float recoverEnergy = equipment.getRecoverEnergy();
-			if (0 == ((int) recoverHealth)) {
-				defence.setRecoverHealthRate(recoverHealth);
+			if (0 == ((int) healthStrength)) {
+				defence.setRecoverHealthRate(healthStrength);
 			} else {
-				defence.setRecoveredHealth((int) recoverHealth);
+				defence.setRecoveredHealth((int) healthStrength);
 			}
+			defence.setRecoverEnergyRate(defence.getRecoverEnergyRate() + healthRate);
 			if (0 == ((int) recoverEnergy)) {
 				defence.setRecoverEnergyRate(recoverEnergy);
 			} else {

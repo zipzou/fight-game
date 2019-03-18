@@ -1,7 +1,5 @@
 package cn.nju.game.role;
 
-import cn.nju.game.skill.ComposedSkill;
-
 /**
  * 可攻击接口
  */

@@ -26,4 +26,10 @@ public interface StagePartnerMediator {
 	 * @param partner 参与者
 	 */
 	public void unregister(StagePartner partner);
+	
+	/**
+	 * 获取所有参与者
+	 * @return 可迭代访问的参与者
+	 */
+	public Iterable<StagePartner> getAllPartners();
 }
