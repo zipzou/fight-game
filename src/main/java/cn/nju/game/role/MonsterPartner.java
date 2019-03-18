@@ -6,6 +6,8 @@ package cn.nju.game.role;
 import org.apache.log4j.Logger;
 
 import cn.nju.game.equip.Bag;
+import cn.nju.game.equip.ComponentIterator;
+import cn.nju.game.equip.Equipment;
 import cn.nju.game.equip.EquipmentBag;
 import cn.nju.game.fight.DamageComputor;
 import cn.nju.game.fight.DamageComputorManager;
@@ -60,6 +62,22 @@ public class MonsterPartner extends StagePartner implements Attacked {
 		getTarget().reduceHealth(damageValue.getPhysicalDamage() + damageValue.getMagicalDamage());
 		if (LOG.isInfoEnabled()) {
 			LOG.info(getTarget().getName() + "'s health is :" + getTarget().getHealth());
+		}
+		
+		// 计算回复效果
+		if (source instanceof Commander) {
+			float healthImprovedRate = 0;
+			
+			ComponentIterator<Equipment> equipIt = equipments.iterator();
+			while (equipIt.hasNext()) {
+				Equipment equipment = equipIt.next();
+				healthImprovedRate += equipment.computeHealthRecoverRate();
+			}
+			
+			// 根据伤害计算吸血
+			int healthVal = (int) (healthImprovedRate * (damageValue.getPhysicalDamage() + damageValue.getMagicalDamage()));
+			
+			source.improveHealth(healthVal);
 		}
 	}
 }
