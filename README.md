@@ -1,4 +1,6 @@
 # fight-game
+![Version](https://img.shields.io/badge/version-1.0-brightgreen.svg)![Build](https://img.shields.io/badge/build-passing-brightgreen.svg) ![](https://img.shields.io/badge/java-^1.5-lightgrey.svg)
+
 战斗小游戏-Java实现-设计模式
 
 ## 模式及使用场景
