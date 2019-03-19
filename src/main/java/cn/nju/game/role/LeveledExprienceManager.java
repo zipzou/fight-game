@@ -37,7 +37,7 @@ public class LeveledExprienceManager implements LevelManager {
 			// 同时更新缓冲池中的信息
 			Commander onlineCommander = OnlineCommander.sharedCommanders().get(commander.getName());
 			onlineCommander.setExpirience(exp);
-			onlineCommander.setLevel(exp);
+			onlineCommander.setLevel(commander.getLevel());
 		} else {
 			if (null != nextLevelManager) {
 				nextLevelManager.handleExprience(collector);
