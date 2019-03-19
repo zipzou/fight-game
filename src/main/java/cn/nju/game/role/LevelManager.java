@@ -24,6 +24,12 @@ public interface LevelManager {
 	public String forName();
 	
 	/**
+	 * 获取升级策略
+	 * @return
+	 */
+	public LevelUpStrategy getStrategy();
+	
+	/**
 	 * 初始经验值
 	 */
 	public static final int UNIT_LEVEL_EXPRIENCE = 100;

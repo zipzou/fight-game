@@ -64,4 +64,12 @@ public class SummaryExprienceManager implements LevelManager {
 		super();
 		this.nextLevelManager = nextLevelManager;
 	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.role.LevelManager#getStrategy()
+	 */
+	public LevelUpStrategy getStrategy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

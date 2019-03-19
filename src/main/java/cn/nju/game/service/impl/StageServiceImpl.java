@@ -21,15 +21,16 @@ import cn.nju.game.model.vo.SkillVO;
 import cn.nju.game.role.Commander;
 import cn.nju.game.role.CommanderAttackProxy;
 import cn.nju.game.role.CommanderPartner;
+import cn.nju.game.role.JuniorExperienceManager;
 import cn.nju.game.role.LevelManager;
-import cn.nju.game.role.LeveledExprienceManager;
 import cn.nju.game.role.MagicalMonster;
 import cn.nju.game.role.MonsterPartner;
 import cn.nju.game.role.PhysicalMonster;
+import cn.nju.game.role.PrimaryExperienceManager;
+import cn.nju.game.role.SeniorExperienceManager;
 import cn.nju.game.role.StageFightMediator;
 import cn.nju.game.role.StagePartner;
 import cn.nju.game.role.StagePartnerMediator;
-import cn.nju.game.role.SummaryExprienceManager;
 import cn.nju.game.role.Target;
 import cn.nju.game.role.TargetMementoManager;
 import cn.nju.game.service.ExprienceCollector;
@@ -137,10 +138,12 @@ public class StageServiceImpl implements StageService, ExprienceCollector {
 				targetMementoManager.put(commander.getName(), new TargetMementoManager());
 			}
 			targetMementoManager.get(commander.getName()).setMemento(commander.createMemento());
-			LevelManager levelManager = new SummaryExprienceManager(null);
-			((SummaryExprienceManager) levelManager).setCommander(commander);
-			levelManager = new LeveledExprienceManager(levelManager);
-			((LeveledExprienceManager) levelManager).setCommander(commander);
+			LevelManager levelManager = new PrimaryExperienceManager(null);
+			((PrimaryExperienceManager) levelManager).setCommander(commander);
+			levelManager = new JuniorExperienceManager(levelManager);
+			((JuniorExperienceManager) levelManager).setCommander(commander);
+			levelManager = new SeniorExperienceManager(levelManager);
+			((SeniorExperienceManager) levelManager).setCommander(commander);
 			commanderLevelManagers.add(levelManager);
 			commanderPartner.setTarget(commander);
 			// 创建代理

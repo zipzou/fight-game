@@ -62,5 +62,12 @@ public class LeveledExprienceManager implements LevelManager {
 	public void setCommander(Commander commander) {
 		this.commander = commander;
 	}
+	/* (non-Javadoc)
+	 * @see cn.nju.game.role.LevelManager#getStrategy()
+	 */
+	public LevelUpStrategy getStrategy() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

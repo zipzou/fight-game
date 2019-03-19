@@ -42,6 +42,10 @@ import cn.nju.game.model.vo.CommanderBasicVO;
 import cn.nju.game.model.vo.EquipmentVO;
 import cn.nju.game.model.vo.SkillVO;
 import cn.nju.game.role.Commander;
+import cn.nju.game.role.JuniorStrategy;
+import cn.nju.game.role.LevelUpStrategy;
+import cn.nju.game.role.PrimaryLevelupStrategy;
+import cn.nju.game.role.SeniorStrategy;
 import cn.nju.game.service.OnlineCommander;
 import cn.nju.game.service.RoleService;
 import cn.nju.game.service.StageService;
@@ -82,6 +86,7 @@ public class GameClientWindow extends JFrame implements Observer {
 	private JLabel lblCommanderName;
 	private JLabel lblExprience;
 	private JLabel lblLevel;
+	private LevelUpStrategy strategy;
 
 	public void showInCenter(JFrame parent) {
 		setBounds(BoundsUtil.getCenterOwnerBounds(parent, W, H));
@@ -139,7 +144,16 @@ public class GameClientWindow extends JFrame implements Observer {
 		lblLevel.setBounds(113, 54, 114, 16);
 		lblCommanderInfo.add(lblLevel);
 		
-		lblExprience = new JLabel(commanderBasic.getExpirience() + "/" + (int)((Math.pow(1.5, commanderBasic.getLevel())) * 100));
+		strategy = null;
+		if (4 > commanderBasic.getLevel()) {
+			strategy = new PrimaryLevelupStrategy();
+		} else if (10 >= commanderBasic.getLevel()) {
+			strategy = new JuniorStrategy();
+		} else {
+			strategy = new SeniorStrategy();
+		}
+		
+		lblExprience = new JLabel(commanderBasic.getExpirience() + "/" + strategy.getLevelupExperienceNeeded(commanderBasic.getLevel()));
 		lblExprience.setBounds(113, 72, 114, 16);
 		lblExprience.setToolTipText(EXP_TOOLTIP);
 		lblCommanderInfo.add(lblExprience);
@@ -558,7 +572,7 @@ public class GameClientWindow extends JFrame implements Observer {
 //		int currentExprience = roleService.getCurrentExprience((Commander) arg);
 		CommanderBasicVO commanderBasic = roleService.getCommanderBasic();
 		if (commanderBasic.getName().equals(((Commander) arg).getName())) {
-			String tip = commanderBasic.getExpirience() + "/" + (int)((Math.pow(1.5, commanderBasic.getLevel())) * 100);
+			String tip = commanderBasic.getExpirience() + "/" + strategy.getLevelupExperienceNeeded(commanderBasic.getLevel());
 			lblExprience.setText(tip);
 			lblLevel.setText(commanderBasic.getLevel() + "");
 		}
