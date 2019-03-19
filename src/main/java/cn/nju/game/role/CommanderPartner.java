@@ -164,7 +164,6 @@ public class CommanderPartner extends StagePartner {
 			// 根据伤害计算吸血
 			int healthVal = (int) (healthImprovedRate
 					* (damageValue.getPhysicalDamage() + damageValue.getMagicalDamage()));
-
 			source.improveHealth(healthVal);
 		}
 	}

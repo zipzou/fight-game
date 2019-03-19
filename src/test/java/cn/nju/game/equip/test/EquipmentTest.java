@@ -6,14 +6,11 @@ package cn.nju.game.equip.test;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Set;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 import cn.nju.game.conf.game.GameConfiguration;
-import cn.nju.game.equip.AbstractEquipmentBuilder;
 import cn.nju.game.equip.Bag;
 import cn.nju.game.equip.ComponentIterator;
 import cn.nju.game.equip.Equipment;
@@ -27,16 +24,6 @@ import cn.nju.game.util.ObjectiveSerializeUtil;
  *
  */
 public class EquipmentTest {
-	
-	@Test
-	public void testReadEquipments() {
-		InputStream equipInputStream = AbstractEquipmentBuilder.class.getResourceAsStream("equipments.json");
-		try {
-			System.out.println(IOUtils.toString(equipInputStream, "utf-8"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	@Test
 	public void testParseEquipments() {

@@ -72,9 +72,9 @@ public class LoginClientFrame {
 		JMenuBar jMenuBar = new JMenuBar();
 	    frame.setJMenuBar(jMenuBar);
 	    JMenu jMenu = new JMenu("角色");
-	    JMenuItem item2 = new JMenuItem("item2");
-	    JMenuItem item3 = new JMenuItem("item3");
-	    JMenuItem item4 = new JMenuItem("退出");
+//	    JMenuItem item2 = new JMenuItem("item2");
+//	    JMenuItem item3 = new JMenuItem("item3");
+//	    JMenuItem item4 = new JMenuItem("退出");
 	    JMenuItem createRoleMenuItem = new JMenuItem("新建");
 		final JFrame tmpFrame = frame;
 		
@@ -83,9 +83,9 @@ public class LoginClientFrame {
 	    createRoleMenuItem.addActionListener(createRoleActionHandler);
 	    
 	    jMenu.add(createRoleMenuItem);
-	    jMenu.add(item2);
-	    jMenu.add(item3);
-	    jMenu.add(item4);
+//	    jMenu.add(item2);
+//	    jMenu.add(item3);
+//	    jMenu.add(item4);
 	    jMenuBar.add(jMenu);
 	    frame.getContentPane().setLayout(new GridLayout(1, 1, 0, 0));
 	    
@@ -98,7 +98,7 @@ public class LoginClientFrame {
 	    JPanel panelName1 = new JPanel();
 	    leftPanel.add(panelName1);
 	    
-	    JLabel labelCommanderName1 = new JLabel("召唤师名1：");
+	    JLabel labelCommanderName1 = new JLabel("召唤师名：");
 	    panelName1.add(labelCommanderName1);
 	    
 	    txtCommanderName1 = new JTextField();
