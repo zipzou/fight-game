@@ -12,6 +12,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import cn.nju.game.conf.game.GameConfiguration;
+import cn.nju.game.conf.util.FilePathUtil;
 import cn.nju.game.role.Commander;
 import cn.nju.game.role.factory.MagicianFactory;
 import cn.nju.game.role.factory.WarriorFactory;
@@ -41,6 +42,9 @@ public class CommanderPool {
 	protected void loadCommandersFromFile() {
 		String rolesFilePath = GameConfiguration.sharedConfiguration().read(GameConfiguration.ROLES_FILE).toString();
 		File rolesPath = new File(rolesFilePath);
+		if (!rolesPath.exists()) {
+			FilePathUtil.mkdir(rolesFilePath);
+		}
 		File[] rolesFiles = rolesPath.listFiles();
 		for (File roleFile : rolesFiles) {
 			if ((roleFile.isDirectory() || !roleFile.getName().endsWith(SUBFIX))) {
