@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="239px" preserveAspectRatio="none" style="width:241px;height:239px;" version="1.1" viewBox="0 0 241 239" width="241px" zoomAndPan="magnify"><defs><filter height="300%" id="f1wjgaru3n0v6r" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--class Configuration--><rect fill="#FEFECE" filter="url(#f1wjgaru3n0v6r)" height="73.9102" id="Configuration" style="stroke: #A80036; stroke-width: 1.5;" width="172" x="32" y="8"/><ellipse cx="75.8" cy="24" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M72.2277,20.2651 L72.2277,18.1069 L79.6071,18.1069 L79.6071,20.2651 L77.1418,20.2651 L77.1418,28.3418 L79.6071,28.3418 L79.6071,30.5 L72.2277,30.5 L72.2277,28.3418 L74.6931,28.3418 L74.6931,20.2651 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="76" x="96.2" y="28.5352">Configuration</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="33" x2="203" y1="40" y2="40"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="33" x2="203" y1="48" y2="48"/><ellipse cx="43" cy="59.9775" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="111" x="52" y="62.6348">read(k:Stirng):Object</text><ellipse cx="43" cy="72.9326" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="146" x="52" y="75.5898">save(k:String,v:Object):void</text><!--class GameConfiguration--><rect fill="#FEFECE" filter="url(#f1wjgaru3n0v6r)" height="86.8652" id="GameConfiguration" style="stroke: #A80036; stroke-width: 1.5;" width="224" x="6" y="142"/><ellipse cx="58.75" cy="158" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M61.2231,164.1431 Q60.6421,164.4419 60.0029,164.5913 Q59.3638,164.7407 58.6582,164.7407 Q56.1514,164.7407 54.8315,163.0889 Q53.5117,161.437 53.5117,158.3159 Q53.5117,155.1865 54.8315,153.5347 Q56.1514,151.8828 58.6582,151.8828 Q59.3638,151.8828 60.0112,152.0322 Q60.6587,152.1816 61.2231,152.4805 L61.2231,155.2031 Q60.5923,154.6221 59.9988,154.3523 Q59.4053,154.0825 58.7744,154.0825 Q57.4297,154.0825 56.7449,155.1492 Q56.0601,156.2158 56.0601,158.3159 Q56.0601,160.4077 56.7449,161.4744 Q57.4297,162.541 58.7744,162.541 Q59.4053,162.541 59.9988,162.2712 Q60.5923,162.0015 61.2231,161.4204 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="110" x="79.25" y="162.5352">GameConfiguration</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="229" y1="174" y2="174"/><rect fill="none" height="6" style="stroke: #C82930; stroke-width: 1.0;" width="6" x="14" y="182.9775"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="138" x="26" y="188.6348">_INSTANCE:Configuration</text><line style="stroke: #000000; stroke-width: 1.0;" x1="26" x2="164" y1="190.6348" y2="190.6348"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="229" y1="194.9551" y2="194.9551"/><rect fill="#F24D5C" height="6" style="stroke: #C82930; stroke-width: 1.0;" width="6" x="14" y="203.9326"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="113" x="26" y="209.5898">GameConfiguration()</text><ellipse cx="17" cy="219.8877" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" text-decoration="underline" textLength="198" x="26" y="222.5449">sharedConfiguration():Configuration</text><line style="stroke: #000000; stroke-width: 1.0;" x1="26" x2="224" y1="224.5449" y2="224.5449"/><!--link Configuration to GameConfiguration--><path d="M105.4325,102.7038 C105.0488,115.7684 105.2702,129.4313 106.0968,141.8053 " fill="none" id="Configuration-GameConfiguration" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="98.4693,101.8542,106.5903,82.2825,112.4469,102.6467,98.4693,101.8542" style="stroke: #A80036; stroke-width: 1.0;"/><!--link GameConfiguration to Configuration--><path d="M131.2861,128.4434 C131.796,112.8846 131.3943,96.4301 130.0809,82.2825 " fill="none" id="GameConfiguration-Configuration" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#FFFFFF" points="130.6034,141.8053,134.9044,136.0173,131.2158,129.8209,126.9148,135.609,130.6034,141.8053" style="stroke: #A80036; stroke-width: 1.0;"/><!--
+@startuml singleton-pattern-config-file
+
+interface Configuration {
+  + read(k:Stirng):Object
+  + save(k:String,v:Object):void
+}
+
+class GameConfiguration {
+  {static} - _INSTANCE:Configuration
+  - GameConfiguration()
+  {static} + sharedConfiguration():Configuration
+}
+
+Configuration <|.. GameConfiguration
+
+GameConfiguration o- - Configuration
+
+@enduml
+
+PlantUML version 1.2018.12(Sun Oct 21 18:15:15 CST 2018)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_171-b11
+Operating System: Mac OS X
+OS Version: 10.14.3
+Default Encoding: UTF-8
+Language: zh
+Country: CN
+--></g></svg>

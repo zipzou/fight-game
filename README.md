@@ -36,4 +36,97 @@
 
 问题：当增加角色类型时，计算伤害的方法将需要被修改
 
+## 模式及类图
+
+### 工厂方法模式
+
+![https://github.com/Frank17/fight-game](./design-pattern-uml/out/factory-pattern/factory-pattern.svg)
+
+### 创建者模式
+
+![创建者模式](./design-pattern-uml/out/builder-pattern/builder-pattern.svg)
+
+### 单例模式
+
+![单例模式](./design-pattern-uml/out/singleton-pattern/singleton-pattern-config-file.svg)
+
+![单例模式2](./design-pattern-uml/out/singleton-pattern/singleton-pattern-online-commander.svg)
+
+### 原型模式
+
+![原型模式](./design-pattern-uml/out/prototype-pattern/prototype-pattern.svg)
+
+###  适配器模式
+
+![适配器模式](./design-pattern-uml/out/adapter-pattern/adapter-pattern.svg)
+
+### 装饰器模式
+
+![装饰器模式](./design-pattern-uml/out/decorator-pattern/decorator-pattern.svg)
+
+### 代理模式
+
+![代理模式](./design-pattern-uml/out/proxy-pattern/proxy-pattern.svg)
+
+### 外观模式
+
+![外观模式](./design-pattern-uml/out/facade-pattern/facade-pattern.svg)
+
+![外观模式实现](./design-pattern-uml/out/facade-pattern/facade-pattern-realization.svg)
+
+### 桥接模式
+
+![桥接模式](./design-pattern-uml/out/bridge-pattern/bridge-pattern.svg)
+
+### 组合模式
+
+![组合模式](./design-pattern-uml/out/composite-pattern/composite-pattern.svg)
+
+### 享元模式
+
+![享元模式](./design-pattern-uml/out/flyweight-pattern/flyweight-pattern.svg)
+
+### 策略模式
+
+![策略模式](./design-pattern-uml/out/strategy-pattern/strategy-pattern.svg)
+
+### 模板方法模式
+
+![模板方法模式](./design-pattern-uml/out/template-method-pattern/template-method-pattern.svg)
+
+### 观察者模式
+
+![观察者模式](./design-pattern-uml/out/observer-pattern/observer-pattern.svg)
+
+### 迭代器模式
+
+![迭代器模式](./design-pattern-uml/out/iterator-pattern/iterator-pattern.svg)
+
+### 责任链模式
+
+![责任链模式](./design-pattern-uml/out/chain-of-responsibility-pattern/chain-of-responsibility-pattern.svg)
+
+### 备忘录模式
+
+![备忘录模式](./design-pattern-uml/out/memento-pattern/memento-pattern.svg)
+
+### 状态模式
+
+![状态模式](./design-pattern-uml/out/state-pattern/state-pattern.svg)
+
+### 访问者模式
+
+![访问者模式](./design-pattern-uml/out/visitor-pattern/visitor-pattern.svg)
+
+### 中介者模式
+
+![中介者模式](./design-pattern-uml/out/mediator-pattern/mediator-pattern.svg)
+
+
+
+
+
+
+
+
 

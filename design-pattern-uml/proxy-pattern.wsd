@@ -1,0 +1,25 @@
+@startuml proxy-pattern
+
+interface Attacker {
+  + attack():void
+}
+
+abstract class StagePartner {
+  
+}
+
+class CommanderPartner 
+class CommanderAttackProxy
+
+StagePartner ..|> Attacker
+
+StagePartner <|- CommanderPartner
+
+CommanderAttackProxy -up-|> StagePartner
+CommanderPartner "1" --o "1" CommanderAttackProxy
+
+interface StageService 
+
+StageService ..> Attacker
+
+@enduml

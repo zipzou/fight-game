@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="361px" preserveAspectRatio="none" style="width:307px;height:361px;" version="1.1" viewBox="0 0 307 361" width="307px" zoomAndPan="magnify"><defs><filter height="300%" id="ffiy5oq59m4sd" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--class ComponentIterator--><rect fill="#FEFECE" filter="url(#ffiy5oq59m4sd)" height="73.9102" id="ComponentIterator" style="stroke: #A80036; stroke-width: 1.5;" width="140" x="6" y="168"/><ellipse cx="21" cy="184" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M17.4277,180.2651 L17.4277,178.1069 L24.8071,178.1069 L24.8071,180.2651 L22.3418,180.2651 L22.3418,188.3418 L24.8071,188.3418 L24.8071,190.5 L17.4277,190.5 L17.4277,188.3418 L19.8931,188.3418 L19.8931,180.2651 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="108" x="35" y="188.5352">ComponentIterator</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="145" y1="200" y2="200"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="145" y1="208" y2="208"/><ellipse cx="17" cy="219.9775" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="42" x="26" y="222.6348">next():T</text><ellipse cx="17" cy="232.9326" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="98" x="26" y="235.5898">hasNext():boolean</text><!--class Bag--><rect fill="#FEFECE" filter="url(#ffiy5oq59m4sd)" height="99.8203" id="Bag" style="stroke: #A80036; stroke-width: 1.5;" width="180" x="67" y="8"/><ellipse cx="142.25" cy="24" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M138.6777,20.2651 L138.6777,18.1069 L146.0571,18.1069 L146.0571,20.2651 L143.5918,20.2651 L143.5918,28.3418 L146.0571,28.3418 L146.0571,30.5 L138.6777,30.5 L138.6777,28.3418 L141.1431,28.3418 L141.1431,20.2651 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="21" x="162.75" y="28.5352">Bag</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="68" x2="246" y1="40" y2="40"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="68" x2="246" y1="48" y2="48"/><ellipse cx="78" cy="59.9775" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="111" x="87" y="62.6348">add(Equipment):void</text><ellipse cx="78" cy="72.9326" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="131" x="87" y="75.5898">remove(Equipment):void</text><ellipse cx="78" cy="85.8877" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="88" x="87" y="88.5449">remove(int):void</text><ellipse cx="78" cy="98.8428" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="154" x="87" y="101.5">iterator():ComponentIterator</text><!--class BagIterator--><rect fill="#FEFECE" filter="url(#ffiy5oq59m4sd)" height="48" id="BagIterator" style="stroke: #A80036; stroke-width: 1.5;" width="95" x="191.5" y="302"/><ellipse cx="206.5" cy="318" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M208.9731,324.1431 Q208.3921,324.4419 207.7529,324.5913 Q207.1138,324.7407 206.4082,324.7407 Q203.9014,324.7407 202.5815,323.0889 Q201.2617,321.437 201.2617,318.3159 Q201.2617,315.1865 202.5815,313.5347 Q203.9014,311.8828 206.4082,311.8828 Q207.1138,311.8828 207.7612,312.0322 Q208.4087,312.1816 208.9731,312.4805 L208.9731,315.2031 Q208.3423,314.6221 207.7488,314.3523 Q207.1553,314.0825 206.5244,314.0825 Q205.1797,314.0825 204.4949,315.1492 Q203.8101,316.2158 203.8101,318.3159 Q203.8101,320.4077 204.4949,321.4744 Q205.1797,322.541 206.5244,322.541 Q207.1553,322.541 207.7488,322.2712 Q208.3423,322.0015 208.9731,321.4204 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="63" x="220.5" y="322.5352">BagIterator</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="192.5" x2="285.5" y1="334" y2="334"/><line style="stroke: #A80036; stroke-width: 1.5;" x1="192.5" x2="285.5" y1="342" y2="342"/><!--class EquipmentBag--><rect fill="#FEFECE" filter="url(#ffiy5oq59m4sd)" height="60.9551" id="EquipmentBag" style="stroke: #A80036; stroke-width: 1.5;" width="115" x="181.5" y="174.5"/><ellipse cx="196.5" cy="190.5" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M198.9731,196.6431 Q198.3921,196.9419 197.7529,197.0913 Q197.1138,197.2407 196.4082,197.2407 Q193.9014,197.2407 192.5815,195.5889 Q191.2617,193.937 191.2617,190.8159 Q191.2617,187.6865 192.5815,186.0347 Q193.9014,184.3828 196.4082,184.3828 Q197.1138,184.3828 197.7612,184.5322 Q198.4087,184.6816 198.9731,184.9805 L198.9731,187.7031 Q198.3423,187.1221 197.7488,186.8523 Q197.1553,186.5825 196.5244,186.5825 Q195.1797,186.5825 194.4949,187.6492 Q193.8101,188.7158 193.8101,190.8159 Q193.8101,192.9077 194.4949,193.9744 Q195.1797,195.041 196.5244,195.041 Q197.1553,195.041 197.7488,194.7712 Q198.3423,194.5015 198.9731,193.9204 Z "/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacingAndGlyphs" textLength="83" x="210.5" y="195.0352">EquipmentBag</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="182.5" x2="295.5" y1="206.5" y2="206.5"/><rect fill="none" height="6" style="stroke: #C82930; stroke-width: 1.0;" width="6" x="189.5" y="215.4775"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="85" x="201.5" y="221.1348">equipments:List</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="182.5" x2="295.5" y1="227.4551" y2="227.4551"/><!--link Bag to EquipmentBag--><path d="M194.8722,125.8929 C204.3281,142.8443 214.0072,160.1959 221.8819,174.3126 " fill="none" id="Bag-EquipmentBag" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="188.6204,129.0543,184.9904,108.1779,200.8468,122.2341,188.6204,129.0543" style="stroke: #A80036; stroke-width: 1.0;"/><!--link ComponentIterator to BagIterator--><path d="M142.3877,254.2817 C164.5561,270.738 188.2704,288.3418 206.6564,301.9903 " fill="none" id="ComponentIterator-BagIterator" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="138.122,259.833,126.2354,242.2913,146.4667,248.5918,138.122,259.833" style="stroke: #A80036; stroke-width: 1.0;"/><!--link Bag to ComponentIterator--><path d="M122.9395,119.8134 C113.9947,136.0467 104.6197,153.0605 96.6206,167.5774 " fill="none" id="Bag-ComponentIterator" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#FFFFFF" points="129.3509,108.1779,122.9519,111.5025,123.5596,118.688,129.9586,115.3633,129.3509,108.1779" style="stroke: #A80036; stroke-width: 1.0;"/><!--link EquipmentBag to BagIterator--><path d="M227.7566,235.5334 C225.6958,254.3476 225.7491,278.3344 227.9166,296.8807 " fill="none" id="EquipmentBag-BagIterator" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="228.584,301.9587,231.3768,292.5141,227.9323,297.0014,223.4451,293.5568,228.584,301.9587" style="stroke: #A80036; stroke-width: 1.0;"/><!--link EquipmentBag to BagIterator--><path d="M251.4382,240.7161 C253.226,260.4572 252.7562,284.4546 250.0287,301.9587 " fill="none" id="EquipmentBag-BagIterator" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="#A80036" points="250.9048,235.5334,247.8471,244.8956,251.4166,240.5071,255.8051,244.0766,250.9048,235.5334" style="stroke: #A80036; stroke-width: 1.0;"/><!--
+@startuml iterator-pattern
+
+interface ComponentIterator{
+  + next():T
+  + hasNext():boolean
+}
+
+interface Bag {
+  + add(Equipment):void
+  + remove(Equipment):void
+  + remove(int):void
+  + iterator():ComponentIterator
+}
+
+class BagIterator {
+
+}
+
+class EquipmentBag {
+  - equipments:List
+}
+
+Bag <|.. EquipmentBag
+
+
+ComponentIterator <|.. BagIterator
+
+Bag o- - ComponentIterator
+
+EquipmentBag - -> BagIterator
+
+EquipmentBag <.. BagIterator
+
+
+@enduml
+
+PlantUML version 1.2018.12(Sun Oct 21 18:15:15 CST 2018)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.8.0_171-b11
+Operating System: Mac OS X
+OS Version: 10.14.3
+Default Encoding: UTF-8
+Language: zh
+Country: CN
+--></g></svg>
