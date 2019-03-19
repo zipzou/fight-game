@@ -122,11 +122,6 @@ public class StageServiceImpl implements StageService, ExprienceCollector {
 			try {
 				commander = commander.clone();// 使用原型模式
 				
-				// 创建备忘录管理者，以适应角色复活
-				if (!targetMementoManager.containsKey(commander.getName())) {
-					targetMementoManager.put(commander.getName(), new TargetMementoManager());
-				}
-				targetMementoManager.get(commander.getName()).setMemento(commander.createMemento());
 				// 需要重新根据装备计算生命值
 				int sum = 0;
 				for (String equipname : equipNames) {
@@ -137,6 +132,11 @@ public class StageServiceImpl implements StageService, ExprienceCollector {
 			} catch (CloneNotSupportedException e1) {
 				e1.printStackTrace();
 			}
+			// 创建备忘录管理者，以适应角色复活
+			if (!targetMementoManager.containsKey(commander.getName())) {
+				targetMementoManager.put(commander.getName(), new TargetMementoManager());
+			}
+			targetMementoManager.get(commander.getName()).setMemento(commander.createMemento());
 			LevelManager levelManager = new SummaryExprienceManager(null);
 			((SummaryExprienceManager) levelManager).setCommander(commander);
 			levelManager = new LeveledExprienceManager(levelManager);
@@ -333,6 +333,8 @@ public class StageServiceImpl implements StageService, ExprienceCollector {
 		for (CommanderBasicVO commanderBasicVO : commandersInfo) {
 			TargetMementoManager mementoManager = targetMementoManager.get(commanderBasicVO.getName());
 			attackers.get(commanderBasicVO.getName()).getTarget().restoreMemento(mementoManager.getMemento());
+			// 击杀历史清除
+			killedHistory.clear();
 		}
 	}
 }

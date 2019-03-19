@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 
 import cn.nju.game.service.SkillService;
 import cn.nju.game.ui.FightStageFrame;
+import cn.nju.game.ui.state.GameOverState;
 
 /**
  * 攻击执行指令
@@ -26,6 +27,9 @@ public class AttackHandler extends MouseAdapter {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		super.mouseClicked(e);
+		if (context.getCurState() instanceof GameOverState) {
+			return;
+		}
 		context.getStageService().attack(index, skillService);
 		context.nextState();
 	}

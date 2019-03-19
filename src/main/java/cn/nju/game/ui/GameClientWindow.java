@@ -81,6 +81,7 @@ public class GameClientWindow extends JFrame implements Observer {
 	private JButton buttonAddToBag;
 	private JLabel lblCommanderName;
 	private JLabel lblExprience;
+	private JLabel lblLevel;
 
 	public void showInCenter(JFrame parent) {
 		setBounds(BoundsUtil.getCenterOwnerBounds(parent, W, H));
@@ -134,7 +135,7 @@ public class GameClientWindow extends JFrame implements Observer {
 		lblJob.setBounds(113, 36, 114, 16);
 		lblCommanderInfo.add(lblJob);
 		
-		JLabel lblLevel = new JLabel(commanderBasic.getLevel() + "");
+		lblLevel = new JLabel(commanderBasic.getLevel() + "");
 		lblLevel.setBounds(113, 54, 114, 16);
 		lblCommanderInfo.add(lblLevel);
 		
@@ -556,7 +557,10 @@ public class GameClientWindow extends JFrame implements Observer {
 	public void update(Observable o, Object arg) {
 //		int currentExprience = roleService.getCurrentExprience((Commander) arg);
 		CommanderBasicVO commanderBasic = roleService.getCommanderBasic();
-		String tip = commanderBasic.getExpirience() + "/" + (int)((Math.pow(1.5, commanderBasic.getLevel())) * 100);
-		lblExprience.setText(tip);
+		if (commanderBasic.getName().equals(((Commander) arg).getName())) {
+			String tip = commanderBasic.getExpirience() + "/" + (int)((Math.pow(1.5, commanderBasic.getLevel())) * 100);
+			lblExprience.setText(tip);
+			lblLevel.setText(commanderBasic.getLevel() + "");
+		}
 	}
 }

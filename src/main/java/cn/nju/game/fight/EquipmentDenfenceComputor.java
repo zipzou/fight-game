@@ -63,7 +63,7 @@ public class EquipmentDenfenceComputor implements DefenceComputor {
 			if (0 == ((int) healthStrength)) {
 				defence.setRecoverHealthRate(healthStrength);
 			} else {
-				defence.setRecoveredHealth((int) healthStrength);
+//				defence.setRecoveredHealth((int) healthStrength);
 			}
 			defence.setRecoverEnergyRate(defence.getRecoverEnergyRate() + healthRate);
 			if (0 == ((int) recoverEnergy)) {

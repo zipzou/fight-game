@@ -330,7 +330,7 @@ public class FightStageFrame extends JFrame implements Observer {
 				// 访问备忘录信息，以复活
 //				FightStageFrame.this.stageService.
 				thatStageService.reviveAllCommander();
-				JOptionPane.showMessageDialog(thatWindow, "所有召唤师以复活，你可以继续战斗", "复活提醒", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(thatWindow, "所有召唤师已复活，你可以继续战斗", "复活提醒", JOptionPane.INFORMATION_MESSAGE);
 				// 更新状态
 				curState = new FirstPartnerOperationState(thatWindow);
 				curState.update();
@@ -360,6 +360,8 @@ public class FightStageFrame extends JFrame implements Observer {
 		
 		// 获取背包信息
 		List<String> equipments = stageService.getEquipments(0);
+		panelBagEquipments1.removeAll();
+		panelBagEquipments2.removeAll();
 		for (String equipName : equipments) {
 			JLabel lblEquip = new JLabel(equipName);
 			lblEquip.setHorizontalAlignment(SwingConstants.CENTER);
