@@ -1,0 +1,29 @@
+@startuml flyweight-pattern
+
+abstract class ModelToTableModelUtil {
+  - forModel:String
+  + transferToModel(Object):Object[][]
+}
+
+class CommanderTableModelUtil {
+}
+
+class EquipmentTableModelUtil  {
+}
+
+class SkillTableModelUtil {
+}
+
+CommanderTableModelUtil --|> ModelToTableModelUtil
+EquipmentTableModelUtil -|> ModelToTableModelUtil
+ModelToTableModelUtil <|- SkillTableModelUtil
+
+class SharedModelUtilFactory {
+  - utilCaches:Map<String,ModelToTableModelUtil>
+  # SharedModelUtilFactory()
+  {static} + sharedFactory():SharedModelUtilFactory
+}
+
+ModelToTableModelUtil -down-o "n" SharedModelUtilFactory
+
+@enduml

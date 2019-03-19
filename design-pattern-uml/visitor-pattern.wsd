@@ -1,0 +1,37 @@
+@startuml visitor-pattern
+
+interface ExprienceCollector {
+  + getExprience(String):int
+  + getLevel(String):int
+}
+
+class StageServiceImpl {
+  - commanderLevelManagers:List
+}
+
+ExprienceCollector <|.. StageServiceImpl
+
+interface LevelManager {
+  + handleExprience(ExprienceCollector):void
+}
+
+abstract class AbstractExprienceManager {
+  
+}
+
+StageServiceImpl "n" o-up- LevelManager
+LevelManager <|.. AbstractExprienceManager
+
+note top of ExprienceCollector : 相当于是Element接口
+note top of LevelManager : 相当于是visitor，用于访问element，\n在这里，调用handle方法之后，会去\n访问ExperienceController的方法，\n获取到信息
+
+class PrimaryExperienceManager
+class JuniorExperienceManager
+class SeniorExperienceManager
+AbstractExprienceManager <|-- PrimaryExperienceManager
+JuniorExperienceManager --|> AbstractExprienceManager
+AbstractExprienceManager <|-- SeniorExperienceManager
+
+note bottom of StageServiceImpl : 这里没有引入ObjectStructrue类，\n而直接使用StageServiceImpl聚\n合访问者接口，去除了中间1-1-n\n的映射关系
+
+@enduml

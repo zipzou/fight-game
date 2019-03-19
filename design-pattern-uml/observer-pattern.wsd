@@ -1,0 +1,33 @@
+@startuml observer-pattern
+
+interface java.util.Observer {
+  + update()
+}
+
+class java.util.Observable {
+  - observers:List<? implements Observer>
+  + addObserver(o:Observer)
+  + nofityObservers()
+}
+
+class Target {
+
+}
+
+java.util.Observable <|-down- Target
+
+class GameClientWindow {
+
+}
+
+class FightStageWindow
+
+java.util.Observer <|.down. GameClientWindow
+java.util.Observer <|.down. FightStageWindow
+
+java.util.Observer -right-o java.util.Observable
+
+Target -right-> GameClientWindow
+Target -right-> FightStageWindow
+
+@enduml

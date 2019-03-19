@@ -1,0 +1,42 @@
+@startuml factory-pattern
+'skinparam packageStyle rect/'
+
+abstract class Target {
+}
+
+abstract class Commander {
+}
+class WarriorCommander {
+
+}
+
+class MagicianCommander {
+
+}
+
+Target <|-- Commander
+
+WarriorCommander --|> Commander
+MagicianCommander --|> Commander
+
+interface CommanderFactory {
+  + produceCommander(String):Commander
+}
+
+class WarriorFactory {
+  ~ produceCommander(String):Commander
+}
+
+class MagicianFactory {
+  ~ produceCommander(String):Commander
+}
+
+
+CommanderFactory <|-- WarriorFactory 
+CommanderFactory <|-- MagicianFactory
+
+WarriorFactory ..> WarriorCommander
+MagicianFactory ..> MagicianCommander
+
+
+@enduml

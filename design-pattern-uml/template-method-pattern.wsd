@@ -1,0 +1,33 @@
+@startuml template-method-pattern
+
+abstract class ModelToTableModelUtil{
+  - forModel:String
+  - getAttr2HeaderJson():JSONObject
+  - getHeader2IndexJson():JSONObect
+  {abstract} # getAttr2HeaderFile():InputStream
+  {abstract} # getHeader2IndexFile():InputStream
+  + transferToModel(Object):Object[][]
+}
+
+note bottom of ModelToTableModelUtil: 步骤：\n1. getAttr2HeaderFile()\n2. getAttr2HeaderJson()\n3. getHeader2IndexFile()\n4. getHeader2IndexJson()\n5. 映射并按索引排列，获得结果
+
+class CommanderTableModelUtil {
+  # getAttr2HeaderFile():InputStream
+  # getHeader2IndexFile():InputStream
+}
+
+class EquipmentTableModelUtil  {
+  # getAttr2HeaderFile():InputStream
+  # getHeader2IndexFile():InputStream
+}
+
+class SkillTableModelUtil {
+  # getAttr2HeaderFile():InputStream
+  # getHeader2IndexFile():InputStream
+}
+
+CommanderTableModelUtil --|> ModelToTableModelUtil
+EquipmentTableModelUtil -|> ModelToTableModelUtil
+ModelToTableModelUtil <|- SkillTableModelUtil
+
+@enduml

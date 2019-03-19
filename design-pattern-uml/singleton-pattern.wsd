@@ -1,0 +1,39 @@
+@startuml singleton-pattern-config-file
+
+interface Configuration {
+  + read(k:Stirng):Object
+  + save(k:String,v:Object):void
+}
+
+class GameConfiguration {
+  {static} - _INSTANCE:Configuration
+  - GameConfiguration()
+  {static} + sharedConfiguration():Configuration
+}
+
+Configuration <|.. GameConfiguration
+
+GameConfiguration o-- Configuration
+
+@enduml
+
+@startuml singleton-pattern-online-commander 
+
+class OnlineCommander {
+  {static} - _INSTANCE:OnlineCommander
+  - OnlineCommander()
+  - onlineCommanders:List<OnlineCommander>
+  - pool:CommanderPool
+  + {static} sharedCommanderPool():OnlineCommander
+}
+
+class CommanderPool {
+
+}
+
+note bottom of OnlineCommander: 使用单例的地方仍有很多，在此主要是为了模拟在线\n列表，通常表现为服务器集群(虽是集群，但是数据是\n同步的，可以理解为只有一份)，为此而采用单例模式
+
+OnlineCommander o-- OnlineCommander
+OnlineCommander o-- CommanderPool
+
+@enduml

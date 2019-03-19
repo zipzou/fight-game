@@ -1,0 +1,35 @@
+@startuml iterator-pattern
+
+interface ComponentIterator{
+  + next():T
+  + hasNext():boolean
+}
+
+interface Bag {
+  + add(Equipment):void
+  + remove(Equipment):void
+  + remove(int):void
+  + iterator():ComponentIterator
+}
+
+class BagIterator {
+
+}
+
+class EquipmentBag {
+  - equipments:List
+}
+
+Bag <|.. EquipmentBag
+
+
+ComponentIterator <|.. BagIterator
+
+Bag o-- ComponentIterator
+
+EquipmentBag --> BagIterator
+
+EquipmentBag <.. BagIterator
+
+
+@enduml

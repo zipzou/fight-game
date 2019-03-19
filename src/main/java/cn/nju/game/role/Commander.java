@@ -35,7 +35,7 @@ public abstract class Commander extends Target implements Recoverable {
 	 * @author frank
 	 *
 	 */
-	protected static abstract class WarriorCommanderBuilder implements CommanderBuilder {
+	protected static abstract class AbstractCommanderBuilder implements CommanderBuilder {
 
 		protected Commander commander;
 		

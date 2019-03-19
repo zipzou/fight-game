@@ -1,0 +1,51 @@
+@startuml builder-pattern
+
+interface TargetBuilder{
+  + build():Target
+  + health(health:int):TargetBuilder
+  + name(n:String):TargetBuilder
+  + physicalDamage(d:int):TargetBuilder
+  + magicalDamage(d:int):TargetBuilder
+  + armor(a:int):TargetBuilder
+  + magicalResistance(r:int):TargetBuilder
+}
+
+interface CommanderBuilder {
+  + energy(e:int):CommanderBuilder
+  + exprience(e:int):CommanderBuilder
+}
+
+abstract class Commander {
+  + {static} builder():CommanderBuilder
+}
+class WarriorCommander
+class MagicianCommander
+
+WarriorCommander --|> Commander
+MagicianCommander --|> Commander
+
+abstract class AbstractCommanderBuilder {
+
+}
+
+class WarriorCommanderBuilder {
+
+}
+
+class MagicianCommanderBuilder {
+
+}
+
+TargetBuilder <|-- CommanderBuilder
+
+AbstractCommanderBuilder ..|> CommanderBuilder
+
+AbstractCommanderBuilder <|-- WarriorCommanderBuilder
+AbstractCommanderBuilder <|-- MagicianCommanderBuilder
+
+MagicianCommanderBuilder ..> MagicianCommander
+WarriorCommanderBuilder ..> WarriorCommander
+
+CommanderBuilder <.. Commander
+
+@enduml

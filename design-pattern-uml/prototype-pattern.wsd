@@ -1,0 +1,27 @@
+@startuml prototype-pattern
+
+interface java.lang.Cloneable {
+  # clone():Object
+}
+
+abstract class Commander {
+  ~ clone():Object
+}
+
+abstract class Monster {
+  ~ clone():Object
+}
+
+java.lang.Cloneable <|.. Commander
+java.lang.Cloneable <|.. Monster
+
+interface StageService {
+
+}
+
+StageService <|.. StageServiceImpl
+
+StageServiceImpl --> Commander
+StageServiceImpl --> Monster
+
+@enduml

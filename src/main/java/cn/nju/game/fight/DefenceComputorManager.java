@@ -14,7 +14,7 @@ import cn.nju.game.role.Target;
  */
 public class DefenceComputorManager implements DefenceComputor {
 
-	private DefenceComputor[] defences; // TODO: 添加技能防御
+	private DefenceComputor[] defences; 
 	/**
 	 * @param defences
 	 */

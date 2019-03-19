@@ -1,0 +1,25 @@
+@startuml chain-of-responsibility-pattern
+
+interface LevelManager {
+  + handleExprience():void
+  + forName():String
+}
+
+abstract class AbstractExprienceManager {
+  - next:LevelManager
+
+}
+
+class PrimaryExperienceManager
+class JuniorExperienceManager
+class SeniorExperienceManager
+
+AbstractExprienceManager <|-left- PrimaryExperienceManager
+JuniorExperienceManager --|> AbstractExprienceManager
+AbstractExprienceManager <|-- SeniorExperienceManager
+AbstractExprienceManager .|> LevelManager
+AbstractExprienceManager "1" o. LevelManager
+
+
+
+@enduml

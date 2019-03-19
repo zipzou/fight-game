@@ -1,0 +1,31 @@
+@startuml decorator-pattern
+
+interface DamageComputable {
+  + computeDamage()
+}
+
+abstract class Weapon {
+  - part:DamageComputable
+  {abstract} + computeDamage()
+}
+
+class TailWeaponPart
+class LeadingWeaponPart
+
+DamageComputable <|.right. TailWeaponPart
+DamageComputable <|.down. LeadingWeaponPart
+
+DamageComputable <|.. Weapon
+
+class SwordWeapon
+
+class MagicalStick 
+
+Weapon <|-- SwordWeapon
+MagicalStick --|> Weapon
+
+DamageComputable --o Weapon 
+
+note bottom of Weapon: 在实现中，未将Weapon进行抽象，\n而使用配置文件进行扩展
+
+@enduml

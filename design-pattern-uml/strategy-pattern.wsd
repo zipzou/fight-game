@@ -1,0 +1,22 @@
+@startuml strategy-pattern
+
+interface LevelUpStrategy {
+  + getLevelupExperienceNeeded(int):int
+  {static} + UNIT_LEVEL_EXPRIENCE=100
+}
+
+class JuniorStrategy 
+class PrimaryStrategy 
+class SeniorStrategy
+
+LevelUpStrategy <|. JuniorStrategy
+LevelUpStrategy <|.. PrimaryStrategy
+LevelUpStrategy <|.left. SeniorStrategy
+
+abstract class AbstractExprienceManager {
+  - strategy:LevelUpStrategy
+}
+
+AbstractExprienceManager "1" o.up. LevelUpStrategy
+
+@enduml

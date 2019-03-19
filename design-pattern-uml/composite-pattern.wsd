@@ -1,0 +1,24 @@
+@startuml composite-pattern
+
+abstract class Equipment
+
+class SingleEquipment
+
+Equipment <|-- SingleEquipment
+
+class ComposedEquipment {
+  - equipments:List<Equipment>
+  + add(e:Equipment):void
+  + remove(e:Equipment):void
+  + remove(i:int):void
+}
+
+note top of ComposedEquipment: 实际在实现过程中，我们使用了构建者模\n式对装备进行生成，因此实际类图包含构建者，\n在此为了简化不尽兴描述，其实现本质相同
+
+note left of Equipment: 为了构建装备窄接口，我们没有将\n组合方法添加到该类中，原因在于对于叶子类，\n其不需要也不必要拥有该方法，为了保证接口的\n干净，故只在子类聚合类中含有组合窗口
+
+Equipment <|-- ComposedEquipment
+
+Equipment --o ComposedEquipment
+
+@enduml

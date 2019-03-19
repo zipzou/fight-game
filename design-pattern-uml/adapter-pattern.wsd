@@ -1,0 +1,30 @@
+@startuml adapter-pattern
+
+interface PhysicalDamage {
+  + computePhysicalDamage()
+}
+
+interface MagicalDamage {
+  + computeMagicDamage()
+}
+
+interface DamageComputor {
+  + compute()
+}
+
+class SkillDamageComputor {
+  + compute()
+}
+
+class TargetDamageComputor
+
+class WeaponDamageComputor
+
+DamageComputor <|.left. SkillDamageComputor
+DamageComputor <|-up- TargetDamageComputor
+DamageComputor <|-- WeaponDamageComputor
+
+SkillDamageComputor -up-> PhysicalDamage
+MagicalDamage <-down- SkillDamageComputor
+
+@enduml

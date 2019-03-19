@@ -14,8 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
-import org.apache.commons.io.monitor.FileAlterationObserver;
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSON;
@@ -30,13 +28,11 @@ import cn.nju.game.role.Commander;
  * @author frank
  *
  */
-public final class OnlineCommander extends FileAlterationListenerAdaptor {
+public final class OnlineCommander {
 	private static final Logger LOG = Logger.getLogger(OnlineCommander.class);
 	
 	private List<Commander> onlineCommanders;
 	private CommanderPool pool;
-
-	private FileAlterationObserver fileObserver;
 	
 	private static final class OnlineCommanderHolder {
 		private static final OnlineCommander _INSTANCE = new OnlineCommander();
@@ -48,9 +44,6 @@ public final class OnlineCommander extends FileAlterationListenerAdaptor {
 		pool = new CommanderPool();
 		String path = GameConfiguration.sharedConfiguration().read(GameConfiguration.ONLINE_ROLES_FILE).toString();
 		path = FilePathUtil.mkdir(path);
-		fileObserver = new FileAlterationObserver(new File(path));
-		fileObserver.addListener(this);
-		this.onStart(fileObserver);
 	}
 	
 	public static final OnlineCommander sharedCommanders() {
@@ -164,34 +157,4 @@ public final class OnlineCommander extends FileAlterationListenerAdaptor {
 		}
 		return null;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.apache.commons.io.monitor.FileAlterationListenerAdaptor#onFileChange(java.io.File)
-	 */
-	@Override
-	public void onFileChange(File file) {
-		super.onFileChange(file);
-		if (LOG.isInfoEnabled()) {
-			LOG.info("Online commanders changed!");
-		}
-		InputStream onlineInput;
-		try {
-			onlineInput = new FileInputStream(file);
-			String onlineJsonStr = IOUtils.toString(onlineInput, "utf-8");
-			if (null != onlineInput) {
-				onlineInput.close();
-			}
-			JSONArray allOnlines = JSON.parseArray(onlineJsonStr);
-			onlineCommanders.clear();
-			for (Object online : allOnlines) {
-				Commander commander = pool.get(online.toString());
-				onlineCommanders.add(commander);
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 }

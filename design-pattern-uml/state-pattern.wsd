@@ -1,0 +1,65 @@
+@startuml state-pattern
+
+interface FightState {
+  + update():void
+  + next():void
+  + toGameOverState():void
+}
+
+class FirstOperationState {
+  - context:JFrame
+}
+
+class SecondOperationState {
+  - context:JFrame
+}
+
+class MonsterOperationState {
+  - context:JFrame
+}
+
+class GameOverState {
+  - context: JFrame
+}
+
+FightState <|.left. FirstOperationState
+FightState <|.. SecondOperationState
+FightState <|.. MonsterOperationState
+GameOverState  ..|> FightState
+
+' SecondOperationState <.. FirstOperationState
+
+' SecondOperationState ..> MonsterOperationState
+
+' FirstOperationState <.. MonsterOperationState
+
+' FirstOperationState ..> GameOverState
+' SecondOperationState ..> GameOverState
+' MonsterOperationState ..> GameOverState
+
+class FightStageFrame {
+  - curState:FightState
+}
+
+FightStageFrame o-- FightState
+
+@enduml
+
+@startuml state-flow
+
+class FirstOperationState
+class SecondOperationState
+class MonsterOperationState
+class GameOverState
+
+FirstOperationState ..> SecondOperationState
+
+SecondOperationState ..> MonsterOperationState
+
+FirstOperationState <.. MonsterOperationState
+
+GameOverState <.. SecondOperationState
+GameOverState <.. MonsterOperationState
+GameOverState <.. FirstOperationState
+
+@enduml

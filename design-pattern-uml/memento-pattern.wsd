@@ -1,0 +1,28 @@
+@startuml memento-pattern
+
+interface Mementor {
+  + createMemento():Memento
+  + restoreMemento():void
+}
+
+abstract class Target
+
+Mementor <|.. Target
+
+interface Memento {
+
+}
+
+' note right of Memento : 备忘录窄接口，只标注备忘录对象，不做额外业务处理
+
+class TargetMemento
+
+Memento <|-- TargetMemento
+
+class TargetMementoManager
+
+TargetMementoManager "1" o-- "1" Memento
+
+Target .> Memento
+
+@enduml

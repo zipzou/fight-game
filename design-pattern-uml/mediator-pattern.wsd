@@ -1,0 +1,35 @@
+@startuml mediator-pattern
+
+interface StagePartnerMediator {
+  + sendAttack():void
+  + register()
+  + unregister()
+}
+
+abstract class StagePartner {
+  - mediator:StagePartnerMediator
+}
+
+class StageFightMediator {
+  - partners:Set
+}
+
+class CommanderPartner {
+
+}
+
+class MonsterPartner {
+
+}
+
+StagePartnerMediator <|-- StageFightMediator
+
+StagePartnerMediator <-left-StagePartner
+
+StagePartner <|-- CommanderPartner
+StagePartner <|-= MonsterPartner
+
+StageFightMediator -right->CommanderPartner
+StageFightMediator -right->MonsterPartner
+
+@enduml

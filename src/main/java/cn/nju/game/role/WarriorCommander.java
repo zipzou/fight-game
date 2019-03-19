@@ -26,7 +26,7 @@ public class WarriorCommander extends Commander {
 	 * @author frank
 	 *
 	 */
-	private static class WarriorCommanderBuilder extends Commander.WarriorCommanderBuilder {
+	private static class WarriorCommanderBuilder extends Commander.AbstractCommanderBuilder {
 		private static final String WARRIOR_JPG = "warrior.jpg";
 
 		public WarriorCommanderBuilder() {

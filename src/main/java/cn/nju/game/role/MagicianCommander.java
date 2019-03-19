@@ -22,7 +22,7 @@ public class MagicianCommander extends Commander {
 	 * @author frank
 	 *
 	 */
-	private static class MagicianCommanderBuilder extends Commander.WarriorCommanderBuilder {
+	private static class MagicianCommanderBuilder extends Commander.AbstractCommanderBuilder {
 		private static final String MAGICIAN_JPG = "magician.jpg";
 
 		public MagicianCommanderBuilder() {

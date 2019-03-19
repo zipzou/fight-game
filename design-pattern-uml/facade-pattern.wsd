@@ -1,0 +1,133 @@
+@startuml facade-pattern
+
+' interface DamageComputor {
+'   + compute()
+' }
+
+' interface DefenceComputor {
+'   + compute()
+' }
+
+class EquipmentDamageComputor {
+
+}
+
+class EquipmentDenfenceComputor {
+
+}
+
+class SkillDamageComputor {
+
+}
+
+class SkillDenfenseComputor {
+
+}
+
+class TargetDamageComputor {
+
+}
+
+class TargetDenfenceComputor {
+
+}
+
+class WeaponDamageComputor {
+
+}
+
+class DamageComputorManager {
+
+}
+
+class DefenceComputorManager {
+
+}
+
+' EquipmentDamageComputor ..|> DamageComputor
+' DamageComputor <|.. SkillDamageComputor
+' TargetDamageComputor ..|> DamageComputor
+' DamageComputor <|.. WeaponDamageComputor
+' DamageComputor <|.. DamageComputorManager
+
+' DefenceComputor <|.. EquipmentDenfenceComputor
+' SkillDenfenseComputor ..|> DefenceComputor
+' TargetDenfenceComputor..|>DefenceComputor
+' DefenceComputor <|.. DefenceComputorManager
+
+class CommanderPartner {
+  + attacked()
+}
+
+CommanderPartner ..[#green]> DamageComputorManager
+CommanderPartner ..[#green]> DefenceComputorManager
+
+EquipmentDamageComputor <-- DamageComputorManager
+TargetDamageComputor <-down- DamageComputorManager
+DamageComputorManager --> WeaponDamageComputor
+DamageComputorManager -left-> SkillDamageComputor
+
+SkillDenfenseComputor <-- DefenceComputorManager
+TargetDenfenceComputor <-left- DefenceComputorManager
+DefenceComputorManager <-- EquipmentDenfenceComputor
+
+@enduml
+
+@startuml facade-pattern-realization
+
+interface DamageComputor {
+  + compute()
+}
+
+interface DefenceComputor {
+  + compute()
+}
+
+class EquipmentDamageComputor {
+
+}
+
+class EquipmentDenfenceComputor {
+
+}
+
+class SkillDamageComputor {
+
+}
+
+class SkillDenfenseComputor {
+
+}
+
+class TargetDamageComputor {
+
+}
+
+class TargetDenfenceComputor {
+
+}
+
+class WeaponDamageComputor {
+
+}
+
+class DamageComputorManager {
+
+}
+
+class DefenceComputorManager {
+
+}
+
+EquipmentDamageComputor ..|> DamageComputor
+DamageComputor <|.right. SkillDamageComputor
+TargetDamageComputor ..|> DamageComputor
+DamageComputor <|.. WeaponDamageComputor
+DamageComputor <|.. DamageComputorManager
+
+DefenceComputor <|.. EquipmentDenfenceComputor
+SkillDenfenseComputor ..|> DefenceComputor
+TargetDenfenceComputor..|>DefenceComputor
+DefenceComputor <|.. DefenceComputorManager
+
+@enduml

@@ -44,14 +44,14 @@ public class GameConfiguration implements Configuration {
 	private String confPath; 															// 配置文件路径
 	
 	private static class GameConfigurationHolder {
-		private static final GameConfiguration _INSTANCE = new GameConfiguration();
+		private static final Configuration _INSTANCE = new GameConfiguration();
 	}
 	
 	/**
 	 * 应用程序配置
 	 * @return 应用程序配置接口
 	 */
-	public static GameConfiguration sharedConfiguration() {
+	public static Configuration sharedConfiguration() {
 		return GameConfigurationHolder._INSTANCE;
 	}
 	

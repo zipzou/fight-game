@@ -1,0 +1,30 @@
+@startuml bridge-pattern
+
+interface RoleService {
+  + getCommanderBasic():CommanderBasicVO
+  + getCommanderIcon():String
+  + getWeaponVo():WeaponVO
+  + strengthWeaponHead():void
+  + strengthWeaponTail():void
+}
+
+class RoleServiceImpl {
+
+}
+
+RoleService <|-- RoleServiceImpl
+
+abstract class Commander {
+
+}
+abstract class Weapon
+
+RoleServiceImpl "1" o- Commander
+Weapon -o "1" RoleServiceImpl
+
+class GameClientWindow {
+}
+
+GameClientWindow -left-> RoleService
+
+@enduml
