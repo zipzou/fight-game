@@ -56,6 +56,8 @@
 
 #### 原型模式
 
+![原型模式](./design-pattern-uml/out/prototype-pattern/prototype-pattern.svg)
+
 ### 结构型模式
 
 ![原型模式](./design-pattern-uml/out/prototype-pattern/prototype-pattern.svg)
