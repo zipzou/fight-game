@@ -3,6 +3,13 @@
   <groupId>cn.nju.game</groupId>
   <artifactId>dp-game</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <encoding>UTF-8</encoding>
+      <java.version>1.5</java.version>
+      <maven.compiler.source>1.5</maven.compiler.source>
+      <maven.compiler.target>1.5</maven.compiler.target>
+  </properties>
   <dependencies>
   	<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
 	<dependency>
