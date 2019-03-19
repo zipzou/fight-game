@@ -5,10 +5,12 @@ import java.util.Observable;
 
 import org.dozer.DozerBeanMapper;
 
+import cn.nju.game.fight.Memento;
+
 /**
  * 生命体，可被攻击的目标
  */
-public abstract class Target extends Observable implements Damageable, Cloneable, Serializable, Memento {
+public abstract class Target extends Observable implements Damageable, Cloneable, Serializable, Mementor, GrowUp {
 
     /**
 	 * 
@@ -60,7 +62,7 @@ public abstract class Target extends Observable implements Damageable, Cloneable
      * 图像
      */
     private String icon;
-
+    
     /**
      * 克隆方法，原型模式
      */
@@ -166,6 +168,8 @@ public abstract class Target extends Observable implements Damageable, Cloneable
 	 */
 	protected void setLevel(int level) {
 		this.level = level;
+		setChanged();
+		notifyObservers(this);
 	}
 
 	/**
@@ -214,7 +218,7 @@ public abstract class Target extends Observable implements Damageable, Cloneable
 	 * @see cn.nju.game.role.Memento#createMemento()
 	 */
 	@SuppressWarnings("unchecked")
-	public TargetMemento createMemento() {
+	public Memento createMemento() {
 		return new DozerBeanMapper().map(this, TargetMemento.class);
 	}
 
@@ -229,6 +233,21 @@ public abstract class Target extends Observable implements Damageable, Cloneable
 		this.magicalResistance = old.getMagicalResistance();
 		this.magicDamage = old.getMagicDamage();
 		this.physicalDamage = old.getPhysicalDamage();
+//		this.set
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.role.GrowUp#growUp()
+	 */
+	public int growUp() {
+		return level;
 	}
 	
+	/**
+	 * 获取被击杀后的经验
+	 * @return
+	 */
+	public int getKilledExp() {
+		return (int) (10 * Math.pow(1.2, getLevel()));
+	}
 }

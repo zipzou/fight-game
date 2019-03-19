@@ -41,6 +41,7 @@ public class StartGameHandler extends MouseAdapter {
 		Rectangle centerBound = BoundsUtil.getCenterOwnerBounds(600, 600);
 		fightStageFrame.setBounds(centerBound);
 		fightStageFrame.setVisible(true);
+		context.dispose();
 	}
 
 	/**

@@ -59,6 +59,7 @@ public class LoginActionHandler extends MouseAdapter {
 			}
 			StageServiceImpl stageService = new StageServiceImpl();
 			GameClientWindow gameClient = new GameClientWindow(roleService, stageService);
+			roleService.registerCommanderObserver(gameClient);
 			gameClient.showInCenter(parent);
 			gameClient.setTitle("召唤师：" + allNames[0]);
 		} else if (2 == loginMode) {
@@ -108,7 +109,7 @@ public class LoginActionHandler extends MouseAdapter {
 			gameClient1.showInCenter(parent);
 			gameClient2.showInCenter(parent);
 		}
-		parent.setVisible(false);
+		parent.dispose();
 	}
 
 	/**

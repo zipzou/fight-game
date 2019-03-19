@@ -33,6 +33,7 @@ public class ObjectiveSerializeUtil {
 	 */
 	public static <T> String serialize(String folder, String name, T t) throws IOException {
 		String filePath = new File(new File(FilePathUtil.mkdir(folder)), name + SUBFIX).getAbsolutePath();
+		FilePathUtil.mkdir(filePath);
 		OutputStream equipmentOutput = new FileOutputStream(filePath);
 		ObjectOutputStream equipmentObjectOutput = new ObjectOutputStream(equipmentOutput);
 		equipmentObjectOutput.writeObject(t);

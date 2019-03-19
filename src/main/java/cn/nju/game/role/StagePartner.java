@@ -3,12 +3,6 @@
  */
 package cn.nju.game.role;
 
-import cn.nju.game.equip.Bag;
-import cn.nju.game.equip.ComponentIterator;
-import cn.nju.game.equip.Equipment;
-import cn.nju.game.skill.Skill;
-import cn.nju.game.weapon.DamageComputable;
-
 /**
  * 角斗场参与角色
  * @author frank

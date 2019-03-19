@@ -49,7 +49,7 @@ public class StartFightMouseHandler extends MouseAdapter {
 			targetGameClient.setVisible(true);
 			targetGameClient.setTitle("召唤师：" + commanderName);
 			targetGameClient.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			
+			targetService.registerCommanderObserver(targetGameClient);
 		} else {
 			MonsterConfigFrame monsterConfigFrame = new MonsterConfigFrame(stageService);
 			monsterConfigFrame.setTitle("配置野怪数");

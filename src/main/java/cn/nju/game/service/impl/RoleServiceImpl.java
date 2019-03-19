@@ -4,6 +4,7 @@
 package cn.nju.game.service.impl;
 
 import java.io.IOException;
+import java.util.Observer;
 
 import cn.nju.game.conf.game.GameConfiguration;
 import cn.nju.game.model.vo.CommanderBasicVO;
@@ -117,5 +118,18 @@ public class RoleServiceImpl implements RoleService {
 		}
 		return null;
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.service.RoleService#getCurrentExprience(cn.nju.game.role.Target)
+	 */
+	public int getCurrentExprience(Commander target) {
+		return target.getExpirience();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.service.RoleService#registerCommanderObserver(java.util.Observer)
+	 */
+	public void registerCommanderObserver(Observer o) {
+		commander.addObserver(o);
+	}
 }

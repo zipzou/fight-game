@@ -28,7 +28,7 @@ public class GameOverState implements FightState {
 			return ;
 		}
 		JOptionPane.showMessageDialog(context, "恭喜你，" + context.getStageService().getWinner().getName() + "，你赢得了这场比赛！", "Game Over", JOptionPane.PLAIN_MESSAGE);
-		context.setVisible(false);
+//		context.setVisible(false);
 		overed = true;
 	}
 

@@ -155,6 +155,8 @@ public abstract class Commander extends Target implements Recoverable {
 	 */
 	protected void setExpirience(int expirience) {
 		this.expirience = expirience;
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	/**
@@ -196,5 +198,21 @@ public abstract class Commander extends Target implements Recoverable {
 		setChanged();
 		notifyObservers(this);
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.role.Target#growUp()
+	 */
+	@Override
+	public int growUp() {
+		return super.growUp();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.role.Target#getKilledExp()
+	 */
+	@Override
+	public int getKilledExp() {
+		return (int) (20 * Math.pow(1.2, getLevel()));
+	}
+
 }

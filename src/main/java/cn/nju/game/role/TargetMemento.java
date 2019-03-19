@@ -3,11 +3,14 @@
  */
 package cn.nju.game.role;
 
+import cn.nju.game.fight.Memento;
+
 /**
+ * 目标的备忘录接口
  * @author frank
  *
  */
-public class TargetMemento {
+public class TargetMemento implements Memento {
 	/**
      * 目标健康程度
      */
@@ -37,6 +40,11 @@ public class TargetMemento {
      * 魔法抗性
      */
     private int magicalResistance;
+    
+    /**
+     * 经验值
+     */
+//    private int expirience;
 
 	/**
 	 * @return the health
@@ -121,4 +129,18 @@ public class TargetMemento {
 	public void setMagicalResistance(int magicalResistance) {
 		this.magicalResistance = magicalResistance;
 	}
+
+//	/**
+//	 * @return the expirience
+//	 */
+//	public int getExpirience() {
+//		return expirience;
+//	}
+//
+//	/**
+//	 * @param expirience the expirience to set
+//	 */
+//	public void setExpirience(int expirience) {
+//		this.expirience = expirience;
+//	}
 }

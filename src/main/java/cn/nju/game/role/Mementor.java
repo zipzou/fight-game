@@ -8,7 +8,7 @@ package cn.nju.game.role;
  * @author frank
  *
  */
-public interface Memento {
+public interface Mementor {
 
 	/**
 	 * 创建备忘录

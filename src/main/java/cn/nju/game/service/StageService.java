@@ -9,6 +9,7 @@ import java.util.Observer;
 
 import cn.nju.game.model.vo.CommanderBasicVO;
 import cn.nju.game.model.vo.SkillVO;
+import cn.nju.game.role.Target;
 
 /**
  * 竞技场服务接口
@@ -124,4 +125,16 @@ public interface StageService {
 	 * @return 游戏获胜者信息
 	 */
 	public CommanderBasicVO getWinner();
+	
+	/**
+	 * 收集经验
+	 * @param name 经验获得者
+	 * @param partner 经验获取来源
+	 */
+	public void collectExprience(String name, Target partner);
+	
+	/**
+	 * 复活所有召唤师
+	 */
+	public void reviveAllCommander();
 }

@@ -50,9 +50,10 @@ public class TargetDamageComputor implements DamageComputor {
 	public DamageVO compute() {
 		int magicalDamage = target.getMagicDamage();
 		int physicalDamage = target.getPhysicalDamage();
+		// 根据等级自适应伤害
 		DamageVO damage = new DamageVO();
-		damage.setMagicalDamage(magicalDamage);
-		damage.setPhysicalDamage(physicalDamage);
+		damage.setMagicalDamage((int) (magicalDamage * (Math.log10(target.getLevel()) + 1)));
+		damage.setPhysicalDamage((int) (physicalDamage * (Math.log10(target.getLevel()) + 1)));
 		return damage;
 	}
 

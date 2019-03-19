@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 import java.util.Vector;
 
@@ -49,6 +51,7 @@ import cn.nju.game.ui.handler.SkillUpgradeListener;
 import cn.nju.game.ui.handler.StartFightMouseHandler;
 import cn.nju.game.ui.handler.StrengthWeaponLeadingListener;
 import cn.nju.game.ui.handler.StrengthWeaponTailListener;
+import cn.nju.game.ui.handler.WindowClosingHandler;
 import cn.nju.game.ui.util.BoundsUtil;
 import cn.nju.game.ui.util.CommanderModelUtilFactory;
 import cn.nju.game.ui.util.EquipmentModelUtilFactory;
@@ -56,7 +59,7 @@ import cn.nju.game.ui.util.ModelToTableModelUtil;
 import cn.nju.game.ui.util.SharedModelUtilFactory;
 import cn.nju.game.ui.util.SkillModelUtilFactory;
 
-public class GameClientWindow extends JFrame {
+public class GameClientWindow extends JFrame implements Observer {
 
 	private static final String EXP_TOOLTIP = "经验值/升级所需经验";
 	private static final int W = 800;
@@ -77,6 +80,7 @@ public class GameClientWindow extends JFrame {
 	private JPanel[] rowPanels;
 	private JButton buttonAddToBag;
 	private JLabel lblCommanderName;
+	private JLabel lblExprience;
 
 	public void showInCenter(JFrame parent) {
 		setBounds(BoundsUtil.getCenterOwnerBounds(parent, W, H));
@@ -109,6 +113,11 @@ public class GameClientWindow extends JFrame {
 		try {
 			ImageIcon imageIcon = new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/" + commanderBasic.getIcon())));
 			lblIcon.setIcon(imageIcon);
+			int magicDamage = commanderBasic.getMagicDamage();
+			int physicalDamage = commanderBasic.getPhysicalDamage();
+			magicDamage = (int) (magicDamage * (1 + Math.log10(commanderBasic.getLevel())));
+			physicalDamage = (int) (physicalDamage * (1 + Math.log10(commanderBasic.getLevel())));
+			lblIcon.setToolTipText("将对目标造成" + physicalDamage + "的物理伤害和" + magicDamage + "的魔法伤害，基础伤害将随等级自适应提高");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -129,7 +138,7 @@ public class GameClientWindow extends JFrame {
 		lblLevel.setBounds(113, 54, 114, 16);
 		lblCommanderInfo.add(lblLevel);
 		
-		JLabel lblExprience = new JLabel(commanderBasic.getExpirience() + "/" + (int)((1 + Math.log10(commanderBasic.getLevel())) * 100));
+		lblExprience = new JLabel(commanderBasic.getExpirience() + "/" + (int)((Math.pow(1.5, commanderBasic.getLevel())) * 100));
 		lblExprience.setBounds(113, 72, 114, 16);
 		lblExprience.setToolTipText(EXP_TOOLTIP);
 		lblCommanderInfo.add(lblExprience);
@@ -481,6 +490,9 @@ public class GameClientWindow extends JFrame {
 		
 		// 设置开始处理类参数
 		startFightMouseHandler.setEquipments(equipmentsInBag);
+		
+		// 窗口关闭事件处理
+		addWindowListener(new WindowClosingHandler());
 	}
 
 	/**
@@ -536,5 +548,15 @@ public class GameClientWindow extends JFrame {
 	 */
 	public void setLblCommanderName(JLabel lblCommanderName) {
 		this.lblCommanderName = lblCommanderName;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+	 */
+	public void update(Observable o, Object arg) {
+//		int currentExprience = roleService.getCurrentExprience((Commander) arg);
+		CommanderBasicVO commanderBasic = roleService.getCommanderBasic();
+		String tip = commanderBasic.getExpirience() + "/" + (int)((Math.pow(1.5, commanderBasic.getLevel())) * 100);
+		lblExprience.setText(tip);
 	}
 }

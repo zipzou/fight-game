@@ -5,11 +5,13 @@ package cn.nju.game.service.impl;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 import cn.nju.game.equip.Bag;
 import cn.nju.game.equip.EquipmentBag;
@@ -19,13 +21,18 @@ import cn.nju.game.model.vo.SkillVO;
 import cn.nju.game.role.Commander;
 import cn.nju.game.role.CommanderAttackProxy;
 import cn.nju.game.role.CommanderPartner;
+import cn.nju.game.role.LevelManager;
+import cn.nju.game.role.LeveledExprienceManager;
 import cn.nju.game.role.MagicalMonster;
 import cn.nju.game.role.MonsterPartner;
 import cn.nju.game.role.PhysicalMonster;
 import cn.nju.game.role.StageFightMediator;
 import cn.nju.game.role.StagePartner;
 import cn.nju.game.role.StagePartnerMediator;
+import cn.nju.game.role.SummaryExprienceManager;
 import cn.nju.game.role.Target;
+import cn.nju.game.role.TargetMementoManager;
+import cn.nju.game.service.ExprienceCollector;
 import cn.nju.game.service.OnlineCommander;
 import cn.nju.game.service.SkillService;
 import cn.nju.game.service.StageService;
@@ -38,13 +45,16 @@ import cn.nju.game.weapon.Weapon;
  * @author frank
  *
  */
-public class StageServiceImpl implements StageService {
+public class StageServiceImpl implements StageService, ExprienceCollector {
 
 	private List<CommanderBasicVO> commandersInfo;
+	private List<LevelManager> commanderLevelManagers;
 	private Map<String, List<String>> equipmentsForCommander;
 	private Map<String, List<SkillVO>> skillsForCommander;
 	private StagePartnerMediator fightMediator;
 	private Map<String, CommanderPartner> attackers;
+	private Map<String, Set<Target>> killedHistory;
+	private Map<String, TargetMementoManager> targetMementoManager;
 	
 	public StageServiceImpl() {
 		super();
@@ -53,6 +63,9 @@ public class StageServiceImpl implements StageService {
 		skillsForCommander = new HashMap<String, List<SkillVO>>();
 		fightMediator = new StageFightMediator();
 		attackers = new HashMap<String, CommanderPartner>();
+		killedHistory = new HashMap<String, Set<Target>>();
+		commanderLevelManagers = new ArrayList<LevelManager>();
+		targetMementoManager = new HashMap<String, TargetMementoManager>();
 	}
 
 	/* (non-Javadoc)
@@ -108,6 +121,12 @@ public class StageServiceImpl implements StageService {
 			CommanderPartner commanderPartner = new CommanderPartner(equipBag, weapon, null);
 			try {
 				commander = commander.clone();// 使用原型模式
+				
+				// 创建备忘录管理者，以适应角色复活
+				if (!targetMementoManager.containsKey(commander.getName())) {
+					targetMementoManager.put(commander.getName(), new TargetMementoManager());
+				}
+				targetMementoManager.get(commander.getName()).setMemento(commander.createMemento());
 				// 需要重新根据装备计算生命值
 				int sum = 0;
 				for (String equipname : equipNames) {
@@ -118,6 +137,11 @@ public class StageServiceImpl implements StageService {
 			} catch (CloneNotSupportedException e1) {
 				e1.printStackTrace();
 			}
+			LevelManager levelManager = new SummaryExprienceManager(null);
+			((SummaryExprienceManager) levelManager).setCommander(commander);
+			levelManager = new LeveledExprienceManager(levelManager);
+			((LeveledExprienceManager) levelManager).setCommander(commander);
+			commanderLevelManagers.add(levelManager);
 			commanderPartner.setTarget(commander);
 			// 创建代理
 			CommanderAttackProxy attackerProxy = new CommanderAttackProxy(equipBag, weapon, null);
@@ -126,6 +150,7 @@ public class StageServiceImpl implements StageService {
 			attackerProxy.setTarget(commanderPartner.getTarget());
 //			attackerProxy.setMediator(fightMediator);
 			fightMediator.register(attackerProxy.getAttacker()); // 需要注册被代理的对象，否则会产生攻击错误
+			
 		}
 	}
 
@@ -225,7 +250,7 @@ public class StageServiceImpl implements StageService {
 			return;
 		}
 		CommanderPartner partner = attackers.get(commandersInfo.get(i - 1).getName());
-		partner.setSkill(skills.composedSkills()); // TODO: Debug it
+		partner.setSkill(skills.composedSkills()); 
 		partner.attack();
 	}
 
@@ -260,8 +285,54 @@ public class StageServiceImpl implements StageService {
 			}
 		}
 		if (1 >= alive) {
+			// 获胜则计算经验
+			for (int i = 0; i < commandersInfo.size(); i++) {
+				if (commandersInfo.get(i).getName().equals(winner.getName())) {
+					commanderLevelManagers.get(i).handleExprience(this);
+					break;
+				}
+			}
 			return ((Commander) winner).getBasicVO();
 		}
 		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.service.ExprienceCollector#getExprience(java.lang.String)
+	 */
+	public int getExprience(String name) {
+		Set<Target> killedTarget = killedHistory.get(name);
+		int sum = 0;
+		for (Target target : killedTarget) {
+			sum += target.getKilledExp();
+		}
+		return sum;
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.service.ExprienceCollector#getLevel(java.lang.String)
+	 */
+	public int getLevel(String name) {
+		return attackers.get(name).getTarget().getLevel();
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.service.StageService#collectExprience(java.lang.String, cn.nju.game.role.Target)
+	 */
+	public void collectExprience(String name, Target partner) {
+		if (!killedHistory.containsKey(name)) {
+			killedHistory.put(name, new HashSet<Target>());
+		}
+		killedHistory.get(name).add(partner);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.nju.game.service.StageService#reviveAllCommander()
+	 */
+	public void reviveAllCommander() {
+		for (CommanderBasicVO commanderBasicVO : commandersInfo) {
+			TargetMementoManager mementoManager = targetMementoManager.get(commanderBasicVO.getName());
+			attackers.get(commanderBasicVO.getName()).getTarget().restoreMemento(mementoManager.getMemento());
+		}
 	}
 }

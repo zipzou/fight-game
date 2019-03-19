@@ -2,6 +2,8 @@ package cn.nju.game.ui;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -13,6 +15,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.ListSelectionModel;
@@ -255,6 +261,13 @@ public class FightStageFrame extends JFrame implements Observer {
 		lblEnergyTip2.setBounds(210, 103, 65, 16);
 		panelCommanderInfo2.add(lblEnergyTip2);
 		
+		lblEnergy1.setVisible(false);
+		lblEnergy2.setVisible(false);
+		progressEnergy1.setVisible(false);
+		progressEnergy2.setVisible(false);
+		lblEnergyTip1.setVisible(false);
+		lblEnergyTip2.setVisible(false);
+		
 		setResizable(false);
 		
 		bindData();
@@ -299,6 +312,34 @@ public class FightStageFrame extends JFrame implements Observer {
 		attackHandler1.setSkillService(skillServiceForFir);
 		attackHandler1.setIndex(1);
 		buttonAttack1.addMouseListener(attackHandler1);
+		
+		// 添加菜单项
+		JMenuBar menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		JMenu menu = new JMenu("角色");
+		menuBar.add(menu);
+		JMenuItem reAlive = new JMenuItem("复活");
+		menu.add(reAlive);
+		String os = System.getProperty("os.name");  
+		if (os.toLowerCase().contains("mac")) {
+			System.setProperty("apple.laf.useScreenMenuBar","true");//设置程序的menubar显示到Mac的菜单栏上
+		}
+		final FightStageFrame thatWindow = this;
+		reAlive.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// 访问备忘录信息，以复活
+//				FightStageFrame.this.stageService.
+				thatStageService.reviveAllCommander();
+				JOptionPane.showMessageDialog(thatWindow, "所有召唤师以复活，你可以继续战斗", "复活提醒", JOptionPane.INFORMATION_MESSAGE);
+				// 更新状态
+				curState = new FirstPartnerOperationState(thatWindow);
+				curState.update();
+				// 重新绑定数据
+				thatWindow.bindData();
+				thatWindow.revalidate();
+				thatWindow.repaint();
+			}
+		});;
 	}
 
 	/**
@@ -389,6 +430,7 @@ public class FightStageFrame extends JFrame implements Observer {
 				if (!((Target) o).isAlive()) {
 					curState.toGameOverState();
 					curState.update();
+					stageService.collectExprience(stageService.getCommanderInfo(1).getName(), (Target) o);
 				}
 			}
 			// 更新可变属性
@@ -411,11 +453,19 @@ public class FightStageFrame extends JFrame implements Observer {
 				if (!((Target) o).isAlive()) {
 					curState.toGameOverState();
 					curState.update();
+					stageService.collectExprience(stageService.getCommanderInfo(0).getName(), (Target) o);
 				}
 			}
 		} else if (stageService.isMonster(o)) {
 			// 将参与者移除
 			stageService.clearDied();
+			// 由于是共同造成伤害，因此经验共享
+			if (o instanceof Target) {
+				if (!((Target) o).isAlive()) {
+					stageService.collectExprience(stageService.getCommanderInfo(0).getName(), (Target) o);
+					stageService.collectExprience(stageService.getCommanderInfo(1).getName(), (Target) o);
+				}
+			}
 		}
 	}
 
