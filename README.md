@@ -3,6 +3,8 @@
 
 战斗小游戏-Java实现-设计模式
 
+[查看完整文档](http://https://frank17.github.io/fight-game/index.html)
+
 ## 模式及使用场景
 
 
