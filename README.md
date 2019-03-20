@@ -60,8 +60,6 @@
 
 ### 结构型模式
 
-![原型模式](./design-pattern-uml/out/prototype-pattern/prototype-pattern.svg)
-
 ####  适配器模式
 
 ![适配器模式](./design-pattern-uml/out/adapter-pattern/adapter-pattern.svg)
